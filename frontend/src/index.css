@@ -1,0 +1,8 @@
+/* frontend/src/index.css */
+
+html, body {
+  font-family: sans-serif;
+  background-color: white;
+  color: #111827; /* gray-900 */
+  transition: color 0.3s, background-color 0.3s;
+}
