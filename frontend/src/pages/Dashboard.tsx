@@ -12,20 +12,8 @@ interface Location {
 
 const Dashboard = () => {
   const [locations, setLocations] = useState<Location[]>([
-    {
-      id: 1,
-      name: "City Park",
-      latitude: 22.5726,
-      longitude: 88.3639,
-      isFavorite: false,
-    },
-    {
-      id: 2,
-      name: "Community Center",
-      latitude: 22.5740,
-      longitude: 88.3700,
-      isFavorite: false,
-    },
+    { id: 1, name: "City Park", latitude: 22.5726, longitude: 88.3639, isFavorite: false },
+    { id: 2, name: "Community Center", latitude: 22.5740, longitude: 88.3700, isFavorite: false },
   ]);
 
   const toggleFavorite = (id: number) => {
@@ -47,11 +35,7 @@ const Dashboard = () => {
       const longitude = position.coords.longitude;
 
       try {
-        const res = await api.post("/sos/send", {
-          latitude,
-          longitude,
-        });
-
+        const res = await api.post("/sos/send", { latitude, longitude });
         alert("🚨 SOS sent successfully to your favorites!");
         console.log("SOS Response:", res.data);
       } catch (err: any) {
@@ -85,9 +69,7 @@ const Dashboard = () => {
                   <span>{loc.name}</span>
                   <button
                     onClick={() => toggleFavorite(loc.id)}
-                    className={`text-lg ${
-                      loc.isFavorite ? "text-yellow-400" : "text-gray-400"
-                    }`}
+                    className={`text-lg ${loc.isFavorite ? "text-yellow-400" : "text-gray-400"}`}
                   >
                     ⭐
                   </button>
