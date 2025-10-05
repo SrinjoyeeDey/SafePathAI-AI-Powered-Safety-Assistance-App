@@ -11,20 +11,8 @@ interface Location {
 
 const Dashboard = () => {
   const [locations, setLocations] = useState<Location[]>([
-    {
-      id: 1,
-      name: "City Park",
-      latitude: 22.5726,
-      longitude: 88.3639,
-      isFavorite: false,
-    },
-    {
-      id: 2,
-      name: "Community Center",
-      latitude: 22.5740,
-      longitude: 88.3700,
-      isFavorite: false,
-    },
+    { id: 1, name: "City Park", latitude: 22.5726, longitude: 88.3639, isFavorite: false },
+    { id: 2, name: "Community Center", latitude: 22.5740, longitude: 88.3700, isFavorite: false },
   ]);
 
   const toggleFavorite = (id: number) => {
@@ -46,11 +34,7 @@ const Dashboard = () => {
       const longitude = position.coords.longitude;
 
       try {
-        const res = await api.post("/sos/send", {
-          latitude,
-          longitude,
-        });
-
+        const res = await api.post("/sos/send", { latitude, longitude });
         alert("🚨 SOS sent successfully to your favorites!");
         console.log("SOS Response:", res.data);
       } catch (err: any) {
@@ -61,8 +45,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 space-y-6">
+      <h1 className="text-3xl font-bold">Dashboard</h1>
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
@@ -83,9 +67,7 @@ const Dashboard = () => {
                   <span>{loc.name}</span>
                   <button
                     onClick={() => toggleFavorite(loc.id)}
-                    className={`text-lg ${
-                      loc.isFavorite ? "text-yellow-400" : "text-gray-400"
-                    }`}
+                    className={`text-lg ${loc.isFavorite ? "text-yellow-400" : "text-gray-400"}`}
                   >
                     ⭐
                   </button>
