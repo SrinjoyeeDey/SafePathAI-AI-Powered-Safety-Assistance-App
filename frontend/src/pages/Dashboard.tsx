@@ -35,9 +35,30 @@ const Dashboard = () => {
     );
   };
 
+  const sendSOS = async () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      try {
+        const res = await api.post("/sos/send", { latitude, longitude });
+        alert("🚨 SOS sent successfully to your favorites!");
+        console.log("SOS Response:", res.data);
+      } catch (err: any) {
+        console.error(err.response?.data || err.message);
+        alert("Failed to send SOS");
+      }
+    });
+  };
+
   return (
-    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 space-y-6">
+      <h1 className="text-3xl font-bold">Dashboard</h1>
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
@@ -62,9 +83,7 @@ const Dashboard = () => {
                   <span>{loc.name}</span>
                   <button
                     onClick={() => toggleFavorite(loc.id)}
-                    className={`text-lg ${
-                      loc.isFavorite ? "text-yellow-400" : "text-gray-400"
-                    }`}
+                    className={`text-lg ${loc.isFavorite ? "text-yellow-400" : "text-gray-400"}`}
                   >
                     ⭐
                   </button>
