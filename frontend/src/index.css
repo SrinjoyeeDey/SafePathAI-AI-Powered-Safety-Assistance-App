@@ -1,8 +1,36 @@
-/* frontend/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html, body {
-  font-family: sans-serif;
-  background-color: white;
-  color: #111827; /* gray-900 */
-  transition: color 0.3s, background-color 0.3s;
+/* 🌗 Light/Dark Theme Base Styling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans;
+}
+
+/* 🧭 Dashboard Layout Enhancements */
+h1, h2, h3, h4 {
+  @apply font-semibold;
+}
+
+button {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* 🌟 Hover/Focus Enhancements */
+button:hover {
+  @apply scale-[1.02];
+}
+
+/* 🆘 SOS Button Animation */
+button.bg-red-600:hover {
+  @apply animate-pulse;
+}
+
+/* 🌍 Map Placeholder */
+.map-placeholder {
+  @apply flex items-center justify-center text-gray-500 dark:text-gray-300;
 }
