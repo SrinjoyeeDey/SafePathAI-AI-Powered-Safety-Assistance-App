@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class', // enables manual dark mode toggling via class
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -10,7 +13,7 @@ module.exports = {
         accent: '#f43f5e',
       },
       boxShadow: {
-        soft: '0 4px 10px rgba(0,0,0,0.08)',
+        soft: '0 4px 10px rgba(0, 0, 0, 0.08)',
       },
       borderRadius: {
         '2xl': '1rem',
