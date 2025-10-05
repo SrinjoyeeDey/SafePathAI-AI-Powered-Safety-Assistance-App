@@ -161,7 +161,7 @@ Polish the UX like GirlScript Summer of Code pages 🌸
 
 ## 🖌 Design Guidelines
 
-To maintain a consistent and beautiful UI, *please follow our [Design Guide](./DESIGN_GUIDE.md)* before contributing.  
+To maintain a consistent and beautiful UI, *please follow our [Design Guide]([./DESIGN_GUIDE.md](https://github.com/SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance-App/blob/main/frontend/DESIGN_GUIDE.md))* before contributing.  
 
 It includes:  
 - Color palette 🎨  
@@ -264,4 +264,5 @@ Contributions welcome from everyone 🙌
 
 
 ---
+
 
