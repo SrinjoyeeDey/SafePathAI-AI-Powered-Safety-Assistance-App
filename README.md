@@ -159,6 +159,22 @@ Polish the UX like GirlScript Summer of Code pages 🌸
 
 ---
 
+## 🖌 Design Guidelines
+
+To maintain a consistent and beautiful UI, *please follow our [Design Guide](./DESIGN_GUIDE.md)* before contributing.  
+
+It includes:  
+- Color palette 🎨  
+- Typography & spacing 📐  
+- Component templates 🧩  
+- Page layouts & examples 🖼  
+- Contribution rules for consistency ✨  
+
+Following this guide ensures your changes integrate seamlessly with the existing frontend.
+
+---
+
+
 ## 🛠 Contribution Guide
 
 1. 🍴 Fork this repo
@@ -248,3 +264,4 @@ Contributions welcome from everyone 🙌
 
 
 ---
+
