@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../services/api";
+import UserLocation from "../components/Dashboard/UserLocation";
 
 interface Location {
   id: number;
@@ -45,9 +46,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 space-y-6">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
-
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
         <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
@@ -56,6 +56,8 @@ const Dashboard = () => {
 
         {/* Nearby Locations & Actions */}
         <div className="space-y-6">
+          
+      <UserLocation />
           <div>
             <h2 className="text-xl font-semibold mb-3">Nearby Safe Locations</h2>
             <ul className="space-y-3">
