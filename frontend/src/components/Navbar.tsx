@@ -54,7 +54,6 @@ const Navbar = () => {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          whileHover={{ scale: 1.05, rotate: 5, transition: { duration: 0.08, ease: "easeOut" } }}
           whileTap={{ scale: 0.95, transition: { duration: 0.05, ease: "easeOut" } }}
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 shadow-sm"

@@ -33,7 +33,6 @@ const Footer: React.FC = () => {
           transition={{ delay: 0.1, duration: 0.6 }}
         >
           <motion.h2 
-            whileHover={{ scale: 1.02, transition: { duration: 0.08, ease: "easeOut" } }}
             className="text-lg font-semibold mb-3"
           >
             SafePathAI
@@ -50,7 +49,6 @@ const Footer: React.FC = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <motion.h2 
-            whileHover={{ scale: 1.02, transition: { duration: 0.08, ease: "easeOut" } }}
             className="text-lg font-semibold mb-3"
           >
             Quick Links
@@ -63,7 +61,6 @@ const Footer: React.FC = () => {
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 + index * 0.1, duration: 0.4 }}
-                whileHover={{ x: 2, transition: { duration: 0.08, ease: "easeOut" } }}
               >
                 <a 
                   href={link.href} 
@@ -83,39 +80,22 @@ const Footer: React.FC = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
         >
           <motion.h2 
-            whileHover={{ scale: 1.02, transition: { duration: 0.08, ease: "easeOut" } }}
             className="text-lg font-semibold mb-3"
           >
             Connect With Us
           </motion.h2>
           <div className="flex space-x-4 mb-3 text-xl">
-            {socialLinks.map((social, index) => (
-              <motion.a
+            {socialLinks.map((social) => (
+              <a
                 key={social.href}
-                initial={{ scale: 0, rotate: -180 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  delay: 0.4 + index * 0.1, 
-                  duration: 0.5,
-                  type: "spring",
-                  stiffness: 200
-                }}
-                whileHover={{ 
-                  scale: 1.1, 
-                  rotate: 8,
-                  y: -2,
-                  transition: { duration: 0.08, ease: "easeOut" }
-                }}
-                whileTap={{ scale: 0.95, transition: { duration: 0.05, ease: "easeOut" } }}
-                href={social.href} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-primary transition-colors duration-200"
                 aria-label={social.label}
               >
                 <social.icon />
-              </motion.a>
+              </a>
             ))}
           </div>
         </motion.div>

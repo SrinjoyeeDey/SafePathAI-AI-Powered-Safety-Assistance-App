@@ -96,7 +96,6 @@ const Signup = () => {
               damping: 30,
               duration: 0.6
             }}
-            whileHover={{ scale: 1.005, transition: { duration: 0.08, ease: "easeOut" } }}
             className="rounded-2xl shadow-soft border p-6 sm:p-8 bg-[rgba(255,255,255,0.65)] dark:bg-[rgba(12,18,24,0.78)] select-none"
             style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderColor: 'rgba(255,255,255,0.08)' }}
           >
@@ -121,7 +120,6 @@ const Signup = () => {
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
                 <motion.input
-                  whileFocus={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
                   type="text"
                   name="name"
                   required
@@ -137,7 +135,6 @@ const Signup = () => {
                 transition={{ delay: 0.6, duration: 0.4 }}
               >
                 <motion.input
-                  whileFocus={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
                   type="email"
                   name="email"
                   required
@@ -154,7 +151,6 @@ const Signup = () => {
               >
                 <div className="relative">
                   <motion.input
-                    whileFocus={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
                     type={showPassword.password ? "text" : "password"}
                     name="password"
                     required
@@ -164,15 +160,12 @@ const Signup = () => {
                     className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
                   />
                   <motion.button
-                    whileHover={{ scale: 1.05, transition: { duration: 0.08, ease: "easeOut" } }}
-                    whileTap={{ scale: 0.95, transition: { duration: 0.05, ease: "easeOut" } }}
+
                     type="button"
                     onClick={() => setShowPassword(prev => ({ ...prev, password: !prev.password }))}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
                   >
                     <motion.div
-                      animate={{ rotate: showPassword.password ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
                     >
                       {showPassword.password ? (
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +214,6 @@ const Signup = () => {
               >
                 <div className="relative">
                   <motion.input
-                    whileFocus={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
                     type={showPassword.confirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     required
@@ -231,15 +223,11 @@ const Signup = () => {
                     className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
                   />
                   <motion.button
-                    whileHover={{ scale: 1.05, transition: { duration: 0.08, ease: "easeOut" } }}
-                    whileTap={{ scale: 0.95, transition: { duration: 0.05, ease: "easeOut" } }}
                     type="button"
                     onClick={() => setShowPassword(prev => ({ ...prev, confirmPassword: !prev.confirmPassword }))}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
                   >
                     <motion.div
-                      animate={{ rotate: showPassword.confirmPassword ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
                     >
                       {showPassword.confirmPassword ? (
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -263,8 +251,6 @@ const Signup = () => {
                       className={`mt-1 text-sm flex items-center gap-1 ${validations.passwordMatch ? 'text-green-500' : 'text-red-500'}`}
                     >
                       <motion.div
-                        animate={{ scale: validations.passwordMatch ? [1, 1.2, 1] : 1 }}
-                        transition={{ duration: 0.3 }}
                       >
                         {validations.passwordMatch ? (
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,11 +274,9 @@ const Signup = () => {
                 className="mt-6 border-t pt-6 dark:border-gray-700"
               >
                 <motion.label 
-                  whileHover={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
                   className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 cursor-pointer"
                 >
                   <motion.input
-                    whileTap={{ scale: 0.95 }}
                     type="checkbox"
                     checked={agreements.terms}
                     onChange={(e) => setAgreements({ terms: e.target.checked })}
@@ -306,8 +290,7 @@ const Signup = () => {
               <motion.button
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.0, duration: 0.4 }}
-                whileHover={{ scale: agreements.terms ? 1.01 : 1, transition: { duration: 0.08, ease: "easeOut" } }}
+                transition={{ delay: 0.1, duration: 0.2 }}
                 whileTap={{ scale: 0.99, transition: { duration: 0.05, ease: "easeOut" } }}
                 type="submit"
                 disabled={!agreements.terms}

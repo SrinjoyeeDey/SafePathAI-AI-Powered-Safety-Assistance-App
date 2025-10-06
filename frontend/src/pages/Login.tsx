@@ -53,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -61,26 +61,26 @@ const Login = () => {
       className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-r from-white/40 to-white/20 dark:from-black dark:via-[#071026] dark:to-[#071026] select-none relative"
     >
       {/* subtle translucent overlay to tint the background */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.8 }}
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.45),rgba(2,6,23,0.55))] pointer-events-none" 
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.45),rgba(2,6,23,0.55))] pointer-events-none"
       />
-      <motion.div 
+      <motion.div
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="hidden md:block absolute left-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none" 
+        className="hidden md:block absolute left-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none"
       />
-      <motion.div 
+      <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="hidden md:block absolute right-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none" 
+        className="hidden md:block absolute right-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none"
       />
       {/* Decorative soft radial glow behind the card */}
-      <motion.div 
+      <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.4, duration: 1 }}
@@ -95,40 +95,35 @@ const Login = () => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.9 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
+            transition={{
+              type: "spring",
+              stiffness: 300,
               damping: 30,
               duration: 0.6
             }}
-            whileHover={{ scale: 1.005, transition: { duration: 0.08, ease: "easeOut" } }}
             className="group relative rounded-2xl shadow-2xl border p-6 sm:p-8 bg-[rgba(255,255,255,0.06)] dark:bg-[rgba(6,10,15,0.24)] hover:shadow-2xl"
             style={{ backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)', borderColor: 'rgba(255,255,255,0.04)' }}
           >
-            <motion.header 
+            <motion.header
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
               className="text-center mb-6"
             >
-              <motion.div 
-                whileHover={{ scale: 1.05, rotate: 3, transition: { duration: 0.08, ease: "easeOut" } }}
-                whileTap={{ scale: 0.97, transition: { duration: 0.05, ease: "easeOut" } }}
+              <motion.div
                 className="mx-auto w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center shadow-md"
               >
-                <motion.svg 
-                  initial={{ rotate: -180 }}
-                  animate={{ rotate: 0 }}
-                  transition={{ delay: 0.7, duration: 0.5 }}
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="w-8 h-8 text-white" 
-                  viewBox="0 0 24 24" 
+                {/* Removed rotation animation from icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8 text-white"
+                  viewBox="0 0 24 24"
                   fill="currentColor"
                 >
                   <path d="M12 0a12 12 0 100 24A12 12 0 0012 0zm0 3.6a2.4 2.4 0 11-.001 4.801A2.4 2.4 0 0112 3.6zM6 19.2a6 6 0 0112 0H6z" />
-                </motion.svg>
+                </svg>
               </motion.div>
-              <motion.h1 
+              <motion.h1
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
@@ -136,7 +131,7 @@ const Login = () => {
               >
                 Sign in to SafePathAI
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
@@ -145,11 +140,12 @@ const Login = () => {
                 Enter your credentials to continue
               </motion.p>
             </motion.header>
-            <motion.form 
+
+            <motion.form
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              onSubmit={handleLogin} 
+              onSubmit={handleLogin}
               className="space-y-5 md:space-y-6"
             >
               <motion.div
@@ -168,7 +164,7 @@ const Login = () => {
                 />
                 <AnimatePresence>
                   {errors.identifier && (
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -192,11 +188,13 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className={`w-full px-3 sm:px-4 py-3 rounded-lg border transition-all duration-200 outline-none bg-[rgba(255,255,255,0.08)] placeholder-gray-400 text-gray-900 dark:text-gray-100 dark:bg-[rgba(255,255,255,0.02)] select-text hover:shadow-sm text-sm sm:text-base md:text-base ${errors.password ? 'border-red-400 ring-1 ring-red-200' : 'border-transparent focus:ring-2 focus:ring-primary/60'}`}
+                  className={`w-full px-3 sm:px-4 py-3 rounded-lg border transition-all duration-200 outline-none bg-[rgba(255,255,255,0.08)] 
+                    placeholder-gray-400 text-gray-900 dark:text-gray-100 dark:bg-[rgba(255,255,255,0.02)] 
+                    select-text hover:shadow-sm text-sm sm:text-base md:text-base ${errors.password ? 'border-red-400 ring-1 ring-red-200' : 'border-transparent focus:ring-2 focus:ring-primary/60'}`}
                 />
                 <AnimatePresence>
                   {errors.password && (
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -209,7 +207,7 @@ const Login = () => {
               </motion.div>
               <AnimatePresence>
                 {errors.server && (
-                  <motion.p 
+                  <motion.p
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
@@ -222,9 +220,8 @@ const Login = () => {
               <motion.button
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.1, duration: 0.4 }}
-                whileHover={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
-                whileTap={{ scale: 0.99, transition: { duration: 0.05, ease: "easeOut" } }}
+                transition={{ delay: 0.1, duration: 0.2 }}
+                whileTap={{ scale: 0.99, transition: { duration: 0.02, ease: "easeOut" } }}
                 type="submit"
                 disabled={loading}
                 className="w-full py-3 md:py-4 rounded-lg text-white font-semibold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transform transition-all disabled:opacity-60 text-sm sm:text-base md:text-base relative overflow-hidden"
@@ -245,19 +242,18 @@ const Login = () => {
                 )}
               </motion.button>
             </motion.form>
-            <motion.div 
+            <motion.div
               initial={{ y: 10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.4 }}
               className="mt-4 text-center text-sm text-gray-600 dark:text-gray-300"
             >
               Don't have an account?{' '}
-              <motion.button 
-                type="button" 
-                whileHover={{ scale: 1.03, transition: { duration: 0.08, ease: "easeOut" } }}
+              <motion.button
+                type="button"
                 whileTap={{ scale: 0.97, transition: { duration: 0.05, ease: "easeOut" } }}
-                onClick={(e) => goToSignup(e)} 
-                disabled={exiting} 
+                onClick={(e) => goToSignup(e)}
+                disabled={exiting}
                 className="text-violet-600 hover:underline dark:text-violet-400 font-medium"
               >
                 Sign up here
@@ -265,7 +261,7 @@ const Login = () => {
             </motion.div>
           </motion.div>
         </AnimatePresence>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 0.6 }}
@@ -279,3 +275,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

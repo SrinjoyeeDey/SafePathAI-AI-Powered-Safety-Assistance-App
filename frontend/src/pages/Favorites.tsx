@@ -80,7 +80,6 @@ const Favorites = () => {
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           className="border p-2 rounded w-full"
           required
-          whileFocus={{ scale: 1.02, boxShadow: "0 0 0 2px #a5b4fc" }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         />
         <motion.input
@@ -89,7 +88,6 @@ const Favorites = () => {
           onChange={(e) => setForm({ ...form, phone: e.target.value })}
           className="border p-2 rounded w-full"
           required
-          whileFocus={{ scale: 1.02, boxShadow: "0 0 0 2px #a5b4fc" }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         />
         <motion.input
@@ -97,15 +95,13 @@ const Favorites = () => {
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           className="border p-2 rounded w-full"
-          whileFocus={{ scale: 1.02, boxShadow: "0 0 0 2px #a5b4fc" }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         />
         <motion.button
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded"
-          whileHover={{ scale: 1.04, backgroundColor: "#2563eb" }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 150, damping: 20 }}
         >
           Add Contact
         </motion.button>
@@ -128,7 +124,6 @@ const Favorites = () => {
             <motion.button
               onClick={() => deleteContact(c._id)}
               className="text-red-600"
-              whileHover={{ scale: 1.1, color: "#dc2626" }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >

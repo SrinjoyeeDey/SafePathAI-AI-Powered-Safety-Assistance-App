@@ -45,13 +45,13 @@ const Dashboard = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
     >
-      <motion.h1 
+      <motion.h1
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.6 }}
@@ -61,14 +61,13 @@ const Dashboard = () => {
       </motion.h1>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
-        <motion.div 
+        <motion.div
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          whileHover={{ scale: 1.01, transition: { duration: 0.08, ease: "easeOut" } }}
           className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300"
         >
-          <motion.p 
+          <motion.p
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.4 }}
@@ -78,7 +77,7 @@ const Dashboard = () => {
           </motion.p>
         </motion.div>
         {/* Nearby Locations & Actions */}
-        <motion.div 
+        <motion.div
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -98,14 +97,11 @@ const Dashboard = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                  whileHover={{ scale: 1.01, x: 2, transition: { duration: 0.08, ease: "easeOut" } }}
-                  whileTap={{ scale: 0.99, transition: { duration: 0.05, ease: "easeOut" } }}
                   className="p-4 bg-white dark:bg-gray-800 rounded-md shadow-md hover:shadow-lg flex justify-between items-center transition-all duration-200 cursor-pointer"
                 >
                   <span className="font-medium">{loc.name}</span>
                   <motion.button
                     onClick={() => toggleFavorite(loc.id)}
-                    whileHover={{ scale: 1.1, rotate: 5, transition: { duration: 0.08, ease: "easeOut" } }}
                     whileTap={{ scale: 0.95, transition: { duration: 0.05, ease: "easeOut" } }}
                     className={`text-lg transition-colors duration-200 ${loc.isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-300"}`}
                   >
@@ -119,9 +115,12 @@ const Dashboard = () => {
           <motion.button
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-            whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(220, 38, 38, 0.25)", transition: { duration: 0.08, ease: "easeOut" } }}
-            whileTap={{ scale: 0.98, transition: { duration: 0.05, ease: "easeOut" } }}
+            transition={{ delay: 0.1, duration: 0.1 }}
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 8px 20px rgba(220, 38, 38, 0.25)",
+              transition: { duration: 0.2, ease: "easeInOut" } 
+            }}
             onClick={sendSOS}
             className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 relative overflow-hidden group"
           >
@@ -133,13 +132,18 @@ const Dashboard = () => {
             >
               🚨 Emergency SOS
             </motion.span>
+
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
               initial={{ x: "-100%" }}
-              whileHover={{ x: "0%" }}
-              transition={{ duration: 0.15 }}
+              whileHover={{
+                x: "0%",
+                transition: { duration: 0.25, ease: "easeInOut" } // smooth in and out
+              }}
             />
           </motion.button>
+
+
         </motion.div>
       </div>
     </motion.div>
