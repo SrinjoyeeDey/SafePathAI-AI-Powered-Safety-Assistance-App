@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Map from "../components/Map";
+import api from "../services/api";
+import UserLocation from "../components/Dashboard/UserLocation";
 
 interface SafeZone {
   id: number;
@@ -118,6 +120,8 @@ export default function Dashboard() {
 
         {/* Nearby Locations & Actions */}
         <div className="space-y-6">
+          
+      <UserLocation />
           <div>
             <h2 className="text-xl font-semibold mb-3">Nearby Safe Locations</h2>
             {locations.length === 0 ? (

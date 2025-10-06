@@ -18,6 +18,7 @@ const Login = () => {
     if (!identifier.trim()) {
       e.identifier = "Please enter your email.";
     } else {
+      // basic email check - backend expects email
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(identifier.trim())) {
         e.identifier = "Please enter a valid email address.";
