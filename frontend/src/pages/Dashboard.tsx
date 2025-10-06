@@ -1,31 +1,37 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+"use client";
 
-interface Location {
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Map from "../components/Map";
+
+interface SafeZone {
   id: number;
   name: string;
   latitude: number;
   longitude: number;
+  type: "hospital" | "police" | "pharmacy";
   isFavorite: boolean;
 }
 
-const Dashboard = () => {
-  const [locations, setLocations] = useState<Location[]>([
-    {
-      id: 1,
-      name: "City Park",
-      latitude: 22.5726,
-      longitude: 88.3639,
-      isFavorite: false,
-    },
-    {
-      id: 2,
-      name: "Community Center",
-      latitude: 22.574,
-      longitude: 88.37,
-      isFavorite: false,
-    },
-  ]);
+export default function Dashboard() {
+  const [locations, setLocations] = useState<SafeZone[]>([]);
+
+  // Callback to receive safe zones from Map component
+  const handleSafeZones = (zones: any[]) => {
+    // Only take hospitals for the dashboard list (top 3)
+    const hospitals = zones
+      .filter((z: any) => z.tags.amenity === "hospital")
+      .slice(0, 3)
+      .map((z: any, idx: number) => ({
+        id: z.id || idx,
+        name: z.tags.name || "Unnamed Hospital",
+        latitude: z.lat,
+        longitude: z.lon,
+        type: "hospital" as const,
+        isFavorite: false,
+      }));
+    setLocations(hospitals);
+  };
 
   const toggleFavorite = (id: number) => {
     setLocations((prev) =>
@@ -46,50 +52,50 @@ const Dashboard = () => {
       const longitude = position.coords.longitude;
 
       try {
-        const res = await api.post("/sos/send", { latitude, longitude });
-        alert("🚨 SOS sent successfully to your favorites!");
-        console.log("SOS Response:", res.data);
+        // Replace with your backend SOS API if needed
+        alert(
+          `🚨 SOS sent to favorites! (Lat: ${latitude}, Lon: ${longitude})`
+        );
       } catch (err: any) {
-        console.error(err.response?.data || err.message);
+        console.error(err);
         alert("Failed to send SOS");
       }
     });
   };
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 space-y-6">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
-
+    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
-        <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500 dark:text-gray-300">
-            🗺 Map will appear here
-          </p>
-        </div>
+        <Map onSafeZonesFetched={handleSafeZones} />
 
         {/* Nearby Locations & Actions */}
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-semibold mb-3">
-              Nearby Safe Locations
-            </h2>
-            <ul className="space-y-3">
-              {locations.map((loc) => (
-                <li
-                  key={loc.id}
-                  className="p-4 bg-white dark:bg-gray-800 rounded-md shadow-md flex justify-between items-center"
-                >
-                  <span>{loc.name}</span>
-                  <button
-                    onClick={() => toggleFavorite(loc.id)}
-                    className={`text-lg ${loc.isFavorite ? "text-yellow-400" : "text-gray-400"}`}
+            <h2 className="text-xl font-semibold mb-3">Nearby Hospitals</h2>
+            {locations.length === 0 ? (
+              <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+            ) : (
+              <ul className="space-y-3">
+                {locations.map((loc) => (
+                  <li
+                    key={loc.id}
+                    className="p-4 bg-white dark:bg-gray-800 rounded-md shadow-md flex justify-between items-center"
                   >
-                    ⭐
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    <span>{loc.name}</span>
+                    <button
+                      onClick={() => toggleFavorite(loc.id)}
+                      className={`text-lg ${
+                        loc.isFavorite ? "text-yellow-400" : "text-gray-400"
+                      }`}
+                    >
+                      ⭐
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Navigate to Emergency Screen */}
@@ -102,6 +108,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}
