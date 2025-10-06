@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
 
 const Signup = () => {
   const { login } = useAuth();
+  const [exiting, setExiting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,14 +54,27 @@ const Signup = () => {
       login(res.data.user);
     } catch (err: any) {
       console.error(err.response?.data || err.message);
-      alert("Signup failed. Please try again.");
+      const message = err.response?.data?.message || 'Signup failed. Please try again.';
+      alert(message);
     }
   };
 
+  const navigate = useNavigate();
+
+  const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    e?.preventDefault();
+    if (exiting) return;
+    setExiting(true);
+    setTimeout(() => navigate('/login'), 300);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="w-full max-w-md backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-8 my-auto">
-        <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-r from-white/50 to-white dark:from-black dark:via-[#071026] dark:to-[#071026]">
+      <div className="absolute left-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none" />
+      <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none" />
+
+      <div className={`w-full max-w-sm rounded-2xl shadow-soft border p-6 sm:p-8 my-auto bg-[rgba(255,255,255,0.65)] dark:bg-[rgba(12,18,24,0.78)] select-none transition-all ${exiting ? 'opacity-0 translate-y-6 scale-95' : 'opacity-100 translate-y-0 scale-100'}`} style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' , borderColor: 'rgba(255,255,255,0.08)'}}>
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
           Create Account
         </h2>
 
@@ -73,7 +87,7 @@ const Signup = () => {
               placeholder="Enter your full name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500 dark:text-white transition-all"
+              className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
             />
           </div>
 
@@ -85,7 +99,7 @@ const Signup = () => {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500 dark:text-white transition-all"
+              className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
             />
           </div>
 
@@ -98,7 +112,7 @@ const Signup = () => {
                 placeholder="Create a password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500 dark:text-white transition-all"
+                className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
               />
               <button
                 type="button"
@@ -142,7 +156,7 @@ const Signup = () => {
                 placeholder="Re-enter your password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500 dark:text-white transition-all"
+                className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/5 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
               />
               <button
                 type="button"
@@ -194,24 +208,21 @@ const Signup = () => {
           <button
             type="submit"
             disabled={!agreements.terms}
-            className={`w-full py-3 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold transform transition-all ${
+            className={`w-full py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-primary to-secondary transform transition-all ${
               agreements.terms 
-                ? 'hover:from-green-600 hover:to-blue-600 hover:scale-[1.02]' 
+                ? 'hover:from-primary/90 hover:to-secondary/90 hover:scale-[1.02]' 
                 : 'opacity-50 cursor-not-allowed'
-            } focus:ring-2 focus:ring-offset-2 focus:ring-green-500`}
+            } focus:ring-2 focus:ring-offset-2 focus:ring-primary/30`}
           >
             Sign Up
           </button>
         </form>
 
-        <p className="mt-8 text-center text-gray-600 dark:text-gray-400">
+          <p className="mt-8 text-center text-gray-600 dark:text-gray-400">
           Already have an account?{' '}
-          <Link
-            to="/login"
-            className="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition-colors"
-          >
+          <button type="button" onClick={(e) => goToLogin(e)} disabled={exiting} className="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition-colors">
             Login here
-          </Link>
+          </button>
         </p>
       </div>
     </div>

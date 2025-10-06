@@ -9,10 +9,14 @@ const SALT_ROUNDS = 10;
 export async function signup(req: Request, res: Response) {
   try {
     const { name, email, password, lat, lng } = req.body;
-    if (!name || !email || !password) return res.status(400).json({ message: "Missing fields" });
+    if (!name || !email || !password) return res.status(400).json({ message: "Missing fields (name, email and password are required)" });
+
+    // basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return res.status(400).json({ message: "Invalid email format" });
 
     const existing = await User.findOne({ email });
-    if (existing) return res.status(400).json({ message: "User already exists" });
+    if (existing) return res.status(409).json({ message: "User already exists" });
 
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
@@ -45,9 +49,22 @@ export async function signup(req: Request, res: Response) {
 
     res.json({ user: { id: user._id, name: user.name, email: user.email }, accessToken });
 
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+  } catch (err: any) {
+    // detect common mongoose errors and respond accordingly
+    console.error("Signup error:", err?.stack || err);
+
+    // duplicate key (unique index) error
+    if (err.name === 'MongoServerError' && err.code === 11000) {
+      return res.status(409).json({ message: 'Email already registered' });
+    }
+
+    // validation errors
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map((e: any) => e.message).join('; ');
+      return res.status(400).json({ message: messages || 'Validation error' });
+    }
+
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -77,9 +94,10 @@ export async function login(req: Request, res: Response) {
     });
 
     res.json({ user: { id: user._id, name: user.name, email: user.email }, accessToken });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+  } catch (err: any) {
+    console.error("Login error:", err?.stack || err);
+    // forward a generic message but log the stack for debugging
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
