@@ -5,12 +5,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#2563eb',
-        secondary: '#9333ea',
-        accent: '#f43f5e',
+        primary: '#32CD32', // Lime Green
+        secondary: '#1E90FF', // Dodger Blue
+        background: '#FFFFFF',
+        darkbg: '#111111',
+        text: '#000000',
       },
       boxShadow: {
-        soft: '0 4px 10px rgba(0,0,0,0.08)',
+        soft: '0 8px 24px rgba(2,6,23,0.08)',
       },
       borderRadius: {
         '2xl': '1rem',

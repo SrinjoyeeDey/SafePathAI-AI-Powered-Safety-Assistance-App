@@ -69,6 +69,15 @@ const Signup = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    e?.preventDefault();
+    if (exiting) return;
+    setExiting(true);
+    setTimeout(() => navigate('/login'), 300);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-r from-white/50 to-white dark:from-black dark:via-[#071026] dark:to-[#071026]">
       <div className="w-full max-w-sm rounded-2xl shadow-soft border p-6 sm:p-8 my-auto bg-[rgba(255,255,255,0.65)] dark:bg-[rgba(12,18,24,0.78)] select-none transition-all">
