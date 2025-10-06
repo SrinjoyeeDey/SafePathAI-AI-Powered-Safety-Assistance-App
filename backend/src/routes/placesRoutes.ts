@@ -1,8 +1,13 @@
-import {Router} from 'express'
-import { nearby } from '../controllers/placesController'
+import { Router } from "express";
+import { signup, login, refresh, logout } from "../controllers/authController";
+import { validateSignup, validateLogin } from "../middleware/validationMiddleware";
+import { authLimiter, signupLimiter } from "../middleware/rateLimitMiddleware";
 
-const router=Router()
+const router = Router();
 
-router.get("/nearby",nearby);
+router.post("/signup", signupLimiter, validateSignup, signup);
+router.post("/login", authLimiter, validateLogin, login);
+router.post("/refresh", refresh);
+router.post("/logout", logout);
 
 export default router;

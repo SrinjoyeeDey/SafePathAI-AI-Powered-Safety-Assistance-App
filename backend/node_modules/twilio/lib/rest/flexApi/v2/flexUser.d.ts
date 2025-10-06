@@ -1,0 +1,209 @@
+import { inspect, InspectOptions } from "util";
+import V2 from "../V2";
+/**
+ * Options to pass to update a FlexUserInstance
+ */
+export interface FlexUserContextUpdateOptions {
+    /** Email of the User. */
+    email?: string;
+    /** The unique SID identifier of the Twilio Unified User. */
+    userSid?: string;
+    /** The locale preference of the user. */
+    locale?: string;
+}
+export interface FlexUserContext {
+    /**
+     * Fetch a FlexUserInstance
+     *
+     * @param callback - Callback to handle processed record
+     *
+     * @returns Resolves to processed FlexUserInstance
+     */
+    fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Update a FlexUserInstance
+     *
+     * @param callback - Callback to handle processed record
+     *
+     * @returns Resolves to processed FlexUserInstance
+     */
+    update(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Update a FlexUserInstance
+     *
+     * @param params - Parameter for request
+     * @param callback - Callback to handle processed record
+     *
+     * @returns Resolves to processed FlexUserInstance
+     */
+    update(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Provide a user-friendly representation
+     */
+    toJSON(): any;
+    [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+export interface FlexUserContextSolution {
+    instanceSid: string;
+    flexUserSid: string;
+}
+export declare class FlexUserContextImpl implements FlexUserContext {
+    protected _version: V2;
+    protected _solution: FlexUserContextSolution;
+    protected _uri: string;
+    constructor(_version: V2, instanceSid: string, flexUserSid: string);
+    fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    update(params?: FlexUserContextUpdateOptions | ((error: Error | null, item?: FlexUserInstance) => any), callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Provide a user-friendly representation
+     *
+     * @returns Object
+     */
+    toJSON(): FlexUserContextSolution;
+    [inspect.custom](_depth: any, options: InspectOptions): string;
+}
+interface FlexUserResource {
+    account_sid: string;
+    instance_sid: string;
+    user_sid: string;
+    flex_user_sid: string;
+    worker_sid: string;
+    workspace_sid: string;
+    flex_team_sid: string;
+    username: string;
+    email: string;
+    locale: string;
+    roles: Array<string>;
+    created_date: Date;
+    updated_date: Date;
+    version: number;
+    url: string;
+}
+export declare class FlexUserInstance {
+    protected _version: V2;
+    protected _solution: FlexUserContextSolution;
+    protected _context?: FlexUserContext;
+    constructor(_version: V2, payload: FlexUserResource, instanceSid?: string, flexUserSid?: string);
+    /**
+     * The unique SID of the account that created the resource.
+     */
+    accountSid: string;
+    /**
+     * The unique ID created by Twilio to identify a Flex instance.
+     */
+    instanceSid: string;
+    /**
+     * The unique SID identifier of the Twilio Unified User.
+     */
+    userSid: string;
+    /**
+     * The unique SID identifier of the Flex User.
+     */
+    flexUserSid: string;
+    /**
+     * The unique SID identifier of the worker.
+     */
+    workerSid: string;
+    /**
+     * The unique SID identifier of the workspace.
+     */
+    workspaceSid: string;
+    /**
+     * The unique SID identifier of the Flex Team.
+     */
+    flexTeamSid: string;
+    /**
+     * Username of the User.
+     */
+    username: string;
+    /**
+     * Email of the User.
+     */
+    email: string;
+    /**
+     * The locale preference of the user.
+     */
+    locale: string;
+    /**
+     * The roles of the user.
+     */
+    roles: Array<string>;
+    /**
+     * The date that this user was created, given in ISO 8601 format.
+     */
+    createdDate: Date;
+    /**
+     * The date that this user was updated, given in ISO 8601 format.
+     */
+    updatedDate: Date;
+    /**
+     * The current version of the user.
+     */
+    version: number;
+    url: string;
+    private get _proxy();
+    /**
+     * Fetch a FlexUserInstance
+     *
+     * @param callback - Callback to handle processed record
+     *
+     * @returns Resolves to processed FlexUserInstance
+     */
+    fetch(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Update a FlexUserInstance
+     *
+     * @param callback - Callback to handle processed record
+     *
+     * @returns Resolves to processed FlexUserInstance
+     */
+    update(callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Update a FlexUserInstance
+     *
+     * @param params - Parameter for request
+     * @param callback - Callback to handle processed record
+     *
+     * @returns Resolves to processed FlexUserInstance
+     */
+    update(params: FlexUserContextUpdateOptions, callback?: (error: Error | null, item?: FlexUserInstance) => any): Promise<FlexUserInstance>;
+    /**
+     * Provide a user-friendly representation
+     *
+     * @returns Object
+     */
+    toJSON(): {
+        accountSid: string;
+        instanceSid: string;
+        userSid: string;
+        flexUserSid: string;
+        workerSid: string;
+        workspaceSid: string;
+        flexTeamSid: string;
+        username: string;
+        email: string;
+        locale: string;
+        roles: string[];
+        createdDate: Date;
+        updatedDate: Date;
+        version: number;
+        url: string;
+    };
+    [inspect.custom](_depth: any, options: InspectOptions): string;
+}
+export interface FlexUserSolution {
+}
+export interface FlexUserListInstance {
+    _version: V2;
+    _solution: FlexUserSolution;
+    _uri: string;
+    (instanceSid: string, flexUserSid: string): FlexUserContext;
+    get(instanceSid: string, flexUserSid: string): FlexUserContext;
+    /**
+     * Provide a user-friendly representation
+     */
+    toJSON(): any;
+    [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+export declare function FlexUserListInstance(version: V2): FlexUserListInstance;
+export {};

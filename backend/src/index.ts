@@ -29,9 +29,18 @@ app.use("/api/places",placesRoutes)
 app.use("/api/ai",aiRoutes)
 app.use("/api/sos",sosRoutes)
 
-app.get("/api/health",(req,res)=>
-    res.json({ok:true,ts:Date.now()})
-)
+app.get("/", (req, res) => {
+  res.send("SafePathAI Backend is live and running!");
+});
+
+app.get("/api/health", async (req, res) => {
+  const dbState = mongoose.connection.readyState === 1 ? "connected" : "disconnected";
+  res.json({
+    ok: true,
+    database: dbState,
+    timestamp: new Date().toISOString(),
+  });
+});
 
 async function start() {
     try{
