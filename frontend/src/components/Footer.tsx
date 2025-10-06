@@ -18,6 +18,7 @@ const Footer: React.FC = () => (
           <li><a href="/" className="hover:text-primary transition-colors duration-200">Home</a></li>
           <li><a href="/dashboard" className="hover:text-primary transition-colors duration-200">Dashboard</a></li>
           <li><a href="/emergency" className="hover:text-primary transition-colors duration-200">Emergency</a></li>
+          <li><a href="/contact-owner" className="hover:text-primary transition-colors duration-200">Contact</a></li>
           <li><a href="/favorites" className="hover:text-primary transition-colors duration-200">Favorites</a></li>
           <li><a href="/login" className="hover:text-primary transition-colors duration-200">Login</a></li>
         </ul>
