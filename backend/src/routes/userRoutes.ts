@@ -1,10 +1,10 @@
 import { Router } from "express";
 import {me,updateLocation} from '../controllers/userController'
-import {authenticate} from '../middleware/auth'
+import {verifyAccessToken} from '../middleware/auth'
 
 const router=Router();
 
-router.get("/me",authenticate,me);
-router.patch("/me/location",authenticate,updateLocation);
+router.get("/me",verifyAccessToken,me);
+router.patch("/me/location",verifyAccessToken,updateLocation);
 
 export default router;

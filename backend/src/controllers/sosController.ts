@@ -1,31 +1,31 @@
-import { Response } from "express";
-import SOS from "../models/SOS";
-import { AuthRequest } from "../types/types";
+import User from "../models/User.ts";
 
-export async function sendSOS(req: AuthRequest, res: Response) {
+export const sendSOS = async (req, res) => {
   try {
-    const userId = req.userId;
-    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+    const { latitude, longitude } = req.body;
+    const userId = req.user?.id;
 
-    const { message, lng, lat, contacts } = req.body;
+    if (!latitude || !longitude)
+      return res.status(400).json({ message: "Missing coordinates" });
 
-    if (typeof lng !== "number" || typeof lat !== "number")
-      return res.status(400).json({ message: "lat & lng required" });
+    const user = await User.findById(userId).populate("favorites");
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    const sos = await SOS.create({
-      user: userId,
-      message,
-      location: { type: "Point", coordinates: [lng, lat] },
-      contactsSentTo: contacts || [],
-      status: "pending",
+    // Notify favorites
+    const favorites = user.favorites || [];
+    if (favorites.length === 0)
+      return res.status(200).json({ message: "SOS sent, but no favorites linked." });
+
+    // Example mock notification system (can be replaced with Twilio or Email API)
+    favorites.forEach((fav) => {
+      console.log(
+        `🚨 ALERT: ${fav.name} notified about ${user.name}'s emergency at (${latitude}, ${longitude})`
+      );
     });
 
-    // SMS / Twilio integration can go here
-    const shareText = `SOS! I need help. Location: https://www.google.com/maps?q=${lat},${lng} - Message: ${message || "Please help"}`;
-
-    res.status(201).json({ ok: true, sos, shareText });
+    return res.status(200).json({ message: "SOS alert sent to favorites." });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error sending SOS:", err);
+    res.status(500).json({ message: "Server error while sending SOS." });
   }
-}
+};

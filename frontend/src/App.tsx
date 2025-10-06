@@ -7,6 +7,7 @@ import Signup from "./pages/signup";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
+import Favorites from "./pages/Favorites";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/Emergency" element={<Emergency />} />
+                <Route path="/favorites" element={<Favorites/>}/>
               </Routes>
             </main>
             <Footer />
