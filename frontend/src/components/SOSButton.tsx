@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../services/api";
+import { motion } from "framer-motion";
 
 const SOSButton = () => {
   const handleSOS = async () => {
@@ -23,12 +24,17 @@ const SOSButton = () => {
   };
 
   return (
-    <button
+    <motion.button
       onClick={handleSOS}
       className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg"
+      initial={{ scale: 0.95, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      whileHover={{ scale: 1.05, boxShadow: "0 4px 24px 0 rgba(255,0,0,0.12)" }}
+      whileTap={{ scale: 0.97 }}
     >
       🚨 Send SOS
-    </button>
+    </motion.button>
   );
 };
 

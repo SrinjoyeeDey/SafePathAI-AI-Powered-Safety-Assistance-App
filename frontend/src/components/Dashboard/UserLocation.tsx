@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 interface LocationState {
   address: string | null;
@@ -118,7 +119,13 @@ const UserLocation: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 max-w-sm w-full mx-auto border border-gray-200 dark:border-gray-700">
+    <motion.div
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 max-w-sm w-full mx-auto border border-gray-200 dark:border-gray-700"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ scale: 1.01, boxShadow: "0 4px 24px 0 rgba(0,0,0,0.08)" }}
+    >
       <div className="flex items-center space-x-3">
         <span role="img" aria-label="Location pin" className="text-2xl">
           📍
@@ -147,7 +154,7 @@ const UserLocation: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

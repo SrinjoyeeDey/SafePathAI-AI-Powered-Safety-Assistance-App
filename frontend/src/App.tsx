@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Chat from "./components/Chat";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Signup from "./pages/signup";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
