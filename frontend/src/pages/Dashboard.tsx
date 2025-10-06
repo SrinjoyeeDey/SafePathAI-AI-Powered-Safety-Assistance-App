@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
 import UserLocation from "../components/Dashboard/UserLocation";
 
@@ -12,8 +13,20 @@ interface Location {
 
 const Dashboard = () => {
   const [locations, setLocations] = useState<Location[]>([
-    { id: 1, name: "City Park", latitude: 22.5726, longitude: 88.3639, isFavorite: false },
-    { id: 2, name: "Community Center", latitude: 22.5740, longitude: 88.3700, isFavorite: false },
+    {
+      id: 1,
+      name: "City Park",
+      latitude: 22.5726,
+      longitude: 88.3639,
+      isFavorite: false,
+    },
+    {
+      id: 2,
+      name: "Community Center",
+      latitude: 22.574,
+      longitude: 88.37,
+      isFavorite: false,
+    },
   ]);
 
   const toggleFavorite = (id: number) => {
@@ -51,7 +64,9 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
         <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500 dark:text-gray-300">🗺 Map will appear here</p>
+          <p className="text-gray-500 dark:text-gray-300">
+            🗺 Map will appear here
+          </p>
         </div>
 
         {/* Nearby Locations & Actions */}
@@ -59,7 +74,9 @@ const Dashboard = () => {
           
       <UserLocation />
           <div>
-            <h2 className="text-xl font-semibold mb-3">Nearby Safe Locations</h2>
+            <h2 className="text-xl font-semibold mb-3">
+              Nearby Safe Locations
+            </h2>
             <ul className="space-y-3">
               {locations.map((loc) => (
                 <li
@@ -78,13 +95,12 @@ const Dashboard = () => {
             </ul>
           </div>
 
-          {/* Emergency SOS Button */}
-          <button
-            onClick={sendSOS}
-            className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition-all"
-          >
-            🚨 Emergency SOS
-          </button>
+          {/* Navigate to Emergency Screen */}
+          <Link to="/Emergency">
+            <button className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition-all">
+              🚨 Open Emergency Screen
+            </button>
+          </Link>
         </div>
       </div>
     </div>

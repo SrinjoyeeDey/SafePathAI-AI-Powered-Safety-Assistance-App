@@ -14,6 +14,7 @@ const Navbar = () => {
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/favorites">Favorites</Link>
         <Link to="/login">Login</Link>
+        <Link to="/emergency">Emergency</Link>
         <button
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="p-2 rounded-md bg-gray-200 dark:bg-gray-700"
