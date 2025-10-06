@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../services/api";
 import UserLocation from "../components/Dashboard/UserLocation";
+import Map from "../components/map";
 
 interface Location {
   id: number;
@@ -12,8 +13,20 @@ interface Location {
 
 const Dashboard = () => {
   const [locations, setLocations] = useState<Location[]>([
-    { id: 1, name: "City Park", latitude: 22.5726, longitude: 88.3639, isFavorite: false },
-    { id: 2, name: "Community Center", latitude: 22.5740, longitude: 88.3700, isFavorite: false },
+    {
+      id: 1,
+      name: "City Park",
+      latitude: 22.5726,
+      longitude: 88.3639,
+      isFavorite: false,
+    },
+    {
+      id: 2,
+      name: "Community Center",
+      latitude: 22.574,
+      longitude: 88.37,
+      isFavorite: false,
+    },
   ]);
 
   const toggleFavorite = (id: number) => {
@@ -51,15 +64,16 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Map Section */}
         <div className="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500 dark:text-gray-300">🗺 Map will appear here</p>
+            <Map />
         </div>
 
         {/* Nearby Locations & Actions */}
         <div className="space-y-6">
-          
-      <UserLocation />
+          <UserLocation />
           <div>
-            <h2 className="text-xl font-semibold mb-3">Nearby Safe Locations</h2>
+            <h2 className="text-xl font-semibold mb-3">
+              Nearby Safe Locations
+            </h2>
             <ul className="space-y-3">
               {locations.map((loc) => (
                 <li
@@ -69,7 +83,9 @@ const Dashboard = () => {
                   <span>{loc.name}</span>
                   <button
                     onClick={() => toggleFavorite(loc.id)}
-                    className={`text-lg ${loc.isFavorite ? "text-yellow-400" : "text-gray-400"}`}
+                    className={`text-lg ${
+                      loc.isFavorite ? "text-yellow-400" : "text-gray-400"
+                    }`}
                   >
                     ⭐
                   </button>
