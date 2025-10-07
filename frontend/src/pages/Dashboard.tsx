@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../services/api";
+import SummaryCards from "../components/SummaryCards";
 
 interface Location {
   id: number;
@@ -61,8 +62,8 @@ const Dashboard = () => {
             <ul className="space-y-3">
               {locations.map((loc) => (
                 <li
-                  key={loc.id}
-                  className="p-4 bg-white dark:bg-gray-800 rounded-md shadow-md flex justify-between items-center"
+                key={loc.id}
+                className="p-4 bg-white dark:bg-gray-800 rounded-md shadow-md flex justify-between items-center"
                 >
                   <span>{loc.name}</span>
                   <button
@@ -84,6 +85,7 @@ const Dashboard = () => {
             🚨 Emergency SOS
           </button>
         </div>
+          <SummaryCards />
       </div>
     </div>
   );
