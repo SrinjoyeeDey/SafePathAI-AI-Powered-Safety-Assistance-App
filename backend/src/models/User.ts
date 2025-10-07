@@ -20,7 +20,8 @@ const UserSchema=new Schema<IUser>({
     refreshTokens:{type:[String],default:[]}, //to store a valid refresh tokens so you can revoke a specific refresh token
     lastLocation:{
         type:{
-            type:String,enum:["Point"],default:"Point" //follows GeoJSON
+            // type:String,enum:["Point"],default:"Point" //follows GeoJSON
+            type:String,enum:["Point"], //follows GeoJSON
         },
         coordinates:{type:[Number],index:"2dsphere",required:false}
     }

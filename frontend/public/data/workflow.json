@@ -1,0 +1,17 @@
+[
+  {
+    "step": 1,
+    "title": "Set Your Destination",
+    "description": "Enter where you're going, and our AI instantly analyzes multiple paths for safety."
+  },
+  {
+    "step": 2,
+    "title": "Receive a Safe Route",
+    "description": "Get a recommended route that avoids risks like poor lighting, crime hotspots, and other hazards."
+  },
+  {
+    "step": 3,
+    "title": "Stay Alert on the Go",
+    "description": "Receive real-time notifications if conditions change or a new risk appears on your path."
+  }
+]

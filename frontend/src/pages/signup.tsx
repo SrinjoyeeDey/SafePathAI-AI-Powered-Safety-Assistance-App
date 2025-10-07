@@ -5,222 +5,187 @@ import api from "../services/api";
 
 const Signup = () => {
   const { login } = useAuth();
-  const [exiting, setExiting] = useState(false);
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
   const [validations, setValidations] = useState({
     passwordMatch: true,
-    passwordLength: false
+    passwordLength: false,
   });
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false
-  });
-  const [agreements, setAgreements] = useState({
-    terms: false
-  });
+  const [agreements, setAgreements] = useState({ terms: false });
 
   useEffect(() => {
     setValidations({
-      passwordMatch: formData.password === formData.confirmPassword,
-      passwordLength: formData.password.length >= 8
+      passwordMatch: form.password === form.confirmPassword,
+      passwordLength: form.password.length >= 8,
     });
-  }, [formData.password, formData.confirmPassword]);
+  }, [form.password, form.confirmPassword]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!agreements.terms) {
+      alert("Please agree to the Terms and Privacy Policy.");
+      return;
+    }
+
     if (!validations.passwordMatch || !validations.passwordLength) {
-      alert("Please check password requirements");
+      alert("Please check your password requirements.");
       return;
     }
 
     try {
+      setLoading(true);
       const res = await api.post("/auth/signup", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
+        name: form.name,
+        email: form.email,
+        password: form.password,
       });
-      login(res.data.user);
+
+      const { user: userData, accessToken } = res.data;
+
+      if (!userData || !accessToken) {
+        throw new Error("Invalid response from server.");
+      }
+
+      login(userData, accessToken);
+      navigate("/dashboard");
     } catch (err: any) {
       console.error(err.response?.data || err.message);
-      const message = err.response?.data?.message || 'Signup failed. Please try again.';
-      alert(message);
+      const msg =
+        err.response?.data?.message || "Signup failed. Please try again.";
+      alert(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const navigate = useNavigate();
 
-  const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
-    e?.preventDefault();
-    if (exiting) return;
-    setExiting(true);
-    setTimeout(() => navigate('/login'), 300);
-  };
+  const [exiting,setExiting]=useState(false)
+
+  // const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
+  //   e?.preventDefault();
+  //   if (exiting) return;
+  //   setExiting(true);
+  //   setTimeout(() => navigate('/login'), 300);
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-r from-white/50 to-white dark:from-black dark:via-[#071026] dark:to-[#071026]">
-      <div className="absolute left-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none" />
-      <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-b from-white/70 to-transparent dark:from-transparent dark:to-transparent opacity-30 pointer-events-none" />
-
-      <div className={`w-full max-w-sm rounded-2xl shadow-soft border p-6 sm:p-8 my-auto bg-[rgba(255,255,255,0.65)] dark:bg-[rgba(12,18,24,0.78)] select-none transition-all ${exiting ? 'opacity-0 translate-y-6 scale-95' : 'opacity-100 translate-y-0 scale-100'}`} style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' , borderColor: 'rgba(255,255,255,0.08)'}}>
+      <div className="w-full max-w-sm rounded-2xl shadow-soft border p-6 sm:p-8 my-auto bg-[rgba(255,255,255,0.65)] dark:bg-[rgba(12,18,24,0.78)] select-none transition-all">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
           Create Account
         </h2>
 
-        <form onSubmit={handleSignup} className="space-y-6">
-          <div>
+        <form onSubmit={handleSignup} className="space-y-5">
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your full name"
+            required
+            value={form.name}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-white/80 dark:bg-[#25303a] text-gray-900 dark:text-gray-100 border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+            value={form.email}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-white/80 dark:bg-[#25303a] text-gray-900 dark:text-gray-100 border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Create a password"
+            required
+            value={form.password}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-white/80 dark:bg-[#25303a] text-gray-900 dark:text-gray-100 border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
+          />
+          {form.password && (
+            <p
+              className={`text-sm ${
+                validations.passwordLength ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              Password must be at least 8 characters.
+            </p>
+          )}
+
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Re-enter your password"
+            required
+            value={form.confirmPassword}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-white/80 dark:bg-[#25303a] text-gray-900 dark:text-gray-100 border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30"
+          />
+          {form.confirmPassword && (
+            <p
+              className={`text-sm ${
+                validations.passwordMatch ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {validations.passwordMatch
+                ? "Passwords match"
+                : "Passwords do not match"}
+            </p>
+          )}
+
+          <label className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 mt-2">
             <input
-              type="text"
-              name="name"
-              required
-              placeholder="Enter your full name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
+              type="checkbox"
+              checked={agreements.terms}
+              onChange={(e) => setAgreements({ terms: e.target.checked })}
+              className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
             />
-          </div>
-
-          <div>
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
-            />
-          </div>
-
-          <div>
-            <div className="relative">
-              <input
-                type={showPassword.password ? "text" : "password"}
-                name="password"
-                required
-                placeholder="Create a password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/80 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(prev => ({ ...prev, password: !prev.password }))}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                {showPassword.password ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                  </svg>
-                )}
-              </button>
-            </div>
-            {formData.password && (
-              <p className={`mt-1 text-sm flex items-center gap-1 ${validations.passwordLength ? 'text-green-500' : 'text-red-500'}`}>
-                {validations.passwordLength ? (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                )} 
-                Password must be at least 8 characters
-              </p>
-            )}
-          </div>
-
-          <div>
-            <div className="relative">
-              <input
-                type={showPassword.confirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                required
-                placeholder="Re-enter your password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-3 rounded-lg bg-white/5 placeholder-gray-500 text-gray-900 dark:text-gray-100 dark:bg-[#25303a] border border-transparent focus:border-primary/60 focus:ring-2 focus:ring-primary/30 text-sm sm:text-base transition-all"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(prev => ({ ...prev, confirmPassword: !prev.confirmPassword }))}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                {showPassword.confirmPassword ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                  </svg>
-                )}
-              </button>
-            </div>
-            {formData.confirmPassword && (
-              <p className={`mt-1 text-sm flex items-center gap-1 ${validations.passwordMatch ? 'text-green-500' : 'text-red-500'}`}>
-                {validations.passwordMatch ? (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                )} 
-                {validations.passwordMatch ? 'Passwords match' : 'Passwords do not match'}
-              </p>
-            )}
-          </div>
-
-          <div className="mt-6 border-t pt-6 dark:border-gray-700">
-            <label className="flex items-center space-x-3 text-gray-700 dark:text-gray-300">
-              <input
-                type="checkbox"
-                checked={agreements.terms}
-                onChange={(e) => setAgreements({ terms: e.target.checked })}
-                className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
-              />
-              <span className="text-sm">
-                By continuing, I agree to the <a href="#" className="text-green-600 hover:text-green-500">terms of use</a> & <a href="#" className="text-green-600 hover:text-green-500">privacy policy</a>
-              </span>
-            </label>
-          </div>
+            <span className="text-sm">
+              I agree to the{" "}
+              <a href="#" className="text-green-600 hover:text-green-500">
+                Terms of Use
+              </a>{" "}
+              &{" "}
+              <a href="#" className="text-green-600 hover:text-green-500">
+                Privacy Policy
+              </a>
+            </span>
+          </label>
 
           <button
             type="submit"
-            disabled={!agreements.terms}
-            className={`w-full py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-primary to-secondary transform transition-all ${
-              agreements.terms 
-                ? 'hover:from-primary/90 hover:to-secondary/90 hover:scale-[1.02]' 
-                : 'opacity-50 cursor-not-allowed'
-            } focus:ring-2 focus:ring-offset-2 focus:ring-primary/30`}
+            disabled={!agreements.terms || loading}
+            className={`w-full py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-primary to-secondary transition-all ${
+              agreements.terms
+                ? "hover:from-primary/90 hover:to-secondary/90 hover:scale-[1.02]"
+                : "opacity-50 cursor-not-allowed"
+            }`}
           >
-            Sign Up
+            {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 
-          <p className="mt-8 text-center text-gray-600 dark:text-gray-400">
-          Already have an account?{' '}
-          <button type="button" onClick={(e) => goToLogin(e)} disabled={exiting} className="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition-colors">
+        <p className="mt-8 text-center text-gray-600 dark:text-gray-400">
+          Already have an account?{" "}
+          <button
+            type="button"
+            onClick={goToLogin}
+            className="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300"
+          >
             Login here
           </button>
         </p>
