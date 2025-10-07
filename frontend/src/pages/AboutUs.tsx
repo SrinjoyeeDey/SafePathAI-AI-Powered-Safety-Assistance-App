@@ -12,7 +12,8 @@ import type { WhyChooseUsData } from '../types/WhyChooseUs';
 import type { WorkflowStepData } from '../types/Workflow';
 import StoryCard from '../components/StoryCard';
 import ImpactCounter from '../components/ImpactCounter';
-
+import TeamMemberCard from '../components/TeamMemberCard';
+11
 const iconMap: { [key: string]: IconType } = {
   FaUsers,
   FaBell,
@@ -209,19 +210,7 @@ const AboutUs: React.FC = () => {
             {loadingTeam ? (
               <p className="text-center text-gray-500 dark:text-gray-400 col-span-4">Loading team...</p>
             ) : (
-              teamData.map((member) => (
-                <div key={member.id} className="flex flex-col items-center space-y-3">
-                  <img
-                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg transition-transform duration-300 hover:scale-110"
-                    src={member.imageUrl}
-                    alt={member.name}
-                  />
-                  <div>
-                    <h4 className="font-bold text-gray-900 dark:text-white">{member.name}</h4>
-                    <p className="text-sm text-primary dark:text-secondary">{member.role}</p>
-                  </div>
-                </div>
-              ))
+              teamData.map((member) => <TeamMemberCard key={member.id} member={member} />)
             )}
           </div>
         </section>
