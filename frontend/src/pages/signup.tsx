@@ -70,12 +70,14 @@ const Signup = () => {
   };
 
 
-  const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
-    e?.preventDefault();
-    if (exiting) return;
-    setExiting(true);
-    setTimeout(() => navigate('/login'), 300);
-  };
+  const [exiting,setExiting]=useState(false)
+
+  // const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
+  //   e?.preventDefault();
+  //   if (exiting) return;
+  //   setExiting(true);
+  //   setTimeout(() => navigate('/login'), 300);
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-r from-white/50 to-white dark:from-black dark:via-[#071026] dark:to-[#071026]">
@@ -181,7 +183,7 @@ const Signup = () => {
           Already have an account?{" "}
           <button
             type="button"
-            onClick={() => navigate("/login")}
+            onClick={goToLogin}
             className="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300"
           >
             Login here

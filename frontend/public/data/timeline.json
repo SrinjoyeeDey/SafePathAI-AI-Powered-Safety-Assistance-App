@@ -1,0 +1,22 @@
+[
+  {
+    "year": "2023 - The Spark",
+    "description": "The idea for SafePathAI was born from a desire to use technology for social good, focusing on personal safety and proactive risk prevention.",
+    "icon": "FaLightbulb"
+  },
+  {
+    "year": "2024 - The Foundation",
+    "description": "A passionate team of developers and AI experts assembled to build the foundational prototype and define our core mission.",
+    "icon": "FaUsers"
+  },
+  {
+    "year": "Q1 2025 - Beta Launch",
+    "description": "Our public beta was released, gathering invaluable user feedback to refine our algorithms and user experience.",
+    "icon": "FaRocket"
+  },
+  {
+    "year": "The Future - Global Safety",
+    "description": "We are continuously innovating, with plans for global expansion, deeper integrations, and even more intelligent safety features.",
+    "icon": "FaInfinity"
+  }
+]
