@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { IconType } from 'react-icons';
 import {
   FaBullseye, FaEye, FaUsers, FaBell, FaGlobe, FaPaperPlane, FaLinkedin, FaTwitter, FaGithub
-} from 'react-icons/fa'; // FaRocket and FaInfinity were removed, adding them back
+} from 'react-icons/fa';
 import { FaLightbulb, FaRocket, FaInfinity, FaShieldAlt, FaBrain, FaFirstAid } from 'react-icons/fa';
 import type { TimelineItemData } from '../types/Timeline';
 import type { TeamMemberData } from '../types/Team';
@@ -13,7 +13,10 @@ import type { WorkflowStepData } from '../types/Workflow';
 import StoryCard from '../components/StoryCard';
 import ImpactCounter from '../components/ImpactCounter';
 import TeamMemberCard from '../components/TeamMemberCard';
-11
+import Section from '../components/Section';
+import FeatureCard from '../components/FeatureCard';
+import WorkflowStepCard from '../components/WorkflowStepCard';
+
 const iconMap: { [key: string]: IconType } = {
   FaUsers,
   FaBell,
@@ -73,18 +76,18 @@ const AboutUs: React.FC = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <header className="text-center mb-20">
+        <div className="text-center mb-24">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             About SafePathAI
           </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Leveraging technology to build a safer world, one step at a time. Discover our mission, our people, and our impact.
           </p>
-        </header>
+        </div>
 
         {/* Mission & Vision Section */}
         <section className="mb-24">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 transition-all duration-700 ease-out transform opacity-100 translate-y-0">
             <div className="p-8 rounded-2xl bg-white dark:bg-gray-800/50 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700">
               <FaBullseye className="text-4xl text-primary mb-4" />
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Our Mission</h3>
@@ -103,120 +106,97 @@ const AboutUs: React.FC = () => {
         </section>
 
         {/* People's Stories Section */}
-        <section className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Stories from Our Community</h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {loadingStories ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 col-span-2">Loading stories...</p>
-            ) : (
-              stories.map(story => <StoryCard key={story.id} story={story} />)
-            )}
-          </div>
-        </section>
+
+          <Section title="Stories from Our Community">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {loadingStories ? (
+                <p className="text-center text-gray-500 dark:text-gray-400 col-span-2">Loading stories...</p>
+              ) : (
+                stories.map(story => <StoryCard key={story.id} story={story} />)
+              )}
+            </div>
+          </Section>
 
         {/* Our Impact Section */}
-        <section className="mb-24 bg-white dark:bg-gray-800/50 rounded-2xl py-16 shadow-lg border border-gray-200 dark:border-gray-700">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Our Impact in Numbers</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {loadingImpact ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading stats...</p>
-            ) : (
-              impactData.map(stat => {
-                const Icon = iconMap[stat.icon];
-                return Icon ? <ImpactCounter key={stat.id} icon={Icon} end={stat.value} suffix={stat.suffix} label={stat.label} /> : null;
-              })
-            )}
-          </div>
-        </section>
+          <Section title="Our Impact in Numbers" className="bg-white dark:bg-gray-800/50 rounded-2xl py-16 shadow-lg border border-gray-200 dark:border-gray-700 -mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto pt-12">
+              {loadingImpact ? (
+                <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading stats...</p>
+              ) : (
+                impactData.map(stat => {
+                  const Icon = iconMap[stat.icon];
+                  return Icon ? <ImpactCounter key={stat.id} icon={Icon} end={stat.value} suffix={stat.suffix} label={stat.label} /> : null;
+                })
+              )}
+            </div>
+          </Section>
 
-          {/* Why Choose Us Section */}
-          <section className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Why Choose SafePathAI?</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {loadingWhy ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading reasons...</p>
-            ) : (
-              whyChooseUsData.map(item => {
-                const Icon = iconMap[item.icon];
-                return (
-                  <div key={item.id} className="text-center p-8 rounded-2xl bg-white dark:bg-gray-800/50 shadow-lg hover:shadow-primary/20 hover:-translate-y-2 transition-all duration-300 border border-gray-200 dark:border-gray-700">
-                    {Icon && <Icon className="text-4xl text-primary mx-auto mb-5" />}
-                    <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        </section>
+        {/* Why Choose Us Section */}
 
-            {/* Workflow Section */}
-            <section className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {loadingWorkflow ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading steps...</p>
-            ) : (
-              workflowData.map(step => (
-                <div key={step.step} className="relative p-8 rounded-2xl bg-white dark:bg-gray-800/50 shadow-lg hover:shadow-secondary/20 hover:-translate-y-2 transition-all duration-300 border border-gray-200 dark:border-gray-700">
-                  <div className="absolute -top-5 -left-5 w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-xl flex items-center justify-center text-2xl font-bold shadow-lg">
-                    {step.step}
-                  </div>
-                  <div className="pt-8">
-                    <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{step.title}</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{step.description}</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
+          <Section title="Why Choose SafePathAI?">
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {loadingWhy ? (
+                <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading reasons...</p>
+              ) : (
+                whyChooseUsData.map(item => {
+                  const Icon = iconMap[item.icon];
+                  return Icon ? <FeatureCard key={item.id} icon={Icon} title={item.title} description={item.description} /> : null;
+                })
+              )}
+            </div>
+          </Section>
+
+        {/* Workflow Section */}
+          <Section title="How It Works">
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {loadingWorkflow ? (
+                <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading steps...</p>
+              ) : (
+                workflowData.map(step => <WorkflowStepCard key={step.step} {...step} />)
+              )}
+            </div>
+          </Section>
 
         {/* Our Journey Timeline Section */}
-        <section className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Our Journey</h2>
-          <div className="relative container mx-auto px-6 flex flex-col space-y-8">
-            <div className="absolute z-0 w-2 h-full bg-gradient-to-b from-primary/50 to-secondary/50 shadow-md inset-0 left-1/2 -translate-x-1"></div>
-            {loadingTimeline ? (
-              <p className="text-center text-gray-500 dark:text-gray-400">Loading journey...</p>
-            ) : (
-              timelineData.map((item, index) => {
-                const Icon = iconMap[item.icon] || FaInfinity;
-                const isOdd = index % 2 !== 0;
-                const timelineItemClass = `timeline-item ${isOdd ? 'flex-row-reverse' : ''}`;
-                const timelineContentClass = `timeline-content ${isOdd ? 'text-right' : ''}`;
-                const iconBgClass = isOdd ? 'bg-secondary' : 'bg-primary';
+          <Section title="Our Journey">
+            <div className="relative container mx-auto px-6 flex flex-col space-y-8">
+              <div className="absolute z-0 w-2 h-full bg-gradient-to-b from-primary/50 to-secondary/50 shadow-md inset-0 left-1/2 -translate-x-1"></div>
+              {loadingTimeline ? (
+                <p className="text-center text-gray-500 dark:text-gray-400">Loading journey...</p>
+              ) : (
+                timelineData.map((item, index) => {
+                  const Icon = iconMap[item.icon] || FaInfinity;
+                  const isOdd = index % 2 !== 0;
+                  const timelineItemClass = `timeline-item ${isOdd ? 'flex-row-reverse' : ''}`;
+                  const timelineContentClass = `timeline-content ${isOdd ? 'text-right' : ''}`;
+                  const iconBgClass = isOdd ? 'bg-secondary' : 'bg-primary';
 
-                return (
-                  <div key={index} className="relative z-10">
-                    <div className={timelineItemClass}>
-                      <div className={`timeline-icon ${iconBgClass}`}><Icon className="text-white" size={20} /></div>
-                      <div className={timelineContentClass}>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.year}</h3>
-                        <p className="text-gray-600 dark:text-gray-400 mt-2">{item.description}</p>
+                  return (
+                    <div key={index} className="relative z-10">
+                      <div className={timelineItemClass}>
+                        <div className={`timeline-icon ${iconBgClass}`}><Icon className="text-white" size={20} /></div>
+                        <div className={timelineContentClass}>
+                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.year}</h3>
+                          <p className="text-gray-600 dark:text-gray-400 mt-2">{item.description}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        </section>
+                  );
+                })
+              )}
+            </div>
+          </Section>
 
         {/* Meet the Team Section */}
-        <section className="mb-24 text-center">
-          <h2 className="text-3xl font-bold mb-12 text-gray-900 dark:text-white">Meet the Innovators</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
-            {loadingTeam ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 col-span-4">Loading team...</p>
-            ) : (
-              teamData.map((member) => <TeamMemberCard key={member.id} member={member} />)
-            )}
-          </div>
-        </section>
-
-
-
+          <Section title="Meet the Innovators" className="text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+              {loadingTeam ? (
+                <p className="text-center text-gray-500 dark:text-gray-400 col-span-4">Loading team...</p>
+              ) : (
+                teamData.map((member) => <TeamMemberCard key={member.id} member={member} />)
+              )}
+            </div>
+          </Section>
 
         {/* Get in Touch Section */}
         <section className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 sm:p-12 shadow-lg border border-gray-200 dark:border-gray-700">
