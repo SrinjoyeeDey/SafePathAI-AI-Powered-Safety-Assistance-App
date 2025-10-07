@@ -2,10 +2,8 @@ import {
   FaBell,
   FaMapMarkerAlt,
   FaRobot,
-  FaShieldAlt,
   FaUsers,
-  FaChartLine,
-  FaExclamationCircle
+  
 } from "react-icons/fa";
 
 interface SummaryCardsProps {

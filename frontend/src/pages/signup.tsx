@@ -70,13 +70,19 @@ const Signup = () => {
   };
 
 
+
   const [exiting,setExiting]=useState(false)
 
+  const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    e?.preventDefault();
+    if (exiting) return;
+    setExiting(true);
+    setTimeout(() => navigate('/login'), 300);
+  }
+  // // simple navigation helper
   // const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
   //   e?.preventDefault();
-  //   if (exiting) return;
-  //   setExiting(true);
-  //   setTimeout(() => navigate('/login'), 300);
+  //   navigate('/login');
   // };
 
   return (
@@ -194,4 +200,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup
