@@ -1,5 +1,8 @@
+"use client";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Map from "../components/Map";
 import api from "../services/api";
 import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
@@ -11,31 +14,51 @@ import {
   FaInfoCircle
 } from "react-icons/fa";
 
-interface Location {
+interface SafeZone {
   id: number;
   name: string;
   latitude: number;
   longitude: number;
+  type: "hospital" | "police" | "pharmacy";
   isFavorite: boolean;
 }
 
-const Dashboard = () => {
-  const [locations, setLocations] = useState<Location[]>([
-    {
-      id: 1,
-      name: "City Park",
-      latitude: 22.5726,
-      longitude: 88.3639,
-      isFavorite: false,
-    },
-    {
-      id: 2,
-      name: "Community Center",
-      latitude: 22.574,
-      longitude: 88.37,
-      isFavorite: false,
-    },
-  ]);
+interface OverpassElement {
+  id: number;
+  lat: number;
+  lon: number;
+  tags?: {
+    amenity: string;
+    name?: string;
+  };
+}
+
+const TYPE_EMOJI: Record<SafeZone["type"], string> = {
+  hospital: "🏥",
+  police: "🚓",
+  pharmacy: "💊",
+};
+
+export default function Dashboard() {
+  const [locations, setLocations] = useState<SafeZone[]>([]);
+  const [sosLoading, setSosLoading] = useState(false);
+
+  // Called by Map: receives up to 3 selected places (1 hospital, 1 police, 1 pharmacy)
+  const handleSafeZones = (zones: OverpassElement[]) => {
+    const mapped = zones.map((z: OverpassElement, idx: number) => {
+      const amenity = (z.tags?.amenity || "hospital") as SafeZone["type"];
+      return {
+        id: z.id || idx,
+        name: z.tags?.name || `${amenity} ${idx + 1}`,
+        latitude: z.lat,
+        longitude: z.lon,
+        type: amenity,
+        isFavorite: false,
+      } as SafeZone;
+    });
+
+    setLocations(mapped);
+  };
 
   // Summary data for cards
   const [summaryData] = useState({
@@ -59,19 +82,45 @@ const Dashboard = () => {
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
+    setSosLoading(true);
 
-      try {
-        const res = await api.post("/sos/send", { latitude, longitude });
-        alert("🚨 SOS sent successfully to your favorites!");
-        console.log("SOS Response:", res.data);
-      } catch (err: any) {
-        console.error(err.response?.data || err.message);
-        alert("Failed to send SOS");
-      }
-    });
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          // Get favorite locations for SOS
+          const recipients = locations
+            .filter((l) => l.isFavorite)
+            .map((l) => l.name);
+
+          // TODO: Replace with backend SOS endpoint when ready
+          console.log("SOS Data:", {
+            latitude,
+            longitude,
+            recipients,
+            timestamp: new Date().toISOString(),
+          });
+
+          // Simulate API call
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          alert(`🚨 SOS sent!\nLocation: (${latitude.toFixed(5)}, ${longitude.toFixed(5)})\nRecipients: ${recipients.length ? recipients.join(", ") : "None selected"}`);
+        } catch (err) {
+          console.error("SOS error:", err);
+          alert("Failed to send SOS");
+        } finally {
+          setSosLoading(false);
+        }
+      },
+      (err) => {
+        console.error("Geolocation error:", err);
+        alert("Failed to get location. Please enable GPS.");
+        setSosLoading(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
   };
 
   return (
@@ -207,6 +256,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}
