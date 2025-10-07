@@ -69,7 +69,8 @@ const Signup = () => {
     }
   };
 
-  const navigate = useNavigate();
+
+  const [exiting,setExiting]=useState(false)
 
   const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
     e?.preventDefault();
@@ -182,7 +183,7 @@ const Signup = () => {
           Already have an account?{" "}
           <button
             type="button"
-            onClick={() => navigate("/login")}
+            onClick={goToLogin}
             className="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300"
           >
             Login here
