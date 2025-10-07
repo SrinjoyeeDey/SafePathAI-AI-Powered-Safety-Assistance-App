@@ -1,0 +1,26 @@
+[
+  {
+    "id": "Srinjoyee",
+    "name": "Srinjoyee Dey",
+    "role": "Co-Founder & CEO",
+    "imageUrl": "https://avatars.githubusercontent.com/u/178504847?v=4"
+  },
+  {
+    "id": "john",
+    "name": "John Smith",
+    "role": "Co-Founder & CTO",
+    "imageUrl": "https://i.pravatar.cc/150?u=john"
+  },
+  {
+    "id": "alex",
+    "name": "Alex Johnson",
+    "role": "Lead AI Engineer",
+    "imageUrl": "https://i.pravatar.cc/150?u=alex"
+  },
+  {
+    "id": "emily",
+    "name": "Emily Carter",
+    "role": "UX/UI Designer",
+    "imageUrl": "https://i.pravatar.cc/150?u=emily"
+  }
+]

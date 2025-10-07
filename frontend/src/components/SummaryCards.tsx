@@ -1,180 +1,116 @@
-import { useState } from 'react';
+import {
+  FaBell,
+  FaMapMarkerAlt,
+  FaRobot,
+  FaShieldAlt,
+  FaUsers,
+  FaChartLine,
+  FaExclamationCircle
+} from "react-icons/fa";
 
-const SummaryCards = () => {
-    const [metrics] = useState({
-        alerts: 12,
-        savedPlaces: 8,
-        aiSuggestions: 5
-    });
+interface SummaryCardsProps {
+  alertsCount?: number;
+  savedPlacesCount?: number;
+  aiSuggestionsCount?: number;
+  emergencyContactsCount?: number;
+}
 
-    // mock data
-    const cards = [
-        {
-            id: 1,
-            title: 'Active Alerts',
-            value: metrics.alerts,
-            icon: '🚨',
-            description: 'Safety alerts in your area',
-            gradient: 'from-red-50 to-red-100',
-            iconBg: 'bg-red-100',
-            textColor: 'text-red-600'
-        },
-        {
-            id: 2,
-            title: 'Saved Places',
-            value: metrics.savedPlaces,
-            icon: '📍',
-            description: 'Your favorite locations',
-            gradient: 'from-blue-50 to-blue-100',
-            iconBg: 'bg-blue-100',
-            textColor: 'text-blue-600'
-        },
-        {
-            id: 3,
-            title: 'AI Suggestions',
-            value: metrics.aiSuggestions,
-            icon: '🤖',
-            description: 'Recent recommendations',
-            gradient: 'from-green-50 to-green-100',
-            iconBg: 'bg-green-100',
-            textColor: 'text-green-600'
-        }
-    ];
+const SummaryCards = ({
+  alertsCount = 0,
+  savedPlacesCount = 0,
+  aiSuggestionsCount = 0,
+  emergencyContactsCount = 0
+}: SummaryCardsProps) => {
+  
+  const cards = [
+    {
+      icon: FaBell,
+      title: "Active Alerts",
+      value: alertsCount,
+      color: "from-red-500 to-orange-500",
+      bgLight: "bg-red-50",
+      bgDark: "dark:bg-red-900/20",
+      iconColor: "text-red-500 dark:text-red-400",
+      description: "Safety alerts"
+    },
+    {
+      icon: FaMapMarkerAlt,
+      title: "Saved Places",
+      value: savedPlacesCount,
+      color: "from-blue-500 to-cyan-500",
+      bgLight: "bg-blue-50",
+      bgDark: "dark:bg-blue-900/20",
+      iconColor: "text-blue-500 dark:text-blue-400",
+      description: "Favorite locations"
+    },
+    {
+      icon: FaRobot,
+      title: "AI Suggestions",
+      value: aiSuggestionsCount,
+      color: "from-purple-500 to-pink-500",
+      bgLight: "bg-purple-50",
+      bgDark: "dark:bg-purple-900/20",
+      iconColor: "text-purple-500 dark:text-purple-400",
+      description: "Smart recommendations"
+    },
+    {
+      icon: FaUsers,
+      title: "Emergency Contacts",
+      value: emergencyContactsCount,
+      color: "from-green-500 to-emerald-500",
+      bgLight: "bg-green-50",
+      bgDark: "dark:bg-green-900/20",
+      iconColor: "text-green-500 dark:text-green-400",
+      description: "Quick access contacts"
+    }
+  ];
 
-    return (
-        <div className="w-full p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {cards.map((card, index) => (
-                    <div
-                        key={card.id}
-                        className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-500 transform hover:-translate-y-2 cursor-pointer border border-gray-100 overflow-hidden group"
-                        style={{
-                            animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                        }}
-                    >
-                        <div className={`bg-gradient-to-br ${card.gradient} p-6`}>
-                            <div className="flex items-center justify-between mb-4">
-                                <div
-                                    className={`${card.iconBg} w-14 h-14 rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
-                                >
-                                    <span className="text-3xl">{card.icon}</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p
-                                    className={`text-5xl font-bold ${card.textColor} mb-2 group-hover:scale-105 transition-transform duration-300`}
-                                >
-                                    {card.value}
-                                </p>
-                                <h3 className="text-gray-700 font-semibold text-lg mb-1">
-                                    {card.title}
-                                </h3>
-                                <p className="text-gray-600 text-sm">
-                                    {card.description}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent group-hover:via-green-400 transition-all duration-500"></div>
-                    </div>
-                ))}
-            </div>
-
-            <div
-                className="bg-white rounded-2xl shadow-sm p-6 mb-6 border border-gray-100"
-                style={{
-                    animation: 'fadeInUp 0.6s ease-out 0.3s both'
-                }}
-            >
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">
-                        Recent <span style={{ color: '#32CD32' }}>Activity</span>
-                    </h2>
-                    <button className="text-sm font-medium hover:underline" style={{ color: '#32CD32' }}>
-                        View All →
-                    </button>
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      {cards.map((card, index) => {
+        const Icon = card.icon;
+        return (
+          <div
+            key={index}
+            className="group relative overflow-hidden"
+          >
+            {/* Glassmorphism Card */}
+            <div className="relative p-5 bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg backdrop-saturate-150 rounded-2xl border border-white/40 dark:border-gray-700/40 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] transform">
+              
+              {/* Gradient Overlay on Hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`}></div>
+              
+              {/* Icon Section */}
+              <div className="relative flex items-center justify-between mb-4">
+                <div className={`p-3 ${card.bgLight} ${card.bgDark} rounded-xl transition-transform duration-300 group-hover:scale-110`}>
+                  <Icon className={`w-6 h-6 ${card.iconColor}`} />
                 </div>
+                
+              </div>
 
-                <div className="space-y-3">
-                    {[
-                        { icon: '🚨', title: 'New Alert', desc: 'High traffic detected on Main Street', time: '2m ago', color: 'red' },
-                        { icon: '🤖', title: 'AI Suggestion', desc: 'Alternative route available via Route 45', time: '5m ago', color: 'green' },
-                        { icon: '📍', title: 'Place Saved', desc: 'Central Park added to favorites', time: '1h ago', color: 'blue' }
-                    ].map((activity, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center justify-between p-4 rounded-xl bg-gray-50 hover:bg-gradient-to-r hover:from-green-50 hover:to-transparent transition-all duration-300 transform hover:translate-x-2 cursor-pointer group"
-                        >
-                            <div className="flex items-center space-x-4">
-                                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
-                                    <span className="text-2xl">{activity.icon}</span>
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-gray-800 group-hover:text-gray-900">
-                                        {activity.title}
-                                    </p>
-                                    <p className="text-sm text-gray-600">
-                                        {activity.desc}
-                                    </p>
-                                </div>
-                            </div>
-                            <span className="text-xs text-gray-500 font-medium bg-white px-3 py-1 rounded-full">
-                                {activity.time}
-                            </span>
-                        </div>
-                    ))}
+              {/* Content */}
+              <div className="relative">
+                <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                  {card.title}
+                </h3>
+                <div className="flex items-baseline space-x-2">
+                  <p className="text-3xl font-bold text-gray-800 dark:text-white">
+                    {card.value}
+                  </p>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {card.description}
+                  </span>
                 </div>
-            </div>
+              </div>
 
-            {/* Quick Actions */}
-            <div
-                className="grid grid-cols-1 md:grid-cols-3 gap-4"
-                style={{
-                    animation: 'fadeInUp 0.6s ease-out 0.4s both'
-                }}
-            >
-                <button
-                    className="text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-                    style={{ backgroundColor: '#32CD32' }}
-                >
-                    <span className="flex items-center justify-center space-x-2">
-                        <span>View All Alerts</span>
-                        <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                </button>
-                <button
-                    className="text-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-                    style={{ backgroundColor: '#1E90FF' }}
-                >
-                    <span className="flex items-center justify-center space-x-2">
-                        <span>Manage Places</span>
-                        <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                </button>
-                <button
-                    className="bg-white font-semibold py-4 px-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2"
-                    style={{ borderColor: '#32CD32', color: '#32CD32' }}
-                >
-                    <span className="flex items-center justify-center space-x-2">
-                        <span>AI Insights</span>
-                        <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                </button>
+              {/* Bottom Accent Line */}
+              <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${card.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl`}></div>
             </div>
-
-            <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-        </div>
-    );
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default SummaryCards;

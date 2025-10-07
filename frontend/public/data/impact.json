@@ -1,0 +1,22 @@
+[
+  {
+    "id": "users",
+    "value": 50,
+    "suffix": "K+",
+    "label": "Active Users Protected",
+    "icon": "FaUsers"
+  },
+  {
+    "id": "alerts",
+    "value": 250,
+    "suffix": "K+",
+    "label": "Real-time Alerts Sent",
+    "icon": "FaBell"
+  },
+  {
+    "id": "countries",
+    "value": 15,
+    "label": "Countries Served",
+    "icon": "FaGlobe"
+  }
+]
