@@ -149,6 +149,28 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
 
+            {/* Workflow Section */}
+            <section className="mb-24">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">How It Works</h2>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {loadingWorkflow ? (
+              <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading steps...</p>
+            ) : (
+              workflowData.map(step => (
+                <div key={step.step} className="relative p-8 rounded-2xl bg-white dark:bg-gray-800/50 shadow-lg hover:shadow-secondary/20 hover:-translate-y-2 transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="absolute -top-5 -left-5 w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-xl flex items-center justify-center text-2xl font-bold shadow-lg">
+                    {step.step}
+                  </div>
+                  <div className="pt-8">
+                    <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{step.title}</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+
         {/* Our Journey Timeline Section */}
         <section className="mb-24">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Our Journey</h2>
@@ -180,32 +202,8 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
 
-
-
-        {/* Workflow Section */}
-        <section className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {loadingWorkflow ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 col-span-3">Loading steps...</p>
-            ) : (
-              workflowData.map(step => (
-                <div key={step.step} className="relative p-8 rounded-2xl bg-white dark:bg-gray-800/50 shadow-lg hover:shadow-secondary/20 hover:-translate-y-2 transition-all duration-300 border border-gray-200 dark:border-gray-700">
-                  <div className="absolute -top-5 -left-5 w-14 h-14 bg-gradient-to-r from-primary to-secondary text-white rounded-xl flex items-center justify-center text-2xl font-bold shadow-lg">
-                    {step.step}
-                  </div>
-                  <div className="pt-8">
-                    <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{step.title}</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{step.description}</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-
-          {/* Meet the Team Section */}
-          <section className="mb-24 text-center">
+        {/* Meet the Team Section */}
+        <section className="mb-24 text-center">
           <h2 className="text-3xl font-bold mb-12 text-gray-900 dark:text-white">Meet the Innovators</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
             {loadingTeam ? (
@@ -229,6 +227,8 @@ const AboutUs: React.FC = () => {
         </section>
 
 
+
+
         {/* Get in Touch Section */}
         <section className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 sm:p-12 shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -239,8 +239,8 @@ const AboutUs: React.FC = () => {
               </p>
               <div className="mt-8 flex space-x-4">
                 <a href="https://github.com/SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"><FaGithub /></a>
-                <a href="#" className="p-3 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"><FaLinkedin /></a>
-                <a href="#" className="p-3 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"><FaTwitter /></a>
+                <a href="https://www.linkedin.com/company/safepath-ai?_l=en_US" className="p-3 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"><FaLinkedin /></a>
+                <a href="https://x.com/safepath_ai" className="p-3 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"><FaTwitter /></a>
               </div>
             </div>
             <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
