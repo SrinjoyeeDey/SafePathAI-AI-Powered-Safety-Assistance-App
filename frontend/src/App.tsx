@@ -4,12 +4,11 @@ import Footer from "./components/Footer";
 import Chat from "./components/Chat";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
-
+import Signup from "./pages/signup";
 function App() {
   return (
     <ThemeProvider>
