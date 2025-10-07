@@ -13,10 +13,10 @@ const ContactOwner: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-text dark:bg-gray-900 dark:text-white">
       {/* HERO */}
-      <section className="pt-16 pb-12 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-7">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">Hi, I'm Rakshit Jain</h1>
+      <section className="pt-12 pb-8 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 items-center">
+          <div className="flex-1">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4">Hi, I'm Srinjoyee Dey</h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 flex items-center gap-3">
               <span className="text-primary">🚀</span>
               Full Stack Developer | AI/ML Explorer | Open Source Contributor
@@ -27,7 +27,7 @@ const ContactOwner: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 items-center mb-6">
-              <a href="#projects" className="inline-flex items-center gap-3 bg-white text-black px-5 py-3 rounded-md shadow-md hover:shadow-lg transition">View Projects</a>
+              <a href="#projects" className="inline-flex items-center gap-3 bg-primary text-black px-5 py-3 rounded-md shadow-md hover:shadow-lg transition">View Projects</a>
               <a href="#contact" className="inline-flex items-center gap-3 border border-gray-700 px-5 py-3 rounded-md hover:bg-gray-800 transition">Contact Me</a>
             </div>
 
@@ -37,10 +37,12 @@ const ContactOwner: React.FC = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            {/* circular avatar placeholder using primary color ring */}
-            <div className="w-56 h-56 rounded-full bg-primary ring-8 ring-red-600 shadow-lg flex items-center justify-center overflow-hidden">
-              <div className="w-48 h-48 rounded-full bg-orange-500" />
+          <div className="w-56 h-56 rounded-full flex-shrink-0 mx-auto lg:mx-0 lg:order-none order-first lg:order-last">
+            <div className="w-56 h-56 rounded-full overflow-hidden flex items-center justify-center" style={{ boxShadow: '0 18px 40px rgba(2,6,23,0.6)' }}>
+              <div className="w-48 h-48 rounded-full bg-gray-100 dark:bg-gray-700 border-4 border-primary flex items-center justify-center" style={{ boxShadow: '0 10px 30px rgba(50,205,50,0.12)' }}>
+                {/* Placeholder avatar - replace with actual image when available */}
+                <span className="text-xl font-semibold text-gray-600 dark:text-gray-200">SD</span>
+              </div>
             </div>
           </div>
         </div>
@@ -55,7 +57,7 @@ const ContactOwner: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <article className="p-6 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg transition-shadow duration-300 hover:shadow-[0_12px_35px_rgba(50,205,50,0.12)]">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold">Bunkify</h3>
@@ -69,13 +71,12 @@ const ContactOwner: React.FC = () => {
                 <span className="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full">React</span>
                 <span className="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full">AI-Powered</span>
               </div>
-              <div className="flex gap-3">
-                <a className="px-4 py-2 bg-white text-black rounded-md shadow-sm" href="#">Demo - Live Website</a>
-                <a className="px-4 py-2 border rounded-md" href="#">GitHub Repo</a>
+              <div className="flex justify-end">
+                <a className="px-4 py-2 bg-primary text-white rounded-md shadow-sm" href="#">View Project</a>
               </div>
             </article>
 
-            <article className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <article className="p-6 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg transition-shadow duration-300 hover:shadow-[0_12px_35px_rgba(50,205,50,0.12)]">
               <h3 className="text-xl font-semibold mb-1">Fake News Detection</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">AI/ML Model (95.28% accuracy)</p>
               <p className="text-gray-600 dark:text-gray-300 mb-4">Built a machine learning model that detects fake news using Python, scikit-learn, and NLP techniques.</p>
@@ -85,11 +86,11 @@ const ContactOwner: React.FC = () => {
                 <span className="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full">NLP</span>
               </div>
               <div className="flex justify-end">
-                <a className="px-4 py-2 bg-white text-black rounded-md shadow-sm" href="#">View Project</a>
+                <a className="px-4 py-2 bg-primary text-white rounded-md shadow-sm" href="#">View Project</a>
               </div>
             </article>
 
-            <article className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <article className="p-6 bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg transition-shadow duration-300 hover:shadow-[0_12px_35px_rgba(50,205,50,0.12)]">
               <h3 className="text-xl font-semibold mb-1">Aashayein</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">The Life Saviours</p>
               <p className="text-gray-600 dark:text-gray-300 mb-4">Member & developer for college social club. Built and maintain this impactful website for a great cause.</p>
@@ -99,7 +100,7 @@ const ContactOwner: React.FC = () => {
                 <span className="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full">Social Impact</span>
               </div>
               <div className="flex justify-end">
-                <a className="px-4 py-2 bg-white text-black rounded-md shadow-sm" href="#">View Project</a>
+                <a className="px-4 py-2 bg-primary text-white rounded-md shadow-sm" href="#">View Project</a>
               </div>
             </article>
           </div>
