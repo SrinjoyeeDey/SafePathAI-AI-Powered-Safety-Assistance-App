@@ -1,0 +1,16 @@
+[
+  {
+    "id": "story1",
+    "name": "Maria S.",
+    "imageUrl": "https://i.pravatar.cc/150?u=maria",
+    "snippet": "Walking home late at night, SafePathAI alerted me to a poorly lit area and suggested a safer, alternative route. I felt so much more secure.",
+    "fullStory": "I used to be very anxious walking home from my evening classes. One night, SafePathAI sent a notification about an unlit park on my usual route and rerouted me through a well-lit main street. It's like having a guardian angel on my phone. I can't imagine my commute without it now."
+  },
+  {
+    "id": "story2",
+    "name": "David L.",
+    "imageUrl": "https://i.pravatar.cc/150?u=david",
+    "snippet": "During a hike, I got disoriented. The offline map and one-tap connection to emergency services were lifesavers. Highly recommended!",
+    "fullStory": "I was on a solo hike and took a wrong turn. With no cell service, I started to panic. Thankfully, SafePathAI's offline map feature helped me find my way back to the main trail. Knowing that I could contact help with a single tap, even with a weak signal, gave me immense peace of mind."
+  }
+]

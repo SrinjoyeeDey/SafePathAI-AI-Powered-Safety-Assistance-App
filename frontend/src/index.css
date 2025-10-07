@@ -34,3 +34,37 @@ button.bg-red-600:hover {
 .map-placeholder {
   @apply flex items-center justify-center text-gray-500 dark:text-gray-300;
 }
+
+
+
+@layer components {
+  .timeline-item {
+    @apply flex items-center w-full;
+  }
+  .timeline-icon {
+    @apply absolute w-12 h-12 rounded-full flex items-center justify-center left-1/2 -translate-x-1/2 shadow-lg;
+  }
+  .timeline-content {
+    @apply w-[calc(50%-4rem)] bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-600;
+  }
+
+  /* INFO: places element on right side of timeline */
+  .timeline-item:nth-child(even)
+  .timeline-content {
+    @apply ml-auto text-right;
+    @apply ml-[calc(50%+4rem)]
+  }
+
+  @media (max-width: 768px) {
+    .timeline-icon {
+      @apply -left-0;
+    }
+    .timeline-content {
+      @apply w-full ml-auto;
+      text-align: left !important;
+    }
+    .timeline-item:nth-child(even) .timeline-content {
+      text-align: left !important;
+    }
+  }
+}
