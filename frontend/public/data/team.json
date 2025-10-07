@@ -1,0 +1,26 @@
+[
+  {
+    "id": "jane",
+    "name": "Jane Doe",
+    "role": "Co-Founder & CEO",
+    "imageUrl": "https://i.pravatar.cc/150?u=jane"
+  },
+  {
+    "id": "john",
+    "name": "John Smith",
+    "role": "Co-Founder & CTO",
+    "imageUrl": "https://i.pravatar.cc/150?u=john"
+  },
+  {
+    "id": "alex",
+    "name": "Alex Johnson",
+    "role": "Lead AI Engineer",
+    "imageUrl": "https://i.pravatar.cc/150?u=alex"
+  },
+  {
+    "id": "emily",
+    "name": "Emily Carter",
+    "role": "UX/UI Designer",
+    "imageUrl": "https://i.pravatar.cc/150?u=emily"
+  }
+]

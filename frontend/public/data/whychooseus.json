@@ -1,0 +1,20 @@
+[
+  {
+    "id": "realtime",
+    "icon": "FaShieldAlt",
+    "title": "Real-Time Protection",
+    "description": "Our AI constantly analyzes your surroundings to provide instant alerts about potential risks, from unsafe areas to emerging threats."
+  },
+  {
+    "id": "intelligent",
+    "icon": "FaBrain",
+    "title": "Intelligent Routing",
+    "description": "We don't just find the fastest route; we find the safest one. Our algorithms prioritize well-lit, populated paths to keep you secure."
+  },
+  {
+    "id": "emergency",
+    "icon": "FaFirstAid",
+    "title": "One-Tap Emergency",
+    "description": "Instantly connect with emergency services or pre-defined contacts with a single tap, sending them your precise location."
+  }
+]

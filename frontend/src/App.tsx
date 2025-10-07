@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
 import Signup from "./pages/signup";
+import AboutUs from "./pages/AboutUs";
 function App() {
   return (
     <ThemeProvider>
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/Emergency" element={<Emergency />} />
                 <Route path="/favorites" element={<Favorites/>}/>
+                <Route path="/about-us" element={<AboutUs/>}/>
               </Routes>
             </main>
             <Footer />
