@@ -6,13 +6,17 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-800 shadow-md">
-      <Link to="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
+      <Link
+        to="/"
+        className="text-xl font-bold text-blue-600 dark:text-blue-400"
+      >
         SafeWalk
       </Link>
 
       <div className="flex gap-4 items-center">
+        <Link to="/home">Home</Link>
         <Link to="/dashboard">Dashboard</Link>
-  <Link to="/analytics">Analytics</Link>
+        <Link to="/analytics">Analytics</Link>
         <Link to="/contact-owner">Contact</Link>
         <Link to="/favorites">Favorites</Link>
         <Link to="/login">Login</Link>

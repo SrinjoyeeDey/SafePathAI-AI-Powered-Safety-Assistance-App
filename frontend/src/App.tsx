@@ -7,6 +7,7 @@ import Analytics from "./pages/Analytics";
 import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
+import Home from "./pages/Home";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -24,6 +25,7 @@ function App() {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/home" element={<Home/>}/>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/contact-owner" element={<ContactOwner />} />
                 <Route path="/login" element={<Login />} />
