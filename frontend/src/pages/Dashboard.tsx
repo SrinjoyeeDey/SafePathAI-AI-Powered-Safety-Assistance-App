@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import Map from "../components/Map";
 import api from "../services/api";
@@ -32,6 +32,11 @@ const TYPE_EMOJI: Record<SafeZone["type"], string> = {
 };
 
 export default function Dashboard() {
+
+   useEffect(() => {
+      document.title = "Dashboard | SafePathAI";
+    }, []);
+
   const [locations, setLocations] = useState<SafeZone[]>([]);
   const [sosLoading, setSosLoading] = useState(false);
 

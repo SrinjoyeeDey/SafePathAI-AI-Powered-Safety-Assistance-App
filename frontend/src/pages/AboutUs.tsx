@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { IconType } from "react-icons";
 import {
   FaBullseye,
@@ -49,6 +49,10 @@ const AboutUs: React.FC = () => {
     workflowData,
     loading,
   } = useAboutUsData();
+
+  useEffect(() => {
+    document.title = "About Us | SafePathAI";
+  }, []);
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">

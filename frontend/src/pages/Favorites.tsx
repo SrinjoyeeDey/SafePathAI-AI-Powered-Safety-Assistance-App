@@ -9,6 +9,11 @@ interface Favorite {
 }
 
 const Favorites = () => {
+
+   useEffect(() => {
+      document.title = "Favourites | SafePathAI";
+    }, []);
+
   const [contacts, setContacts] = useState<Favorite[]>([]);
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
   const [error, setError] = useState<string | null>(null);
