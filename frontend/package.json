@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
+    "recharts": "^2.6.0",
     "axios": "^1.12.2",
     "leaflet": "^1.9.4",
     "react": "^19.2.0",
