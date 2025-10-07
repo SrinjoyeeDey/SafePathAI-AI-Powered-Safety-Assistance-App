@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:22C55E,100:16A34A&height=150&section=header&text=SafePathAI+-+Hacktoberfest+2025&fontSize=35&fontColor=ffffff&animation=fadeIn" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0F172A,50:1E293B,100:22C55E&height=210&section=header&text=%20SafePathAI%20-%20Hacktoberfest%202025&fontSize=40&fontColor=00ff9c&fontAlignY=40&animation=fadeIn&desc=AI-Powered%20Safety%20and%20Navigation%20System&descAlignY=70&descAlign=50" />
 </p>
 
 <!-- Typing SVG Animation -->
@@ -161,7 +161,7 @@ flowchart TD
 Repository Structure
 
 <div align="left">
-
+  
 ```typescript
 SafePathAI/
 ├── 📂 backend/
@@ -181,13 +181,56 @@ SafePathAI/
 │   │   └── index.ts             # Server entry point
 │   ├── .env.example             # Environment template
 │   ├── package.json
+│   ├── package-lock.json
 │   └── tsconfig.json
 │
-└── 📂 frontend/                 # Coming soon - Your contributions!
-    ├── 📂 components/           # Reusable UI components
-    ├── 📂 pages/               # Next.js pages
-    ├── 📂 lib/                 # Utilities & configurations
-    └── DESIGN_GUIDE.md         # UI/UX standards
+├── 📂 frontend/
+│   ├── 📂 public/
+│   │   ├── vite.svg
+│   │   └── index.html
+│   ├── 📂 src/
+│   │   ├── 📂 components/
+│   │   │   ├── 📂 Dashboard/
+│   │   │   │   └── UserLocation.tsx
+│   │   │   ├── Chat.tsx
+│   │   │   ├── DarkModeToggle.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Map.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   └── SOSButton.tsx
+│   │   ├── 📂 context/
+│   │   │   ├── AuthContext.tsx
+│   │   │   └── ThemeContext.tsx
+│   │   ├── 📂 pages/
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── Emergency.tsx
+│   │   │   ├── Favorites.tsx
+│   │   │   ├── Login.tsx
+│   │   │   └── Signup.tsx
+│   │   ├── 📂 services/
+│   │   │   ├── api.ts
+│   │   │   └── (other service files)
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   └── main.tsx
+│   ├── .gitignore
+│   ├── DESIGN_GUIDE.md
+│   ├── README.md
+│   ├── eslint.config.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.cjs
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── tsconfig.app.json
+│   └── tsconfig.json
+│
+├── .gitignore
+├── LICENSE.md
+├── README.md
+├── package.json
+└── package-lock.json
 ```
 
 </div>
@@ -425,3 +468,4 @@ Steps to Contribute
 **Contributions welcome from everyone** 🙌
 
 </div>
+
