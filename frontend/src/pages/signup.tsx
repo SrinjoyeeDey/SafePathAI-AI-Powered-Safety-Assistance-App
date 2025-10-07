@@ -69,7 +69,6 @@ const Signup = () => {
     }
   };
 
-  const navigate = useNavigate();
 
   const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
     e?.preventDefault();

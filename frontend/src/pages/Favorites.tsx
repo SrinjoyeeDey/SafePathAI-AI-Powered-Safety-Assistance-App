@@ -51,7 +51,7 @@ const Favorites = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-4">
-      <h2 className="text-2xl font-semibold mb-4">Favorite Contacts</h2>
+      <h2 className="pt-10 text-2xl font-semibold mb-4">Favorite Contacts</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <form onSubmit={addContact} className="space-y-3 mb-6">
