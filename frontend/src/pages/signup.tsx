@@ -70,6 +70,7 @@ const Signup = () => {
   };
 
 
+
   const [exiting,setExiting]=useState(false)
 
   const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
@@ -77,7 +78,12 @@ const Signup = () => {
     if (exiting) return;
     setExiting(true);
     setTimeout(() => navigate('/login'), 300);
-  };
+  }
+  // // simple navigation helper
+  // const goToLogin = (e?: React.MouseEvent<HTMLButtonElement>) => {
+  //   e?.preventDefault();
+  //   navigate('/login');
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-8 px-4 bg-gradient-to-r from-white/50 to-white dark:from-black dark:via-[#071026] dark:to-[#071026]">
@@ -194,4 +200,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup
