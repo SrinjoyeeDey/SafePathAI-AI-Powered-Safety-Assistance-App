@@ -2,10 +2,9 @@
 
 import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
-import Map from "../components/Map";
-import api from "../services/api";
 import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
+import { ChartCard, SmallLineChart, SmallBarChart, SmallPieChart } from '../components/Analytics/ChartCard';
 import {
   FaStar,
   FaMapMarkedAlt,
@@ -23,21 +22,6 @@ interface SafeZone {
   isFavorite: boolean;
 }
 
-interface OverpassElement {
-  id: number;
-  lat: number;
-  lon: number;
-  tags?: {
-    amenity: string;
-    name?: string;
-  };
-}
-
-const TYPE_EMOJI: Record<SafeZone["type"], string> = {
-  hospital: "🏥",
-  police: "🚓",
-  pharmacy: "💊",
-};
 
 export default function Dashboard() {
 
@@ -46,24 +30,8 @@ export default function Dashboard() {
     }, []);
 
   const [locations, setLocations] = useState<SafeZone[]>([]);
-  const [sosLoading, setSosLoading] = useState(false);
 
   // Called by Map: receives up to 3 selected places (1 hospital, 1 police, 1 pharmacy)
-  const handleSafeZones = (zones: OverpassElement[]) => {
-    const mapped = zones.map((z: OverpassElement, idx: number) => {
-      const amenity = (z.tags?.amenity || "hospital") as SafeZone["type"];
-      return {
-        id: z.id || idx,
-        name: z.tags?.name || `${amenity} ${idx + 1}`,
-        latitude: z.lat,
-        longitude: z.lon,
-        type: amenity,
-        isFavorite: false,
-      } as SafeZone;
-    });
-
-    setLocations(mapped);
-  };
 
   // Summary data for cards
   const [summaryData] = useState({
@@ -81,52 +49,7 @@ export default function Dashboard() {
     );
   };
 
-  const sendSOS = async () => {
-    if (!navigator.geolocation) {
-      alert("Geolocation is not supported by your browser");
-      return;
-    }
-
-    setSosLoading(true);
-
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        try {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-
-          // Get favorite locations for SOS
-          const recipients = locations
-            .filter((l) => l.isFavorite)
-            .map((l) => l.name);
-
-          // TODO: Replace with backend SOS endpoint when ready
-          console.log("SOS Data:", {
-            latitude,
-            longitude,
-            recipients,
-            timestamp: new Date().toISOString(),
-          });
-
-          // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1000));
-
-          alert(`🚨 SOS sent!\nLocation: (${latitude.toFixed(5)}, ${longitude.toFixed(5)})\nRecipients: ${recipients.length ? recipients.join(", ") : "None selected"}`);
-        } catch (err) {
-          console.error("SOS error:", err);
-          alert("Failed to send SOS");
-        } finally {
-          setSosLoading(false);
-        }
-      },
-      (err) => {
-        console.error("Geolocation error:", err);
-        alert("Failed to get location. Please enable GPS.");
-        setSosLoading(false);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  };
+  // location handlers and SOS functionality exist in other parts of the app; kept minimal here
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 sm:p-6 lg:p-8">
@@ -256,6 +179,28 @@ export default function Dashboard() {
                 <span>Emergency SOS</span>
               </button>
             </Link>
+          </div>
+        </div>
+
+        {/* Analytics Overview */}
+        <div className="mt-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Analytics Overview</h2>
+            <Link to="/analytics" className="text-sm text-blue-600 dark:text-blue-400 underline">View More Analytics</Link>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            <ChartCard title="Alerts This Week">
+              <SmallLineChart data={[{name:'Mon',alerts:3},{name:'Tue',alerts:5},{name:'Wed',alerts:4},{name:'Thu',alerts:6},{name:'Fri',alerts:2},{name:'Sat',alerts:1},{name:'Sun',alerts:2}]} dataKey="alerts" />
+            </ChartCard>
+
+            <ChartCard title="Top Locations">
+              <SmallBarChart data={[{name:'Main St',value:10},{name:'Central',value:8},{name:'Park',value:5}]} dataKey="value" />
+            </ChartCard>
+
+            <ChartCard title="Alert Types">
+              <SmallPieChart data={[{name:'Accident',value:10},{name:'Medical',value:6},{name:'Other',value:3}]} />
+            </ChartCard>
           </div>
         </div>
       </div>
