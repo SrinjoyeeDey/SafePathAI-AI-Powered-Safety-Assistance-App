@@ -30,18 +30,6 @@ const Footer: React.FC = () => {
     // Emergency functionality
     alert('Emergency services contacted! Help is on the way.');
   };
-
-      <div>
-        <h2 className="text-lg font-semibold mb-3">Quick Links</h2>
-        <ul className="space-y-2 text-sm">
-          <li><a href="/" className="hover:text-primary transition-colors duration-200">Home</a></li>
-          <li><a href="/dashboard" className="hover:text-primary transition-colors duration-200">Dashboard</a></li>
-          <li><a href="/emergency" className="hover:text-primary transition-colors duration-200">Emergency</a></li>
-          <li><a href="/contact-owner" className="hover:text-primary transition-colors duration-200">Contact</a></li>
-          <li><a href="/favorites" className="hover:text-primary transition-colors duration-200">Favorites</a></li>
-          <li><a href="/login" className="hover:text-primary transition-colors duration-200">Login</a></li>
-        </ul>
-
   const handleContributorsClick = () => {
     // Navigate to contributors page
     window.open('https://github.com/SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance/graphs/contributors', '_blank');
