@@ -1,8 +1,17 @@
 #root {
+  /* Keep content responsive: cap width but allow full-width on small screens */
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
+  box-sizing: border-box;
+}
+
+/* Prevent mobile browsers from auto-scaling text which can appear as 'zoom' in device emulation */
+html, body {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 .logo {

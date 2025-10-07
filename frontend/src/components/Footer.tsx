@@ -30,7 +30,6 @@ const Footer: React.FC = () => {
     // Emergency functionality
     alert('Emergency services contacted! Help is on the way.');
   };
-
   const handleContributorsClick = () => {
     // Navigate to contributors page
     window.open('https://github.com/SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance/graphs/contributors', '_blank');
@@ -41,6 +40,7 @@ const Footer: React.FC = () => {
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-10">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
+
       </div>
       
       <div className="relative max-w-7xl mx-auto">
