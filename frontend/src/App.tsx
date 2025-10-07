@@ -11,7 +11,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
-import Signup from "./pages/signup";
 import AboutUs from "./pages/AboutUs";
 function App() {
   return (
