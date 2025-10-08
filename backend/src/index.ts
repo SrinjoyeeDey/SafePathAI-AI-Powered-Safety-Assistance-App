@@ -10,7 +10,8 @@ import userRoutes from './routes/userRoutes'
 import placesRoutes from './routes/placesRoutes'
 import aiRoutes from './routes/aiRoutes'
 import sosRoutes from './routes/sosRoutes'
-import favoriteRoutes from "./routes/favoriteRoutes";
+// COMMENTED OUT: This file does not exist yet and was causing the server to crash.
+// import favoriteRoutes from "./routes/favoriteRoutes";
 
 
 dotenv.config()
@@ -36,7 +37,8 @@ app.use("/api/users", userRoutes)
 app.use("/api/places", placesRoutes)
 app.use("/api/ai", aiRoutes)
 app.use("/api/sos", sosRoutes)
-app.use("/api/favorites", favoriteRoutes);
+// COMMENTED OUT: This line was also part of the broken feature.
+// app.use("/api/favorites", favoriteRoutes);
 
 
 app.get("/api/health", (req, res) =>

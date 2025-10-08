@@ -1,7 +1,9 @@
 import express from "express";
 import { verifyAccessToken } from "../middleware/auth";
 import SOS from "../models/SOS";
-import FavoriteContact from "../models/FavoriteContact";
+// REMOVED: The line below was causing the "Cannot find module" error.
+// import FavoriteContact from "../models/FavoriteContact";
+
 
 const router = express.Router();
 
@@ -9,9 +11,15 @@ router.post("/send", verifyAccessToken, async (req: any, res) => {
   try {
     const { message, location } = req.body;
 
-    // find user's favorite contacts
+    // COMMENTED OUT: The 'FavoriteContact' model doesn't exist in the project yet,
+    // so this code is broken and needs to be commented out for now.
+    /*
     const contacts = await FavoriteContact.find({ user: req.userId });
     const contactEmails = contacts.map(c => c.email).filter(Boolean);
+    */
+   
+    // CHANGED: We'll pass an empty array for now since we don't have contacts yet.
+    const contactEmails: string[] = [];
 
     const sos = await SOS.create({
       user: req.userId,

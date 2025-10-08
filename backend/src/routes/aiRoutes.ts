@@ -1,8 +1,10 @@
 import { Router } from "express";
-import {queryAI} from '../controllers/aiController'
+
+import { handleChatbotQuery } from '../controllers/chatbotController';
 
 const router=Router()
 
-router.post("/query",queryAI);
+
+router.post('/query', handleChatbotQuery);
 
 export default router;
