@@ -22,8 +22,9 @@ const Chat: React.FC = () => {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
+
     const userMsg: Message = {
-      id: Date.now(),
+      id: Date.now() + Math.random(),
       sender: "user",
       text: input,
       timestamp: new Date().toLocaleTimeString([], {
@@ -31,21 +32,69 @@ const Chat: React.FC = () => {
         minute: "2-digit",
       }),
     };
+
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    setTimeout(() => {
-      const aiMsg: Message = {
-        id: Date.now() + 1,
-        sender: "ai",
-        text: `This is a response to: "${userMsg.text}"`,
-        timestamp: new Date().toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-      };
-      setMessages((prev) => [...prev, aiMsg]);
-    }, 800);
+   
+    navigator.geolocation.getCurrentPosition(
+      
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log("Frontend is sending these coordinates:", { latitude, longitude });
+
+        try {
+          const response = await fetch('http://localhost:4000/api/ai/query', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              message: userMsg.text,
+              latitude,
+              longitude 
+            }),
+          });
+
+          if (!response.ok) throw new Error('Network response was not ok');
+
+          const data = await response.json();
+          const aiMsg: Message = {
+            id: Date.now() + Math.random(),
+            sender: "ai",
+            text: data.reply,
+            timestamp: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          };
+          setMessages((prev) => [...prev, aiMsg]);
+
+        } catch (error) {
+          console.error("Failed to get AI response:", error);
+          const errorMsg: Message = {
+            id: Date.now() + Math.random(),
+            sender: "ai",
+            text: "Sorry, I'm having trouble connecting to the AI service.",
+            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          };
+          setMessages((prev) => [...prev, errorMsg]);
+        }
+      },
+     
+      (error) => {
+        console.error("Geolocation error details:", error);
+        const errorMsg: Message = {
+          id: Date.now() + Math.random(),
+          sender: "ai",
+          text: `I can't access your location. (Error: ${error.message})`,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        };
+        setMessages((prev) => [...prev, errorMsg]);
+      },
+     
+      {
+        timeout: 30000,
+      }
+    );
   };
 
   return (
@@ -59,6 +108,7 @@ const Chat: React.FC = () => {
 
       {open && (
         <div className="fixed bottom-20 right-6 w-80 md:w-96 h-96 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col overflow-hidden z-50">
+          {/* ... The rest of your JSX code remains the same ... */}
           <div className="bg-primary text-white p-3 flex justify-between items-center">
             <span className="font-semibold">AI Assistant</span>
             <button
@@ -68,7 +118,6 @@ const Chat: React.FC = () => {
               ✕
             </button>
           </div>
-
           <div className="flex-1 overflow-y-auto p-3 space-y-2">
             {messages.map((msg) => (
               <div
@@ -93,7 +142,6 @@ const Chat: React.FC = () => {
             ))}
             <div ref={messagesEndRef} />
           </div>
-
           <div className="p-3 bg-gray-100 dark:bg-gray-700 flex items-center space-x-2">
             <input
               type="text"
