@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 interface LocationState {
   address: string | null;
   error: string | null;
@@ -36,8 +35,9 @@ const UserLocation: React.FC = () => {
         const { latitude, longitude } = position.coords;
         
         const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
+
         if (!MAPBOX_TOKEN) {
-          console.error("Mapbox token is not configured. Add VITE_MAPBOX_TOKEN to .env.local");
+          console.error("Mapbox token is not configured. Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local");
           setLocation({
             address: null,
             loading: false,
