@@ -383,11 +383,17 @@ Steps to Contribute
 ### Documentations:
 
 ## Backend Documentations:
-  The Backend Documentation is generated using SwaggerUI and is available at `http://localhost:4000/api-docs`.
+  The Backend Documentation is generated using SwaggerUI
+  run
+  ```bash
+  npm run dev
+  ```
+  command
+  and now the documentation is available at `http://localhost:4000/api-docs`.
   Frontend developer can refer to the same to create `json` objects.
 
 ## Frontend Documentations:
-The Backend Documentation is generated using Typedoc and tsdocs and can be build using
+The Frontend Documentation is generated using Typedoc and tsdocs and can be build using
 ```bash
 npm run docs
 ```
