@@ -1,3 +1,4 @@
+```
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
@@ -13,6 +14,7 @@ import sosRoutes from './routes/sosRoutes'
 // COMMENTED OUT: This file does not exist yet and was causing the server to crash.
 // import favoriteRoutes from "./routes/favoriteRoutes";
 
+import { errorHandler, notFound } from './middleware/errorHandler'
 
 dotenv.config()
 
@@ -40,10 +42,16 @@ app.use("/api/sos", sosRoutes)
 // COMMENTED OUT: This line was also part of the broken feature.
 // app.use("/api/favorites", favoriteRoutes);
 
-
+// Health check endpoint
 app.get("/api/health", (req, res) =>
   res.json({ ok: true, ts: Date.now() })
 )
+
+// 404 handler - must be placed after all routes
+app.use(notFound)
+
+// Global error handling middleware - must be the last middleware
+app.use(errorHandler)
 
 async function start() {
   try {
