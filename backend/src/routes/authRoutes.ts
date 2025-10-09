@@ -51,61 +51,15 @@ const router=Router()
  *             schema:
  *               type: object
  *               properties:
- *                 user:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: string
- *                     name:
- *                       type: string
- *                     email:
- *                       type: string
- *                 accessToken:
+ *                 message:
  *                   type: string
- *             example:
- *               user:
- *                 id: "60d0fe4f5311236168a109ca"
- *                 name: "Jane Doe"
- *                 email: "jane.doe@example.com"
- *               accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                   example: "User created successfully"
  *       '400':
  *         description: Bad Request - Missing required fields or invalid data.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *             examples:
- *               missing_fields:
- *                 summary: Missing required fields
- *                 value:
- *                   message: "Missing fields (name, email and password are required)"
- *               invalid_email:
- *                 summary: Invalid email format
- *                 value:
- *                   message: "Invalid email format"
  *       '409':
  *         description: Conflict - A user with this email already exists.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "User already exists"
  *       '500':
  *         description: Internal Server Error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Internal server error"
  */
 router.post("/signup",signup);
 
@@ -145,53 +99,15 @@ router.post("/signup",signup);
  *             schema:
  *               type: object
  *               properties:
- *                 user:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: string
- *                     name:
- *                       type: string
- *                     email:
- *                       type: string
  *                 accessToken:
  *                   type: string
- *             example:
- *               user:
- *                 id: "60d0fe4f5311236168a109ca"
- *                 name: "Jane Doe"
- *                 email: "jane.doe@example.com"
- *               accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *       '400':
  *         description: Bad Request - Missing email or password.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Missing fields"
  *       '401':
  *         description: Unauthorized - Invalid credentials.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Invalid credentials"
  *       '500':
  *         description: Internal Server Error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Internal server error"
  */
 router.post("/login",login);
 
@@ -215,28 +131,8 @@ router.post("/login",login);
  *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *       '401':
  *         description: Unauthorized - No refresh token found or token is invalid.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *             examples:
- *               no_token:
- *                 summary: No token provided
- *                 value:
- *                   message: "No refresh token"
- *               revoked_token:
- *                 summary: Token has been revoked
- *                 value:
- *                   message: "Refresh token revoked"
  *       '500':
  *         description: Internal Server Error.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
  */
 router.post("/refresh",refresh);
 
@@ -255,19 +151,11 @@ router.post("/refresh",refresh);
  *             schema:
  *               type: object
  *               properties:
- *                 ok:
- *                   type: boolean
- *                   example: true
- *       '500':
- *         description: Internal Server Error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
  *                 message:
  *                   type: string
- *                   example: "Server error"
+ *                   example: "Logged out successfully"
+ *       '500':
+ *         description: Internal Server Error.
  */
 router.post("/logout",logout);
 

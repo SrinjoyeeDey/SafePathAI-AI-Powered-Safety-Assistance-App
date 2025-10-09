@@ -54,10 +54,10 @@ app.get("/api/health", (req, res) =>
 
 async function start() {
   try {
-    /*if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env")
+    if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env")
     await mongoose.connect(process.env.MONGO_URI)
 
-    console.log("Connected to MongoDB")*/
+    console.log("Connected to MongoDB")
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`)
     })

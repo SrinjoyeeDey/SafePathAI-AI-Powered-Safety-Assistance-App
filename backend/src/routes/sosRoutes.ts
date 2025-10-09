@@ -99,22 +99,14 @@ const router = express.Router();
  *        description: Unauthorized - Invalid credentials.
  *        content:
  *          application/json:
- *              schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Invalid credentials"
+ *            schema: { $ref: '#/components/schemas/Error' }
+ *            example: { message: "Invalid credentials" }
  *       '500':
  *         description: Internal Server Error.
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Internal server error"
+ *             schema: { $ref: '#/components/schemas/Error' }
+ *             example: { message: "Internal server error" }
  */
 router.post("/send", verifyAccessToken, async (req: any, res) => {
   try {
@@ -126,7 +118,7 @@ router.post("/send", verifyAccessToken, async (req: any, res) => {
     const contacts = await FavoriteContact.find({ user: req.userId });
     const contactEmails = contacts.map(c => c.email).filter(Boolean);
     */
-   
+
     // CHANGED: We'll pass an empty array for now since we don't have contacts yet.
     const contactEmails: string[] = [];
 

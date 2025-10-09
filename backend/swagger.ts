@@ -28,6 +28,17 @@ const options: swaggerJsdoc.Options = {
           description: 'Enter JWT token in the format: Bearer {token}',
         },
       },
+      schemas: {
+        Error: {
+          type: 'object',
+          properties: {
+            message: {
+              type: 'string',
+              description: 'A message describing the error.',
+            },
+          },
+        },
+      },
     },
   },
   apis: ['./src/routes/*.ts'], // Path to the API docs
