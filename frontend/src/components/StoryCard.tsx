@@ -6,6 +6,14 @@ interface StoryCardProps {
   story: StoryData;
 }
 
+/**
+ * A card component to display a user's story or testimonial.
+ * It shows a snippet of the story initially and can be expanded to show the full story.
+ *
+ * @param {StoryCardProps} props - The props for the component.
+ * @param {StoryData} props.story - The story data object containing name, image, snippet, and full story.
+ * @returns {React.ReactElement} The rendered StoryCard component.
+ */
 const StoryCard: React.FC<StoryCardProps> = ({ story }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 

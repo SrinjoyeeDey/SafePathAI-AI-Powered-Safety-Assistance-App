@@ -39,6 +39,22 @@ const iconMap: { [key: string]: IconType } = {
   FaFirstAid,
 };
 
+/**
+ * The About Us page component.
+ *
+ * This component serves as the main view for the "About Us" section of the application.
+ * It fetches and displays various pieces of information about the SafePathAI project, including:
+ * - The company's mission and vision.
+ * - Community stories and testimonials.
+ * - Key impact statistics.
+ * - Reasons to choose the service.
+ * - A timeline of the project's journey.
+ * - Profiles of the team members.
+ * - A contact form.
+ *
+ * It utilizes the `useAboutUsData` custom hook to manage data fetching and loading states.
+ * @returns {React.ReactElement} The rendered About Us page.
+ */
 const AboutUs: React.FC = () => {
   const {
     teamData,

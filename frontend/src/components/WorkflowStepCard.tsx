@@ -6,6 +6,16 @@ interface WorkflowStepCardProps {
   description: string;
 }
 
+/**
+ * A card component designed to display a single step in a workflow or process.
+ * It features a prominent step number and a description of the step.
+ *
+ * @param {WorkflowStepCardProps} props - The props for the component.
+ * @param {number} props.step - The number of the workflow step.
+ * @param {string} props.title - The title of the workflow step.
+ * @param {string} props.description - A brief description of what the step entails.
+ * @returns {React.ReactElement} The rendered WorkflowStepCard component.
+ */
 const WorkflowStepCard: React.FC<WorkflowStepCardProps> = ({ step, title, description }) => {
   return (
     <div className="relative p-8 rounded-2xl bg-white dark:bg-gray-800/50 shadow-lg hover:shadow-secondary/20 hover:-translate-y-2 transition-all duration-300 border border-gray-200 dark:border-gray-700">
