@@ -13,6 +13,10 @@ import sosRoutes from './routes/sosRoutes'
 // COMMENTED OUT: This file does not exist yet and was causing the server to crash.
 // import favoriteRoutes from "./routes/favoriteRoutes";
 
+import swaggerUI from 'swagger-ui-express'
+import { swaggerSpec } from '../swagger'
+
+
 
 dotenv.config()
 
@@ -20,6 +24,9 @@ const PORT = process.env.PORT || 4000
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000"
 
 const app = express()
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
 
 app.use(morgan("dev"))
 app.use(express.json()) // enables JSON body parsing (reqd for POST/PUT)
@@ -47,10 +54,10 @@ app.get("/api/health", (req, res) =>
 
 async function start() {
   try {
-    if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env")
+    /*if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env")
     await mongoose.connect(process.env.MONGO_URI)
 
-    console.log("Connected to MongoDB")
+    console.log("Connected to MongoDB")*/
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`)
     })
