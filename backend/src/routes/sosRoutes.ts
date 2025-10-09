@@ -7,6 +7,115 @@ import SOS from "../models/SOS";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: SOS
+ *   description: SOS emergency alert management
+ */
+
+/**
+ * @swagger
+ * /sos/send:
+ *   post:
+ *     summary: Send an SOS alert
+ *     description: >
+ *       Triggers an SOS alert for the authenticated user. This endpoint records the user's message and location,
+ *       and is designed to eventually notify the user's emergency contacts.
+ *       **Note:** The functionality to send notifications to contacts is not yet implemented.
+ *     tags: [SOS]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 description: A custom message to include in the SOS alert.
+ *               location:
+ *                 type: object
+ *                 description: The user's current location in GeoJSON format.
+ *                 properties:
+ *                   type:
+ *                     type: string
+ *                     enum: [Point]
+ *                     default: Point
+ *                   coordinates:
+ *                     type: array
+ *                     items:
+ *                       type: number
+ *                     minItems: 2
+ *                     maxItems: 2
+ *                     description: "[longitude, latitude]"
+ *             required:
+ *               - message
+ *               - location
+ *           example:
+ *             message: "I need help immediately, I am at the central park entrance."
+ *             location:
+ *               type: "Point"
+ *               coordinates: [-73.9654, 40.7829]
+ *     responses:
+ *       '201':
+ *         description: SOS alert created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 sos:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     user:
+ *                       type: string
+ *                     message:
+ *                       type: string
+ *                     location:
+ *                       type: object
+ *                     status:
+ *                       type: string
+ *             example:
+ *               success: true
+ *               sos:
+ *                 _id: "615c76d2f09f9e001f2a3b4c"
+ *                 user: "615c76a0f09f9e001f2a3b4a"
+ *                 message: "I need help immediately, I am at the central park entrance."
+ *                 location:
+ *                   type: "Point"
+ *                   coordinates: [-73.9654, 40.7829]
+ *                 contactsSentTo: []
+ *                 status: "pending"
+ *                 createdAt: "2023-10-05T14:48:00.000Z"
+ *                 updatedAt: "2023-10-05T14:48:00.000Z"
+ *       '401':
+ *        description: Unauthorized - Invalid credentials.
+ *        content:
+ *          application/json:
+ *              schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid credentials"
+ *       '500':
+ *         description: Internal Server Error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
 router.post("/send", verifyAccessToken, async (req: any, res) => {
   try {
     const { message, location } = req.body;
