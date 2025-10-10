@@ -71,7 +71,8 @@ const Navbar = () => {
            {/* Desktop Navigation Links - ALL SECTIONS VISIBLE */}
 <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center px-4">
   {navLinks.map((link) => {
-    const Icon = link.icon;
+    // COMMENTED: because it generated error while generating docs
+    // const Icon = link.icon;
     const active = isActive(link.path);
     
     return (

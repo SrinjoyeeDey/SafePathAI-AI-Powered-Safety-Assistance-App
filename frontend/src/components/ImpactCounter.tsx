@@ -4,6 +4,17 @@ import { useInView } from 'react-intersection-observer';
 import type { ImpactCounterProps } from '../types/Impact';
 
 
+/**
+ * A component that displays a statistic with a counting-up animation when it scrolls into view.
+ * It uses `react-countup` for the animation and `react-intersection-observer` to trigger it.
+ *
+ * @param {ImpactCounterProps} props - The props for the component.
+ * @param {IconType} props.icon - The icon component to display above the number.
+ * @param {number} props.end - The final number for the counter to animate to.
+ * @param {string} [props.suffix] - An optional string to append after the number (e.g., '+', 'K').
+ * @param {string} props.label - The descriptive label to display below the number.
+ * @returns {React.ReactElement} The rendered ImpactCounter component.
+ */
 const ImpactCounter: React.FC<ImpactCounterProps> = ({ icon: Icon, end, suffix = '', label }) => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Animate only once

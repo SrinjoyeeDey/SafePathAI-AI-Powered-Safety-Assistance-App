@@ -6,6 +6,9 @@ import type { TimelineItemData } from '../types/Timeline';
 import type { WhyChooseUsData } from '../types/WhyChooseUs';
 import type { WorkflowStepData } from '../types/Workflow';
 
+/**
+ * Represents the structure of all data fetched for the About Us page.
+ */
 interface AboutUsData {
   teamData: TeamMemberData[];
   stories: StoryData[];
@@ -15,6 +18,13 @@ interface AboutUsData {
   workflowData: WorkflowStepData[];
 }
 
+/**
+ * A custom React hook to fetch all necessary data for the About Us page.
+ *
+ * This hook aggregates data from multiple JSON files (`team.json`, `stories.json`, etc.)
+ * and provides a unified state object along with a loading status.
+ * @returns An object containing all the page data and a `loading` boolean.
+ */
 export const useAboutUsData = () => {
   const [data, setData] = useState<AboutUsData>({
     teamData: [],

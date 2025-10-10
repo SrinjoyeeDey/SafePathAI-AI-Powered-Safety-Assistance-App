@@ -1,0 +1,10 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/main.tsx"],
+  "out": "docs",
+  "name": "SafePathAI Frontend Documentation",
+  "readme": "README.md",
+  "exclude": ["**/*.test.ts", "**/node_modules/**"],
+  "theme": "default",
+  "entryPointStrategy": "expand"
+}

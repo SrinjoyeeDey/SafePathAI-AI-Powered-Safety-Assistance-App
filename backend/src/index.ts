@@ -13,6 +13,10 @@ import sosRoutes from "./routes/sosRoutes";
 // COMMENTED OUT: This file does not exist yet and was causing the server to crash.
 import favoriteRoutes from "./routes/favoriteRoutes";
 
+import swaggerUI from 'swagger-ui-express'
+import { swaggerSpec } from '../swagger'
+
+
 import { errorHandler, notFound } from "./middleware/errorHandler";
 
 dotenv.config();
@@ -21,6 +25,9 @@ const PORT = process.env.PORT || 4000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 const app = express();
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
 
 app.use(morgan("dev"));
 app.use(express.json()); // enables JSON body parsing (reqd for POST/PUT)
