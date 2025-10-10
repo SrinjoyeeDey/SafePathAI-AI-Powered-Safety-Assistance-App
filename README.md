@@ -39,21 +39,17 @@
 ## Features
 
 <div align="left">
-
 | Feature | Description |
 |:---|:---|
 | **JWT Authentication** | Secure login & signup with bcrypt password hashing |
 | **Real-time Geolocation** | Live location tracking with high accuracy |
 | **Nearby Safe Zones** | Find hospitals, police stations, pharmacies instantly |
-| **AI Safety Assistant** | Gemini/OpenAI powered safety recommendations |
-| **One-tap SOS** | Emergency alerts with live location sharing |
-| **Safe Route Planning** | AI-powered safest route recommendations |
-| **Cross-platform** | Responsive design for all devices |
-| **Dark/Light Theme** | Accessible interface with theme toggle |
-
-</div>
-
-<br>
+  | **AI Safety Assistant** | Gemini/OpenAI powered safety recommendations |
+  | **One-tap SOS** | Emergency alerts with live location sharing |
+  | **Safe Route Planning** | AI-powered safest route recommendations |
+  | **Safety Check-In (New)** | Schedule check-ins; auto-alert trusted contacts if missed |
+  | **Cross-platform** | Responsive design for all devices |
+  | **Dark/Light Theme** | Accessible interface with theme toggle |
 
 ## Use Cases
 
@@ -398,16 +394,18 @@ Steps to Contribute
 | Offline Mode | Basic functionality without internet |
 | Community Features | User reviews, safety tips |
 
-</div>
+  </div>
 
 <br>
-<br>
 
-## Contributors
+## Safety Check-In API
 
-<div align="center">
+Enable users to schedule a check-in at a future time. If they don’t confirm by the due time (with a short grace period), their trusted contacts are notified automatically.
 
-🏆 Our Amazing Contributors
+### Endpoints
+- `POST /api/checkins` – Create a new check-in
+- `POST /api/checkins/:id/confirm` – Confirm a pending check-in
+- `GET /api/checkins/me?status=pending|confirmed|missed` – List your check-ins (optional status filter)
 
 <a href="https://github.com/SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance-App/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance-App" />

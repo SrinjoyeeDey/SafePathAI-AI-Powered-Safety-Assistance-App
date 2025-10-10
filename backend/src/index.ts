@@ -12,6 +12,8 @@ import aiRoutes from "./routes/aiRoutes";
 import sosRoutes from "./routes/sosRoutes";
 // COMMENTED OUT: This file does not exist yet and was causing the server to crash.
 import favoriteRoutes from "./routes/favoriteRoutes";
+import checkInRoutes from "./routes/checkInRoutes";
+import { startCheckInScheduler } from "./services/checkInScheduler";
 
 import { errorHandler, notFound } from "./middleware/errorHandler";
 
@@ -40,6 +42,7 @@ app.use("/api/ai", aiRoutes);
 app.use("/api/sos", sosRoutes);
 // COMMENTED OUT: This line was also part of the broken feature.
 app.use("/api/favorites", favoriteRoutes);
+app.use("/api/checkins", checkInRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
@@ -56,6 +59,8 @@ async function start() {
     await mongoose.connect(process.env.MONGO_URI);
 
     console.log("Connected to MongoDB");
+    // Start background jobs after DB is connected
+    startCheckInScheduler();
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
     });

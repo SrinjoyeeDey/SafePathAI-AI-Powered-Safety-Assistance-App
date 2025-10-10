@@ -8,13 +8,14 @@ import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
 import Profile from "./pages/Profile";
+import AboutUs from "./pages/AboutUs";
+import ErrorPage from "./components/ErrorPage";
+import CheckIns from "./pages/CheckIns";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
-import AboutUs from "./pages/AboutUs";
-import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
@@ -32,10 +33,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/Emergency" element={<Emergency />} />
-                <Route path="/favorites" element={<Favorites/>}/>
-                <Route path="/analytics" element={<Analytics/>} />
-                <Route path="/about-us" element={<AboutUs/>}/>
-                <Route path="/profile" element={<Profile/>}/>
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/analytics" element={<Analytics />} />
+                <Route path="/about-us" element={<AboutUs />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/checkins" element={<CheckIns />} />
                 {/* Error Pages */}
                 <Route path="/404" element={<ErrorPage errorCode={404} />} />
                 <Route path="/500" element={<ErrorPage errorCode={500} />} />
