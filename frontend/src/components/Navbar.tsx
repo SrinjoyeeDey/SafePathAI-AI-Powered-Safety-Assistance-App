@@ -97,7 +97,7 @@ const Navbar = () => {
         }`}></span>
         
         {/* Hover background */}
-        <span className="absolute inset-0 rounded-lg bg-green-50 dark:bg-green-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        
       </Link>
     );
   })}
