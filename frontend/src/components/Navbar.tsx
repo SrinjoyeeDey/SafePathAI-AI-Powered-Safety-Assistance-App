@@ -15,7 +15,7 @@ import {
   FaChartLine,
   FaEnvelope,
   FaInfoCircle,
-  FaUser,
+  FaUser
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -36,15 +36,14 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    // { path: "/", label: "🏠 Home", icon: FaHome },
-    { path: "/home", label: "🏠 Home", icon: FaHome },
+    { path: "/", label: "🏠 Home", icon: FaHome },
     { path: "/dashboard", label: "📊 Dashboard", icon: FaTachometerAlt },
     { path: "/analytics", label: "📈 Analytics", icon: FaChartLine },
     { path: "/favorites", label: "⭐ Favorites", icon: FaHeart },
     { path: "/emergency", label: "🚨 Emergency", icon: FaExclamationTriangle },
     { path: "/contact-owner", label: "✉️ Contact", icon: FaEnvelope },
     { path: "/about-us", label: "ℹ️ About Us", icon: FaInfoCircle },
-    { path: "/login", label: "🔐 Login", icon: FaSignInAlt },
+    { path: "/login", label: "🔐 Login", icon: FaSignInAlt }
   ];
 
   return (
@@ -97,7 +96,7 @@ const Navbar = () => {
         }`}></span>
         
         {/* Hover background */}
-        
+        <span className="absolute inset-0 rounded-lg bg-green-50 dark:bg-green-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
       </Link>
     );
   })}
@@ -182,7 +181,7 @@ const Navbar = () => {
           {navLinks.map((link) => {
             const Icon = link.icon;
             const active = isActive(link.path);
-
+            
             return (
               <Link
                 key={link.path}
@@ -194,15 +193,11 @@ const Navbar = () => {
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400"
                 }`}
               >
-                <Icon
-                  className={`w-5 h-5 flex-shrink-0 ${
-                    active
-                      ? "text-green-500"
-                      : "text-gray-500 dark:text-gray-400"
-                  }`}
-                />
+                <Icon className={`w-5 h-5 flex-shrink-0 ${
+                  active ? "text-green-500" : "text-gray-500 dark:text-gray-400"
+                }`} />
                 <span className="text-base">{link.label}</span>
-
+                
                 {active && (
                   <span className="ml-auto">
                     <span className="w-2 h-2 bg-green-500 rounded-full inline-block animate-pulse"></span>
