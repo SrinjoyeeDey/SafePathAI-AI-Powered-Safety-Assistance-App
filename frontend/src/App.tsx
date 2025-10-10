@@ -9,7 +9,7 @@ import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-
+import ErrorPage from "./components/ErrorPage";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
@@ -52,6 +52,28 @@ function App() {
                 </Routes>
               </main>
             </Layout>
+
+            <Navbar />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/contact-owner" element={<ContactOwner />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/Emergency" element={<Emergency />} />
+                <Route path="/favorites" element={<Favorites/>}/>
+                <Route path="/analytics" element={<Analytics/>} />
+                <Route path="/about-us" element={<AboutUs/>}/>
+                <Route path="/profile" element={<Profile/>}/>
+                {/* Error Pages */}
+                <Route path="/404" element={<ErrorPage errorCode={404} />} />
+                <Route path="/500" element={<ErrorPage errorCode={500} />} />
+                {/* Catch-all route for 404 errors */}
+                <Route path="*" element={<ErrorPage errorCode={404} />} />
+              </Routes>
+            </main>
+            <Footer />
           </div>
         </BrowserRouter>
       </AuthProvider>
