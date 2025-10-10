@@ -10,12 +10,6 @@ import SheildDark from "../assets/icons/SheildDark";
 import PathLigth from "../assets/icons/PathLigth";
 import PathDark from "../assets/icons/PathDark";
 
-// import { easeInOut, motion } from "framer-motion";
-// import Lottie from "lottie-react";
-// import Walking from "../assets/lotties/Walking.json";
-// import { RoadPath } from "../assets/RoadPath";
-// import TempPath from "../assets/icons/TempPath";
-
 const HeroGraphics = () => {
   return (
     <div>
@@ -35,22 +29,6 @@ const HeroGraphics = () => {
         {/* walking along the path animation */}
         <PathLigth className="absolute md:top-[21rem] top-[24rem] sm:top-[18rem] lg:w-[84rem] w-[70rem] lg:translate-x-0 md:translate-x-[-20%] sm:translate-x-[-30%] translate-x-[-50%]  dark:hidden" />
         <PathDark className="absolute md:top-[21rem] top-[24rem] sm:top-[18rem] lg:w-[84rem] w-[70rem] lg:translate-x-0 md:translate-x-[-20%] sm:translate-x-[-30%] translate-x-[-50%]  dark:block hidden" />
-        {/* <TempPath className="absolute lg:translate-x-0 md:translate-x-[-20%] sm:translate-x-[-30%] translate-x-[-50%] top-[20rem]" /> */}
-        {/* <motion.div
-          initial={{ offsetDistance: "0%"}}
-          animate={{ offsetDistance: "100%"}}
-          transition={{
-            duration: 40,
-            ease: easeInOut,
-            repeat:Infinity
-          }}
-          className="absolute top-[20rem] w-16 h-16"
-          style={{ offsetPath: `path("${RoadPath}")` }}
-        >
-          <div className="relative bottom-0">
-            <Lottie animationData={Walking} autoPlay loop />
-          </div>
-        </motion.div> */}
       </div>
 
       <div className="absolute text-green-500 dark:text-secondary top-10 left-10 md:block hidden">
