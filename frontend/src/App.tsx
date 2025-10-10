@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";

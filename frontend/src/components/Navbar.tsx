@@ -69,41 +69,39 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* Desktop Navigation Links - ALL SECTIONS VISIBLE */}
-            <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center px-4">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                const active = isActive(link.path);
-
-                return (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    className="relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center space-x-1 group"
-                  >
-                    <span
-                      className={`transition-all duration-300 whitespace-nowrap ${
-                        active
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-gray-700 dark:text-gray-300 group-hover:text-green-600 dark:group-hover:text-green-400"
-                      }`}
-                    >
-                      {link.label}
-                    </span>
-
-                    {/* Animated underline */}
-                    <span
-                      className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-300 ${
-                        active ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
-                    ></span>
-
-                    {/* Hover background */}
-                    <span className="absolute inset-0 rounded-lg bg-green-50 dark:bg-green-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  </Link>
-                );
-              })}
-            </div>
+           {/* Desktop Navigation Links - ALL SECTIONS VISIBLE */}
+<div className="hidden lg:flex items-center space-x-1 flex-1 justify-center px-4">
+  {navLinks.map((link) => {
+    const Icon = link.icon;
+    const active = isActive(link.path);
+    
+    return (
+      <Link
+        key={link.path}
+        to={link.path}
+        className="relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center space-x-1 group"
+      >
+        <span className={`transition-all duration-300 whitespace-nowrap ${
+          active
+            ? "text-green-600 dark:text-green-400"
+            : "text-gray-700 dark:text-gray-300 group-hover:text-green-600 dark:group-hover:text-green-400"
+        }`}>
+          {link.label}
+        </span>
+        
+        {/* Animated underline */}
+        <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-300 ${
+          active 
+            ? "w-full" 
+            : "w-0 group-hover:w-full"
+        }`}></span>
+        
+        {/* Hover background */}
+        
+      </Link>
+    );
+  })}
+</div>
 
             {/* Right Side - Profile Icon, Theme Toggle & Hamburger Menu */}
             <div className="flex items-center space-x-2 sm:space-x-3">
