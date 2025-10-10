@@ -1,13 +1,30 @@
 "use client";
-import { FaShieldAlt } from "react-icons/fa";
+import { FaShieldAlt, FaMoon, FaSun } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import HeroGraphics from "./HeroGraphics";
+import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
+  const { theme, setTheme } = useTheme();
+
   return (
-    <div className="h-[90vh] relative px-6 max-w-full overflow-hidden">
+    <div className="h-screen relative px-6 max-w-full overflow-hidden">
+      {/* Background graphics */}
       <HeroGraphics />
+
       <div className="flex flex-col items-center text-center md:pt-44 pt-32 relative z-10">
+        {/* Theme Toggle Button */}
+        <button
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="p-2 sm:p-2.5 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105 shadow-sm absolute right-0 top-5"
+          aria-label="Toggle theme"
+        >
+          {theme === "dark" ? (
+            <FaSun className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+          ) : (
+            <FaMoon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+          )}
+        </button>
         <div className="text-green-700 max-w-7xl mx-auto"></div>
         <div className="max-w-3xl flex flex-col items-center">
           <div className="flex gap-10">
