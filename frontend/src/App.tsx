@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Chat from "./components/Chat";
@@ -12,7 +12,7 @@ import Profile from "./pages/Profile";
 import ErrorPage from "./components/ErrorPage";
 
 import { ThemeProvider } from "./context/ThemeContext";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
 import AboutUs from "./pages/AboutUs";
@@ -29,7 +29,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
+  const location = useLocation();
 
+  if (!user) {
+    // Redirect to login if not authenticated
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+}
 function App() {
   return (
     <ThemeProvider>
@@ -40,15 +50,15 @@ function App() {
             <Layout>
               <main className="flex-grow">
                 <Routes>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                   <Route path="/home" element={<Home />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                   <Route path="/contact-owner" element={<ContactOwner />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
-                  <Route path="/Emergency" element={<Emergency />} />
-                  <Route path="/favorites" element={<Favorites />} />
-                  <Route path="/analytics" element={<Analytics />} />
+                  <Route path="/Emergency" element={<ProtectedRoute><Emergency /></ProtectedRoute>} />
+                  <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
+                  <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
                   <Route path="/about-us" element={<AboutUs />} />
                 </Routes>
               </main>
