@@ -13,6 +13,8 @@ import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
 import AboutUs from "./pages/AboutUs";
+import ErrorPage from "./components/ErrorPage";
+
 function App() {
   return (
     <ThemeProvider>
@@ -32,6 +34,11 @@ function App() {
                 <Route path="/favorites" element={<Favorites/>}/>
                 <Route path="/analytics" element={<Analytics/>} />
                 <Route path="/about-us" element={<AboutUs/>}/>
+                {/* Error Pages */}
+                <Route path="/404" element={<ErrorPage errorCode={404} />} />
+                <Route path="/500" element={<ErrorPage errorCode={500} />} />
+                {/* Catch-all route for 404 errors */}
+                <Route path="*" element={<ErrorPage errorCode={404} />} />
               </Routes>
             </main>
             <Footer />
