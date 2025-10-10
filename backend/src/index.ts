@@ -12,12 +12,12 @@ import aiRoutes from './routes/aiRoutes';
 import sosRoutes from './routes/sosRoutes';
 import favoriteRoutes from "./routes/favoriteRoutes"; 
 
-dotenv.config();
+dotenv.config()
 
-const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const PORT = process.env.PORT || 4000
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000"
 
-const app = express();
+const app = express()
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -27,7 +27,7 @@ app.use(
     origin: [FRONTEND_URL, "http://localhost:5173"],
     credentials: true,
   })
-);
+)
 
 
 app.use("/api/auth", authRoutes);
@@ -41,16 +41,16 @@ app.get("/api/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
 
 async function start() {
   try {
-    if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env");
-    await mongoose.connect(process.env.MONGO_URI);
+    if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env")
+    await mongoose.connect(process.env.MONGO_URI)
 
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB")
     app.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT}`);
-    });
+      console.log(`Server listening on port ${PORT}`)
+    })
   } catch (err) {
-    console.log("Failed to start server: ", err);
-    process.exit(1);
+    console.log("Failed to start server: ", err)
+    process.exit(1)
   }
 }
 
