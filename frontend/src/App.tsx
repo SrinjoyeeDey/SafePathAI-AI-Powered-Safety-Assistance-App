@@ -7,6 +7,7 @@ import Analytics from "./pages/Analytics";
 import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
+import Profile from "./pages/Profile";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/favorites" element={<Favorites/>}/>
                 <Route path="/analytics" element={<Analytics/>} />
                 <Route path="/about-us" element={<AboutUs/>}/>
+                <Route path="/profile" element={<Profile/>}/>
                 {/* Error Pages */}
                 <Route path="/404" element={<ErrorPage errorCode={404} />} />
                 <Route path="/500" element={<ErrorPage errorCode={500} />} />
