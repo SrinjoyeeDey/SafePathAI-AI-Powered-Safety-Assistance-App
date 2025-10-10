@@ -1,6 +1,6 @@
 import React from "react";
+import { useAuth } from "../context/AuthContext"; 
 
-// ✅ Custom Button matching design guide colors
 const Button = ({ children, className = "", ...props }) => (
   <button
     {...props}
@@ -12,16 +12,18 @@ const Button = ({ children, className = "", ...props }) => (
   </button>
 );
 
-const Profile = ({ user }) => {
-  const mockUser = user || {
-    name: "Ambuj Vashistha",
-    email: "ambuj@example.com",
-    bio: "Full Stack Developer | React & Node.js Enthusiast",
-    location: "India 🌍",
-    profilePic:
-      "https://avatars.githubusercontent.com/u/9919?s=280&v=4",
-    status: "online",
-    verified: true,
+const Profile = () => {
+  const { user, logout } = useAuth(); 
+
+  // Fallbacks if user is missing
+  const displayUser = user || {
+    name: "Guest User",
+    email: "guest@example.com",
+    bio: "Welcome to SafePathAI — log in to personalize your profile!",
+    location: "Unknown",
+    profilePic: "https://avatars.githubusercontent.com/u/9919?s=280&v=4",
+    status: "offline",
+    verified: false,
   };
 
   return (
@@ -30,7 +32,7 @@ const Profile = ({ user }) => {
       <nav className="flex justify-between items-center p-4 bg-primary text-white shadow-md">
         <h1 className="text-xl font-bold">My Profile</h1>
         <img
-          src={mockUser.profilePic}
+          src={displayUser.profilePic}
           alt="Profile"
           className="w-10 h-10 rounded-full cursor-pointer border-2 border-white/30"
           title="Go to Profile"
@@ -44,20 +46,20 @@ const Profile = ({ user }) => {
           {/* Profile Picture + Status */}
           <div className="relative">
             <img
-              src={mockUser.profilePic}
+              src={displayUser.profilePic}
               alt="Profile"
               className="w-32 h-32 rounded-full border-4 border-white/30 object-cover shadow-lg"
             />
             <span
               className={`absolute bottom-2 right-2 w-5 h-5 rounded-full border-2 border-white 
-                ${mockUser.status === "online" ? "bg-primary" : "bg-gray-400"}`}
+                ${displayUser.status === "online" ? "bg-primary" : "bg-gray-400"}`}
             />
           </div>
 
           {/* Name + Verified */}
           <h1 className="mt-4 text-3xl font-bold flex items-center gap-2">
-            {mockUser.name}
-            {mockUser.verified && (
+            {displayUser.name}
+            {displayUser.verified && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 text-secondary"
@@ -70,13 +72,13 @@ const Profile = ({ user }) => {
           </h1>
 
           {/* Email */}
-          <p className="text-sm mt-1 text-text/70">{mockUser.email}</p>
+          <p className="text-sm mt-1 text-text/70">{displayUser.email}</p>
 
           {/* Bio */}
-          <p className="mt-3 text-text/80">{mockUser.bio}</p>
+          <p className="mt-3 text-text/80">{displayUser.bio}</p>
 
           {/* Location */}
-          <p className="text-sm mt-2 text-text/60">📍 {mockUser.location}</p>
+          <p className="text-sm mt-2 text-text/60">📍 {displayUser.location}</p>
 
           {/* Action Buttons */}
           <div className="mt-6 flex flex-wrap justify-center gap-4">
@@ -84,7 +86,10 @@ const Profile = ({ user }) => {
             <Button className="bg-secondary hover:bg-blue-600 dark:bg-secondary dark:hover:bg-blue-500">
               Settings
             </Button>
-            <Button className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700">
+            <Button
+              onClick={logout}
+              className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700"
+            >
               Log Out
             </Button>
           </div>
