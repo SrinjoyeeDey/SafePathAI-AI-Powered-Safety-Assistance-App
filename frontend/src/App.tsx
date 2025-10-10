@@ -8,12 +8,15 @@ import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
 import AboutUs from "./pages/AboutUs";
+import ErrorPage from "./components/ErrorPage";
+
 function App() {
   return (
     <ThemeProvider>
@@ -34,6 +37,12 @@ function App() {
                 <Route path="/favorites" element={<Favorites/>}/>
                 <Route path="/analytics" element={<Analytics/>} />
                 <Route path="/about-us" element={<AboutUs/>}/>
+                <Route path="/profile" element={<Profile/>}/>
+                {/* Error Pages */}
+                <Route path="/404" element={<ErrorPage errorCode={404} />} />
+                <Route path="/500" element={<ErrorPage errorCode={500} />} />
+                {/* Catch-all route for 404 errors */}
+                <Route path="*" element={<ErrorPage errorCode={404} />} />
               </Routes>
             </main>
             <Footer />
