@@ -23,10 +23,7 @@ export async function listQuestions(req: Request, res: Response) {
         if (!a.isAccepted && b.isAccepted) return 1;
         return (b.upvotes || 0) - (a.upvotes || 0);
       });
-      const hasAccepted = answers.some((a: any) => a.isAccepted);
-      if (hasAccepted) {
-        answers = answers.filter((a: any) => a.isAccepted);
-      }
+      // Return all answers - let frontend handle filtering
       base.answers = answers;
       return base;
     });
@@ -107,10 +104,8 @@ export async function acceptAnswer(req: Request & any, res: Response) {
     }
     q.answers.forEach((a: any) => { a.isAccepted = a._id.toString() === answerId; });
     await q.save();
-    // Return only the accepted answer (others disappear), but allow future new answers
-    const acceptedOnly: any = q.toObject();
-    acceptedOnly.answers = (acceptedOnly.answers || []).filter((a: any) => a.isAccepted);
-    res.json({ question: acceptedOnly });
+    // Return all answers - let frontend handle display logic
+    res.json({ question: q });
   } catch (err) {
     res.status(500).json({ message: "Failed to accept answer" });
   }

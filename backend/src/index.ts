@@ -16,6 +16,7 @@ import qnaRoutes from "./routes/qnaRoutes";
 // import favoriteRoutes from "./routes/favoriteRoutes";
 
 import { errorHandler, notFound } from './middleware/errorHandler'
+import { seedFAQs } from './services/seedService'
 
 dotenv.config()
 
@@ -62,6 +63,13 @@ async function start() {
     await mongoose.connect(process.env.MONGO_URI)
 
     console.log("Connected to MongoDB")
+    
+    // Seed FAQs if enabled
+    if (process.env.SEED_FAQS === 'true') {
+      console.log("Seeding FAQs...")
+      await seedFAQs()
+    }
+    
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`)
     })
