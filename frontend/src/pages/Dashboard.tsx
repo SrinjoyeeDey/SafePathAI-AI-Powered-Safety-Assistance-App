@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
 import { ChartCard, SmallLineChart, SmallBarChart, SmallPieChart } from '../components/Analytics/ChartCard';
+import FAQSection from "../components/FAQSection";
 import {
   FaStar,
   FaMapMarkedAlt,
@@ -203,6 +204,9 @@ export default function Dashboard() {
             </ChartCard>
           </div>
         </div>
+
+        {/* FAQ and Q&A Section */}
+        <FAQSection />
       </div>
     </div>
   );
