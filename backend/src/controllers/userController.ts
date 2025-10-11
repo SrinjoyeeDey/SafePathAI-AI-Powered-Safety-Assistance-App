@@ -18,7 +18,7 @@ export async function updateLocation(req:Request & any,res:Response){
         const {lng,lat}=req.body;
         if(typeof lng!=='number' || typeof lat!=='number') return res.status(404).json({message:"Invalid coordinates"});
 
-        const user=await User.findOneAndUpdate(userId, {
+        const user=await User.findByIdAndUpdate(userId, {
             lastLocation:{ type:"Point", coordinates: [lng,lat] }
         }, {
             new:true
