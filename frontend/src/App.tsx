@@ -29,6 +29,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
   const location = useLocation();
@@ -40,6 +41,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   return <>{children}</>;
 }
+
 function App() {
   return (
     <ThemeProvider>
@@ -60,6 +62,10 @@ function App() {
                   <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
                   <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
                   <Route path="/about-us" element={<AboutUs />} />
+                  <Route path="/404" element={<ErrorPage errorCode={404} />} />
+                  <Route path="/500" element={<ErrorPage errorCode={500} />} />
+                  {/* Catch-all route for 404 errors */}
+                  <Route path="*" element={<ErrorPage errorCode={404} />} />
                 </Routes>
               </main>
             </Layout>
