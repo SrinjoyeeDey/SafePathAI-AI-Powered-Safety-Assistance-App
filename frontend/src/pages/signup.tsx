@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useLocation } from "../context/LocationContext";
 import api from "../services/api";
 
 const Signup = () => {
   const { login } = useAuth();
+  const { setShowLocationModal } = useLocation();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -59,6 +61,7 @@ const Signup = () => {
 
       login(userData, accessToken);
       navigate("/dashboard");
+      // Location modal will be shown automatically by LocationProvider after successful signup
     } catch (err: any) {
       console.error(err.response?.data || err.message);
       const msg =
