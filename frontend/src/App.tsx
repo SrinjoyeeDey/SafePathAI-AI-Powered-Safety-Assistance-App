@@ -29,7 +29,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
-
 function App() {
   return (
     <ThemeProvider>
@@ -38,21 +37,27 @@ function App() {
           <Chat />
           <div className="flex flex-col min-h-screen">
             <Layout>
-              <main className="flex-grow">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/contact-owner" element={<ContactOwner />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
-                  <Route path="/Emergency" element={<Emergency />} />
-                  <Route path="/favorites" element={<Favorites />} />
-                  <Route path="/analytics" element={<Analytics />} />
-                  <Route path="/about-us" element={<AboutUs />} />
-                </Routes>
-              </main>
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/contact-owner" element={<ContactOwner />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/Emergency" element={<Emergency />} />
+                <Route path="/favorites" element={<Favorites/>}/>
+                <Route path="/analytics" element={<Analytics/>} />
+                <Route path="/about-us" element={<AboutUs/>}/>
+                {/* Error Pages */}
+                <Route path="/404" element={<ErrorPage errorCode={404} />} />
+                <Route path="/500" element={<ErrorPage errorCode={500} />} />
+                {/* Catch-all route for 404 errors */}
+                <Route path="*" element={<ErrorPage errorCode={404} />} />
+              </Routes>
+            </main>
             </Layout>
+            <Footer />
           </div>
         </BrowserRouter>
       </AuthProvider>
