@@ -42,7 +42,7 @@ function App() {
               <Layout>
                 <main className="flex-grow">
                   <Routes>
-                    <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route path="/contact-owner" element={<ContactOwner />} />
