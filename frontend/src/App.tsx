@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ErrorPage from "./components/ErrorPage";
 
+
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/favorites" element={<Favorites/>}/>
                 <Route path="/analytics" element={<Analytics/>} />
                 <Route path="/about-us" element={<AboutUs/>}/>
+                <Route path="/profile" element={<Profile />} />
                 {/* Error Pages */}
                 <Route path="/404" element={<ErrorPage errorCode={404} />} />
                 <Route path="/500" element={<ErrorPage errorCode={500} />} />
