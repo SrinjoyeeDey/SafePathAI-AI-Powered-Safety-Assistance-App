@@ -31,6 +31,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
+
 function App() {
   return (
     <ThemeProvider>
@@ -42,17 +43,56 @@ function App() {
               <Layout>
                 <main className="flex-grow">
                   <Routes>
-                    <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                    {/* Protected routes */}
+                    <Route
+                      path="/"
+                      element={
+                        <ProtectedRoute>
+                          <Home />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route
+                      path="/dashboard"
+                      element={
+                        <ProtectedRoute>
+                          <Dashboard />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route path="/contact-owner" element={<ContactOwner />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/Emergency" element={<ProtectedRoute><Emergency /></ProtectedRoute>} />
-                    <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
-                    <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+                    <Route
+                      path="/Emergency"
+                      element={
+                        <ProtectedRoute>
+                          <Emergency />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/favorites"
+                      element={
+                        <ProtectedRoute>
+                          <Favorites />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/analytics"
+                      element={
+                        <ProtectedRoute>
+                          <Analytics />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route path="/about-us" element={<AboutUs />} />
+
+                    {/* Your Profile route */}
                     <Route path="/profile" element={<Profile />} />
+
                     {/* Error Pages */}
                     <Route path="/404" element={<ErrorPage errorCode={404} />} />
                     <Route path="/500" element={<ErrorPage errorCode={500} />} />
