@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { FaRobot, FaPaperPlane } from "react-icons/fa";
+import { formatResponse } from "../utils/ChatResponseMap";
 
 interface Message {
   id: number;
@@ -107,7 +108,7 @@ const Chat: React.FC = () => {
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-6 w-80 md:w-96 h-96 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col overflow-hidden z-50">
+        <div className="fixed bottom-20 right-6 w-80 md:w-96 h-[65%] bg-gray-50 dark:bg-gray-800 rounded-xl shadow-2xl flex flex-col overflow-hidden z-50">
           {/* ... The rest of your JSX code remains the same ... */}
           <div className="bg-primary text-white p-3 flex justify-between items-center">
             <span className="font-semibold">AI Assistant</span>
@@ -133,8 +134,13 @@ const Chat: React.FC = () => {
                       : "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-tl-none"
                   }`}
                 >
-                  <p className="text-sm">{msg.text}</p>
-                  <span className="text-xs text-gray-400 mt-1 block text-right">
+                  {
+                      msg.sender === "user" ? <p className="text-sm">{msg.text}</p> : <div 
+                  className="prose prose-sm md:prose-base max-w-none" 
+                  dangerouslySetInnerHTML={formatResponse(msg.text)} 
+                  />
+                  }
+                  <span className={`text-xs ${msg.sender === "user"?'text-white':'text-gray-400'} mt-1 block text-right`}>
                     {msg.timestamp}
                   </span>
                 </div>
