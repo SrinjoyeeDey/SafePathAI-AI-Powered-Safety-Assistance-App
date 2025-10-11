@@ -27,21 +27,22 @@ const Navbar = () => {
   const closeSidebar = () => setIsSidebarOpen(false);
   const isActive = (path: string) => location.pathname === path;
 
-  // ✅ Added "/profile" in navLinks list
+  // ✅ Combined nav links (includes Profile)
   const navLinks = [
     { path: "/home", label: "🏠 Home", icon: FaHome },
     { path: "/dashboard", label: "📊 Dashboard", icon: FaTachometerAlt },
     { path: "/analytics", label: "📈 Analytics", icon: FaChartLine },
     { path: "/favorites", label: "⭐ Favorites", icon: FaHeart },
-    { path: "/emergency", label: "🚨 Emergency", icon: FaExclamationTriangle },
+    { path: "/Emergency", label: "🚨 Emergency", icon: FaExclamationTriangle },
     { path: "/contact-owner", label: "✉️ Contact", icon: FaEnvelope },
     { path: "/about-us", label: "ℹ️ About Us", icon: FaInfoCircle },
-    { path: "/profile", label: "👤 Profile", icon: FaUser }, // ✅ added here
+    { path: "/profile", label: "👤 Profile", icon: FaUser },
     { path: "/login", label: "🔐 Login", icon: FaSignInAlt },
   ];
 
   return (
     <>
+      {/* Top Navbar */}
       <nav className="sticky top-0 z-50 w-full bg-gray-100 dark:bg-gray-800 backdrop-blur-xl backdrop-saturate-150 border-b border-gray-200 dark:border-gray-700 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -62,7 +63,7 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center px-4">
               {navLinks.map((link) => {
                 const Icon = link.icon;
@@ -83,6 +84,7 @@ const Navbar = () => {
                       {link.label}
                     </span>
 
+                    {/* Animated underline */}
                     <span
                       className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-300 ${
                         active ? "w-full" : "w-0 group-hover:w-full"
@@ -93,7 +95,7 @@ const Navbar = () => {
               })}
             </div>
 
-            {/* Right Side */}
+            {/* Right Side (Profile + Theme + Menu) */}
             <div className="flex items-center space-x-2 sm:space-x-3">
               {/* Profile Icon */}
               <Link
@@ -148,6 +150,7 @@ const Navbar = () => {
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        {/* Sidebar Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg">
