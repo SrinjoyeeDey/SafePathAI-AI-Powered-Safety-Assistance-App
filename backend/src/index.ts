@@ -5,11 +5,13 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import morgan from 'morgan'
 
-import authRoutes from './routes/authRoutes'
-import userRoutes from './routes/userRoutes'
-import placesRoutes from './routes/placesRoutes'
-import aiRoutes from './routes/aiRoutes'
-import sosRoutes from './routes/sosRoutes'
+import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
+import placesRoutes from "./routes/placesRoutes";
+import aiRoutes from "./routes/aiRoutes";
+import sosRoutes from "./routes/sosRoutes";
+import faqRoutes from "./routes/faqRoutes";
+import qnaRoutes from "./routes/qnaRoutes";
 // COMMENTED OUT: This file does not exist yet and was causing the server to crash.
 // import favoriteRoutes from "./routes/favoriteRoutes";
 
@@ -33,11 +35,13 @@ app.use(
 )
 
 // API Routes
-app.use("/api/auth", authRoutes)
-app.use("/api/users", userRoutes)
-app.use("/api/places", placesRoutes)
-app.use("/api/ai", aiRoutes)
-app.use("/api/sos", sosRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/places", placesRoutes);
+app.use("/api/ai", aiRoutes);
+app.use("/api/sos", sosRoutes);
+app.use("/api/faqs", faqRoutes);
+app.use("/api/qna", qnaRoutes);
 // COMMENTED OUT: This line was also part of the broken feature.
 // app.use("/api/favorites", favoriteRoutes);
 

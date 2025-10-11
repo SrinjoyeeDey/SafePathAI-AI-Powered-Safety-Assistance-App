@@ -8,6 +8,7 @@ import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
 import LocationPermissionModal from "../components/LocationPermissionModal";
 import { ChartCard, SmallLineChart, SmallBarChart, SmallPieChart } from '../components/Analytics/ChartCard';
+import FAQSection from "../components/FAQSection";
 import {
   FaStar,
   FaMapMarkedAlt,
@@ -292,6 +293,9 @@ export default function Dashboard() {
             }
           `}</style>
         </div>
+
+        {/* FAQ and Q&A Section */}
+        <FAQSection />
       </div>
     </>
   );
