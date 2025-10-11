@@ -15,6 +15,7 @@ import {
   FaBrain,
   FaInfoCircle
 } from "react-icons/fa";
+import EmergencyFab from '../components/EmergencyFab'; 
 
 interface SafeZone {
   id: number;
@@ -98,6 +99,7 @@ export default function Dashboard() {
             
             {/* Map Section - Takes 2 columns on large screens */}
             <div className="lg:col-span-2">
+               <div className="relative h-96">
               <div 
                 className={`h-96 bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg backdrop-saturate-150 rounded-2xl border border-white/40 dark:border-gray-700/40 shadow-lg p-6 flex flex-col items-center justify-center space-y-4 hover:shadow-2xl transition-all duration-500 transform ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -113,6 +115,8 @@ export default function Dashboard() {
                 <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-md">
                   Real-time location tracking and safety zone visualization will appear here
                 </p>
+              </div>
+                 <EmergencyFab />
               </div>
 
               {/* AI Suggestions Section */}
