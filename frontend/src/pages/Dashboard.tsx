@@ -8,6 +8,7 @@ import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
 import LocationPermissionModal from "../components/LocationPermissionModal";
 import { ChartCard, SmallLineChart, SmallBarChart, SmallPieChart } from '../components/Analytics/ChartCard';
+import FAQSection from "../components/FAQSection";
 import {
   FaStar,
   FaMapMarkedAlt,
@@ -276,6 +277,13 @@ export default function Dashboard() {
             </div>
           </div>
 
+        {/* FAQ and Q&A Section */}
+        <FAQSection />
+        {/* Add custom animation styles */}
+        <style>{`
+          @keyframes bounce-slow {
+            0%, 100% {
+              transform: translateY(0);
           {/* Add custom animation styles */}
           <style>{`
             @keyframes bounce-slow {
