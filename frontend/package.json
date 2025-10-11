@@ -11,16 +11,17 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
-    "recharts": "^2.6.0",
     "axios": "^1.12.2",
     "leaflet": "^1.9.4",
+    "lottie-react": "^2.4.1",
     "react": "^19.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.16.0",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.9.3"
+    "react-router-dom": "^7.9.3",
+    "recharts": "^2.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

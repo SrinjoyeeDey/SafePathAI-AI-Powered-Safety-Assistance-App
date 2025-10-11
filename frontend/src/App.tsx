@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Chat from "./components/Chat";
@@ -7,14 +7,28 @@ import Analytics from "./pages/Analytics";
 import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import ErrorPage from "./components/ErrorPage";
 
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
 import AboutUs from "./pages/AboutUs";
-import ErrorPage from "./components/ErrorPage";
 
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const hideNavFooter = location.pathname === "/home"; // hide on home page
+
+  return (
+    <>
+      {!hideNavFooter && <Navbar />}
+      <main className="flex-grow">{children}</main>
+      {!hideNavFooter && <Footer />}
+    </>
+  );
+};
 function App() {
   return (
     <ThemeProvider>
@@ -22,10 +36,11 @@ function App() {
         <BrowserRouter>
           <Chat />
           <div className="flex flex-col min-h-screen">
-            <Navbar />
+            <Layout>
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/contact-owner" element={<ContactOwner />} />
                 <Route path="/login" element={<Login />} />
@@ -41,7 +56,7 @@ function App() {
                 <Route path="*" element={<ErrorPage errorCode={404} />} />
               </Routes>
             </main>
-            <Footer />
+            </Layout>
           </div>
         </BrowserRouter>
       </AuthProvider>
