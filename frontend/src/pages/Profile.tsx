@@ -1,104 +1,86 @@
-import React from "react";
-import { useAuth } from "../context/AuthContext"; 
-
-const Button = ({ children, className = "", ...props }) => (
-  <button
-    {...props}
-    className={`px-4 py-2 rounded-lg font-medium transition-colors duration-300 
-      bg-primary text-white hover:bg-green-600 
-      dark:bg-primary dark:hover:bg-green-500 ${className}`}
-  >
-    {children}
-  </button>
-);
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import EditProfileModal from "../components/EditProfileModal";
 
 const Profile = () => {
-  const { user, logout } = useAuth(); 
-
-  // Fallbacks if user is missing
-  const displayUser = user || {
+  // Dummy user data (temporary until useAuth is re-enabled)
+  const user = {
     name: "Guest User",
     email: "guest@example.com",
-    bio: "Welcome to SafePathAI — log in to personalize your profile!",
+    bio: "Welcome to SafePathAI — personalize your experience soon!",
     location: "Unknown",
     profilePic: "https://avatars.githubusercontent.com/u/9919?s=280&v=4",
-    status: "offline",
-    verified: false,
   };
 
+  const [showModal, setShowModal] = useState(false);
+  const logout = () => alert("Logged out (stub)");
+
   return (
-    <div className="min-h-screen bg-background text-text transition-colors duration-300">
-      {/* Navbar */}
-      <nav className="flex justify-between items-center p-4 bg-primary text-white shadow-md">
-        <h1 className="text-xl font-bold">My Profile</h1>
-        <img
-          src={displayUser.profilePic}
-          alt="Profile"
-          className="w-10 h-10 rounded-full cursor-pointer border-2 border-white/30"
-          title="Go to Profile"
-        />
-      </nav>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 
+                 text-gray-900 dark:text-gray-100 flex items-center justify-center px-4 py-10"
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
+        className="w-full max-w-2xl bg-white dark:bg-gray-800 shadow-2xl rounded-2xl border 
+                   border-gray-200 dark:border-gray-700 p-8 sm:p-10 relative overflow-hidden"
+      >
+        {/* Banner */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-r from-green-400 to-emerald-500 rounded-t-2xl" />
 
-      {/* Profile Page */}
-      <div className="max-w-3xl mx-auto mt-8 px-4">
-        <div className="backdrop-blur-xl bg-white/10 dark:bg-gray-900/30 border border-white/20 rounded-3xl shadow-2xl p-8 flex flex-col items-center text-center relative">
-          
-          {/* Profile Picture + Status */}
-          <div className="relative">
-            <img
-              src={displayUser.profilePic}
-              alt="Profile"
-              className="w-32 h-32 rounded-full border-4 border-white/30 object-cover shadow-lg"
-            />
-            <span
-              className={`absolute bottom-2 right-2 w-5 h-5 rounded-full border-2 border-white 
-                ${displayUser.status === "online" ? "bg-primary" : "bg-gray-400"}`}
-            />
-          </div>
+        <div className="relative flex flex-col items-center mt-16">
+          <motion.img
+            src={user.profilePic}
+            alt="Profile"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
+            className="w-28 h-28 rounded-full border-4 border-white dark:border-gray-800 shadow-lg object-cover"
+          />
 
-          {/* Name + Verified */}
-          <h1 className="mt-4 text-3xl font-bold flex items-center gap-2">
-            {displayUser.name}
-            {displayUser.verified && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-secondary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            )}
-          </h1>
+          <h1 className="mt-4 text-2xl font-semibold">{user.name}</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">{user.email}</p>
+          <p className="text-center mt-3 text-sm opacity-90">{user.bio}</p>
+          <p className="text-xs opacity-70 mt-1">📍 {user.location}</p>
 
-          {/* Email */}
-          <p className="text-sm mt-1 text-text/70">{displayUser.email}</p>
-
-          {/* Bio */}
-          <p className="mt-3 text-text/80">{displayUser.bio}</p>
-
-          {/* Location */}
-          <p className="text-sm mt-2 text-text/60">📍 {displayUser.location}</p>
-
-          {/* Action Buttons */}
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            <Button>Edit Profile</Button>
-            <Button className="bg-secondary hover:bg-blue-600 dark:bg-secondary dark:hover:bg-blue-500">
-              Settings
-            </Button>
-            <Button
-              onClick={logout}
-              className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700"
+          {/* Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6 flex gap-4 flex-wrap justify-center"
+          >
+            <button
+              onClick={() => setShowModal(true)}
+              className="px-4 py-2 rounded-lg bg-green-500 text-white font-medium hover:bg-green-600 transition"
             >
-              Log Out
-            </Button>
-          </div>
-
-          {/* Decorative glass-art effect */}
-          <div className="absolute top-0 left-0 w-full h-2/3 bg-gradient-to-tr from-primary/20 via-secondary/20 to-primary/10 rounded-3xl -z-10 blur-3xl" />
+              Edit Profile
+            </button>
+            <button
+              onClick={() => alert('Settings coming soon')}
+              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 
+                         dark:text-gray-200 font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+            >
+              Settings
+            </button>
+            <button
+              onClick={logout}
+              className="px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition"
+            >
+              Logout
+            </button>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+
+      {/* Modal Component */}
+      <EditProfileModal isOpen={showModal} onClose={() => setShowModal(false)} />
+    </motion.div>
   );
 };
 
