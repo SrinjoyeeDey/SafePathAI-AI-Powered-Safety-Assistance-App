@@ -16,6 +16,7 @@ import {
   FaBrain,
   FaInfoCircle
 } from "react-icons/fa";
+import Map from "../components/Map";
 
 import Map from "../components/Map";
 
@@ -118,7 +119,7 @@ export default function Dashboard() {
                 </p> */}
                 <Map />
               </div>
-
+          
               {/* AI Suggestions Section */}
               <div 
                 className={`mt-6 p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg backdrop-saturate-150 rounded-2xl border border-white/40 dark:border-gray-700/40 shadow-lg hover:shadow-2xl transition-all duration-500 transform ${
