@@ -17,6 +17,8 @@ import {
   FaInfoCircle
 } from "react-icons/fa";
 
+import Map from "../components/Map";
+
 interface SafeZone {
   id: number;
   name: string;
@@ -105,7 +107,7 @@ export default function Dashboard() {
                 }`}
                 style={{ transitionDelay: '100ms' }}
               >
-                <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-full animate-bounce-slow">
+                {/* <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-full animate-bounce-slow">
                   <FaMapMarkedAlt className="w-12 h-12 text-blue-600 dark:text-blue-400" />
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
@@ -113,7 +115,8 @@ export default function Dashboard() {
                 </p>
                 <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-md">
                   Real-time location tracking and safety zone visualization will appear here
-                </p>
+                </p> */}
+                <Map />
               </div>
 
               {/* AI Suggestions Section */}
