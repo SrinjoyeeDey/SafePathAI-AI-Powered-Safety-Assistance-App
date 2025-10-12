@@ -1,9 +1,12 @@
-import User from "../models/User.ts";
+import User from "../models/User";
 
-export const sendSOS = async (req, res) => {
+import { Response } from "express";
+import { AuthRequest } from "../types/types";
+
+export const sendSOS = async (req: AuthRequest, res: Response) => {
   try {
     const { latitude, longitude } = req.body;
-    const userId = req.user?.id;
+    const userId = req.userId;
 
     if (!latitude || !longitude)
       return res.status(400).json({ message: "Missing coordinates" });

@@ -1,24 +1,33 @@
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export function generateAccessToken(userId: string) {
-  return jwt.sign(
-    { userId }, // payload as object
-    process.env.JWT_ACCESS_SECRET as string, // secret must be a string
-    { expiresIn: "1h" } as SignOptions
-  );
+  return jwt.sign({ userId }, process.env.JWT_ACCESS_SECRET!, {
+    expiresIn: "1h",
+  });
 }
 
 export function generateRefreshToken(userId: string, tokenId: string) {
-  const secret = process.env.JWT_REFRESH_SECRET as string;
+  return jwt.sign({ userId, tokenId }, process.env.JWT_REFRESH_SECRET!, {
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "7d",
+  });
+}
 
-  return jwt.sign(
-    {
-      userId,
-      tokenId,
-    } as object, // 👈 ensure payload is object
-    secret,
-    {
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "7d",
-    } as SignOptions
-  );
+export function generatePasswordResetToken(userId: string): string {
+  const secret = process.env.JWT_PASSWORD_RESET_SECRET || process.env.JWT_ACCESS_SECRET!;
+  return jwt.sign({ userId, type: "password_reset" }, secret, {
+    expiresIn: "1h",
+  });
+}
+
+export function verifyPasswordResetToken(token: string): any {
+  try {
+    const secret = process.env.JWT_PASSWORD_RESET_SECRET || process.env.JWT_ACCESS_SECRET!;
+    const decoded = jwt.verify(token, secret) as any;
+
+    if (decoded.type !== "password_reset") return null;
+
+    return decoded;
+  } catch (err) {
+    return null;
+  }
 }

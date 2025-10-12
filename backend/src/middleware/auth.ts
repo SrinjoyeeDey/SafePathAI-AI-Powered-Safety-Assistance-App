@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
+import { AuthRequest } from "../types/types";
 
-export function verifyAccessToken(req: any, res: Response, next: NextFunction) {
+export function verifyAccessToken(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith("Bearer ")) return res.status(401).json({ message: "No token" });
 
