@@ -36,7 +36,6 @@ const Navbar = () => {
     { path: "/Emergency", label: "🚨 Emergency", icon: FaExclamationTriangle },
     { path: "/contact-owner", label: "✉️ Contact", icon: FaEnvelope },
     { path: "/about-us", label: "ℹ️ About Us", icon: FaInfoCircle },
-    { path: "/profile", label: "👤 Profile", icon: FaUser },
     { path: "/login", label: "🔐 Login", icon: FaSignInAlt },
   ];
 
