@@ -35,7 +35,51 @@ button.bg-red-600:hover {
   @apply flex items-center justify-center text-gray-500 dark:text-gray-300;
 }
 
+/* 🎉 Confetti Animation */
+.confetti-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
 
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #22C55E;
+  animation: confetti-fall 3s ease-out forwards;
+}
+
+.confetti-0 { 
+  background: #22C55E; /* Green */
+}
+
+.confetti-1 { 
+  background: #3B82F6; /* Blue */
+}
+
+.confetti-2 { 
+  background: #EF4444; /* Red */
+}
+
+.confetti-3 { 
+  background: #F59E0B; /* Orange */
+}
+
+.confetti-4 { 
+  background: #8B5CF6; /* Purple */
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400px) rotate(720deg);
+    opacity: 0;
+  }
+}
 
 @layer components {
   .timeline-item {

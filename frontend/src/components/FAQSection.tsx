@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import api from "../services/api";
 import type { FAQ, Question } from "../types/FAQ";
+import { defaultCommunityQuestions } from "../constants/defaultQuestions";
 
 export default function FAQSection() {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
@@ -23,6 +24,7 @@ export default function FAQSection() {
     fetchQuestions();
   }, [sort]);
 
+
   async function refreshAll() {
     const [{ data: f }, { data: q }] = await Promise.all([
       api.get("/faqs"),
@@ -30,12 +32,16 @@ export default function FAQSection() {
     ]);
     setFaqs(f.faqs || []);
     setQuestions(q.questions || []);
-  }
+  } 
+  
 
   async function fetchQuestions() {
     const { data } = await api.get(`/qna?sort=${sort}`);
-    setQuestions(data.questions || []);
-  }
+    const apiQuestions = data.questions || [];
+    setQuestions([...defaultCommunityQuestions, ...apiQuestions]);
+  } 
+    
+  
 
   const CATEGORY_OPTIONS = ["General", "Safety", "App Features", "Permissions", "SOS"] as const;
   const [category, setCategory] = useState<string>("General");
@@ -147,37 +153,47 @@ export default function FAQSection() {
         </div>
       )}
 
-      <section className="mt-10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between mb-4">
-          <h2 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Frequently Asked Questions</h2>
-          <div className="flex gap-3 w-full sm:w-auto">
-            <input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search questions..." className="w-full sm:w-72 p-2 rounded-lg border dark:bg-gray-900/50 focus:ring-2 focus:ring-blue-400 outline-none transition" />
-          </div>
+      <section className="mt-16 pt-8">
+        {/* Centered Header */}
+        <div className="text-center mb-8">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-3">
+            <span className="text-gray-800 dark:text-white">Frequently Asked </span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Questions</span>
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg">
+            Get answers to common questions about SafePathAI
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 mt-2">
-          <div className="hidden md:block overflow-hidden rounded-2xl shadow-2xl h-[20rem]">
-            <img src="/FAQ.jpg" alt="FAQ illustration" className="w-full h-full object-cover shadow-xl" />
-          </div>
-          
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Category: General</span>
-            </div>
-            {faqItems.map((item) => (
-              <details key={item._id} className="group bg-white/60 dark:bg-gray-800/60 rounded-xl p-4 border border-white/40 dark:border-gray-700/40 transition hover:shadow-lg active-question">
-                <summary className="cursor-pointer font-medium text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-between">
-                  <span>{item.question}</span>
+        
+        <div className="flex justify-center mb-8">
+          <input 
+            value={search} 
+            onChange={(e)=>setSearch(e.target.value)} 
+            placeholder="Search questions..." 
+            className="w-full max-w-2xl p-3 rounded-lg border dark:bg-gray-900/50 dark:border-gray-700 focus:ring-2 focus:ring-blue-400 outline-none transition" 
+          />
+        </div>
+
+        
+        <div className="max-w-4xl mx-auto space-y-3">
+          {faqItems.map((item) => (
+            <details key={item._id} className="group bg-white/60 dark:bg-gray-800/60 rounded-xl p-5 border border-white/40 dark:border-gray-700/40 transition hover:shadow-lg">
+              <summary className="cursor-pointer font-medium text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-between">
+                <span className="text-base sm:text-lg">{item.question}</span>
+                <span className="text-gray-500 dark:text-gray-400 text-2xl ml-4 flex-shrink-0 transition-all duration-200">
                   <span className="inline-block group-open:hidden">+</span>
-                  <span className="hidden group-open:inline-block">-</span>
-                </summary>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{item.answer}</p>
-              </details>
-            ))}
-          </div>
+                  <span className="hidden group-open:inline-block">−</span>
+                </span>
+              </summary>
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 bg-green-50/50 dark:bg-gray-900/50 -mx-5 -mb-5 px-5 pb-5 rounded-b-xl">
+                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">{item.answer}</p>
+              </div>
+            </details>
+          ))}
         </div>
 
-        <div className="mt-6 mb-2 flex flex-col sm:flex-row items-center gap-3">
+        <div className="mt-10 mb-4 flex flex-col sm:flex-row items-center gap-3">
           <span className="font-semibold text-lg sm:text-xl text-black-700 dark:text-black-300 text-center sm:text-left">Didn't find what you're looking for? Ask away!</span>
           <button onClick={()=>setShowModal(true)} aria-label="Ask a question" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl hover:brightness-110 active:scale-95 transition">
             <span className="text-base sm:text-lg">Ask</span>
@@ -185,7 +201,7 @@ export default function FAQSection() {
           </button>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Community Questions</h3>
           <div className="flex items-center gap-2">
             <select value={selectedQuestionCategory} onChange={(e)=>setSelectedQuestionCategory(e.target.value)} className="p-2 rounded-lg border dark:bg-gray-900/50">
@@ -289,7 +305,10 @@ export default function FAQSection() {
                 </div>
               )}
 
-              <AnswerEditor onSubmit={(text)=>addAnswer(q._id, text)} />
+             
+              {!q._id.startsWith('default-') && (
+                <AnswerEditor onSubmit={(text)=>addAnswer(q._id, text)} />
+              )}
             </div>
           ))}
         </div>
@@ -344,41 +363,6 @@ export default function FAQSection() {
           </div>
         </div>
       )}
-
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          .confetti-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-          }
-          
-          .confetti-piece {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #22C55E;
-            animation: confetti-fall 3s ease-out forwards;
-          }
-          
-          .confetti-0 { background: #22C55E; }
-          .confetti-1 { background: #3B82F6; }
-          .confetti-2 { background: #EF4444; }
-          .confetti-3 { background: #F59E0B; }
-          .confetti-4 { background: #8B5CF6; }
-          
-          @keyframes confetti-fall {
-            0% {
-              transform: translateY(-100px) rotate(0deg);
-              opacity: 1;
-            }
-            100% {
-              transform: translateY(400px) rotate(720deg);
-              opacity: 0;
-            }
-          }
-        `
-      }} />
     </>
   );
 }
@@ -390,8 +374,13 @@ function AnswerEditor({ onSubmit }: { onSubmit: (text: string) => void }) {
       onSubmit={(e)=>{ e.preventDefault(); onSubmit(text); setText(""); }}
       className="mt-3 flex items-center gap-2"
     >
-      <input value={text} onChange={(e)=>setText(e.target.value)} placeholder="Write an answer" className="flex-1 p-2 rounded-lg border dark:bg-gray-900/50" />
-      <button className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:brightness-110">Reply</button>
+      <input 
+        value={text} 
+        onChange={(e)=>setText(e.target.value)} 
+        placeholder="Write an answer" 
+        className="flex-1 p-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-900/50 bg-white transition-all duration-200 hover:shadow-md hover:border-blue-400 dark:hover:border-blue-500 dark:hover:shadow-blue-500/20 focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500 focus:border-transparent outline-none hover:scale-[1.01]" 
+      />
+      <button className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:brightness-110 hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 hover:bg-blue-700 dark:hover:shadow-blue-500/50">Reply</button>
     </form>
   );
 }

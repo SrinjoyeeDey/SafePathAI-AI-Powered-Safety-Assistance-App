@@ -297,8 +297,10 @@ export default function Dashboard() {
           `}</style>
         </div>
 
-        {/* FAQ and Q&A Section */}
-        <FAQSection />
+        {/* FAQ and Q&A Section*/}
+        <div className="mt-18">
+          <FAQSection />
+        </div>
       </div>
     </>
   );
