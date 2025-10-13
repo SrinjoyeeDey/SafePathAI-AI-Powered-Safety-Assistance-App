@@ -23,6 +23,18 @@ const CreateThreadModal: React.FC<CreateThreadModalProps> = ({
   const [tagInput, setTagInput] = useState('');
   const [errors, setErrors] = useState<Partial<CreateDiscussionData>>({});
 
+  // Reset form function to avoid duplication
+  const resetForm = (): void => {
+    setFormData({
+      title: '',
+      content: '',
+      categoryId: '',
+      tags: []
+    });
+    setTagInput('');
+    setErrors({});
+  };
+
   const handleInputChange = (field: keyof CreateDiscussionData, value: string) => {
     setFormData((prev: CreateDiscussionData) => ({
       ...prev,
@@ -91,27 +103,12 @@ const CreateThreadModal: React.FC<CreateThreadModalProps> = ({
     
     if (validateForm()) {
       onSubmit(formData);
-      // Reset form
-      setFormData({
-        title: '',
-        content: '',
-        categoryId: '',
-        tags: []
-      });
-      setTagInput('');
-      setErrors({});
+      resetForm();
     }
   };
 
   const handleClose = () => {
-    setFormData({
-      title: '',
-      content: '',
-      categoryId: '',
-      tags: []
-    });
-    setTagInput('');
-    setErrors({});
+    resetForm();
     onClose();
   };
 

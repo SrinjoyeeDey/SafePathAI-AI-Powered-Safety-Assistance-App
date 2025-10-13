@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Discussion, CommunityFilter } from '../types/Community';
-import { DEFAULT_CATEGORIES } from '../types/Community';
+import { DEFAULT_CATEGORIES } from '../constants/community';
+import { mockDiscussions } from '../__mocks__/communityData';
 import SearchFilterBar from '../components/Community/SearchFilterBar';
 import DiscussionCard from '../components/Community/DiscussionCard';
 import CreateThreadModal from '../components/Community/CreateThreadModal';
@@ -16,72 +17,6 @@ const CommunityHub: React.FC = () => {
 
   // Mock data for development - replace with API call
   useEffect(() => {
-    const mockDiscussions: Discussion[] = [
-      {
-        id: '1',
-        title: 'How to implement real-time location tracking in React?',
-        content: 'I am trying to integrate GPS tracking functionality in our SafePathAI frontend. What is the best approach for accurate real-time location updates?',
-        author: {
-          id: '1',
-          name: 'Sarah Chen',
-          email: 'sarah@example.com',
-          joinDate: new Date('2024-01-15')
-        },
-        category: DEFAULT_CATEGORIES[0], // Frontend
-        upvotes: 12,
-        downvotes: 1,
-        replyCount: 8,
-        views: 45,
-        isPinned: false,
-        isClosed: false,
-        createdAt: new Date('2024-10-08T10:30:00'),
-        updatedAt: new Date('2024-10-08T14:20:00'),
-        tags: ['react', 'geolocation', 'real-time']
-      },
-      {
-        id: '2',
-        title: 'Best practices for AI safety recommendations',
-        content: 'What algorithms and data sources should we consider when providing safety recommendations to users?',
-        author: {
-          id: '2',
-          name: 'Mike Rodriguez',
-          email: 'mike@example.com',
-          joinDate: new Date('2024-02-20')
-        },
-        category: DEFAULT_CATEGORIES[2], // AI & ML
-        upvotes: 18,
-        downvotes: 0,
-        replyCount: 15,
-        views: 78,
-        isPinned: true,
-        isClosed: false,
-        createdAt: new Date('2024-10-07T15:45:00'),
-        updatedAt: new Date('2024-10-08T09:15:00'),
-        tags: ['ai', 'safety', 'algorithms']
-      },
-      {
-        id: '3',
-        title: 'Express.js middleware for emergency alerts',
-        content: 'Looking for guidance on structuring middleware for handling SOS alerts and emergency notifications.',
-        author: {
-          id: '3',
-          name: 'Alex Johnson',
-          email: 'alex@example.com',
-          joinDate: new Date('2024-03-10')
-        },
-        category: DEFAULT_CATEGORIES[1], // Backend
-        upvotes: 7,
-        downvotes: 0,
-        replyCount: 5,
-        views: 32,
-        isPinned: false,
-        isClosed: false,
-        createdAt: new Date('2024-10-06T11:20:00'),
-        updatedAt: new Date('2024-10-07T16:30:00'),
-        tags: ['express', 'middleware', 'emergency']
-      }
-    ];
-    
     // Simulate API delay
     setTimeout(() => {
       setDiscussions(mockDiscussions);
@@ -214,6 +149,10 @@ const CommunityHub: React.FC = () => {
               <DiscussionCard 
                 key={discussion.id} 
                 discussion={discussion}
+                onDiscussionClick={(discussion) => {
+                  // TODO: Navigate to discussion detail page
+                  console.log('Discussion clicked:', discussion.id);
+                }}
               />
             ))
           ) : (
