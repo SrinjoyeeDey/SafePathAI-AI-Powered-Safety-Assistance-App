@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useLocation } from "../context/LocationContext";
 import api from "../services/api";
 
 const Login = () => {
@@ -10,6 +11,7 @@ const Login = () => {
     }, []);
 
   const { login } = useAuth();
+  const { setShowLocationModal } = useLocation();
   const navigate = useNavigate();
 
   const [identifier, setIdentifier] = useState("");
@@ -56,6 +58,7 @@ const Login = () => {
 
       login(userData, accessToken);
       navigate("/dashboard");
+      // Location modal will be shown automatically by LocationProvider after successful login
     } catch (err: any) {
       const msg = err.response?.data?.message || "Unable to login. Please check your credentials.";
       setErrors({ server: msg });

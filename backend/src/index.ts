@@ -1,9 +1,9 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import mongoose from 'mongoose'
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
-import morgan from 'morgan'
+import express from 'express';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import morgan from 'morgan';
 
 import authRoutes from './routes/authRoutes'
 import userRoutes from './routes/userRoutes'
@@ -23,12 +23,12 @@ const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000"
 
 const app = express()
 
-app.use(morgan("dev"))
-app.use(express.json()) // enables JSON body parsing (reqd for POST/PUT)
-app.use(cookieParser())
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
-    origin: [FRONTEND_URL, "http://localhost:5173"], // allow both dev origins
+    origin: [FRONTEND_URL, "http://localhost:5173"],
     credentials: true,
   })
 )
@@ -69,4 +69,4 @@ async function start() {
   }
 }
 
-start()
+start();
