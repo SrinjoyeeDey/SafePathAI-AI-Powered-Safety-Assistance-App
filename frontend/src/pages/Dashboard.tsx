@@ -19,7 +19,7 @@ import {
 import Map from "../components/Map";
 import EmergencySiren from "../components/EmergencySiren";
 
-import Map from "../components/Map";
+
 
 interface SafeZone {
   id: number;
