@@ -17,6 +17,7 @@ import {
   FaInfoCircle
 } from "react-icons/fa";
 import Map from "../components/Map";
+import EmergencySiren from "../components/EmergencySiren";
 
 import Map from "../components/Map";
 
@@ -296,6 +297,13 @@ export default function Dashboard() {
               animation: bounce-slow 3s ease-in-out infinite;
             }
           `}</style>
+                    
+          {/* Floating Emergency Siren Button */}
+          <EmergencySiren 
+            integrateWithSOS={true}
+            size="medium"
+            floating={true}
+          />
         </div>
 
         {/* FAQ and Q&A Section*/}

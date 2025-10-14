@@ -13,6 +13,7 @@ import sosRoutes from './routes/sosRoutes';
 import faqRoutes from "./routes/faqRoutes";
 import qnaRoutes from "./routes/qnaRoutes";
 import favoriteRoutes from "./routes/favoriteRoutes"; 
+import communityRoutes from './routes/communityRoutes'
 
 
 import { errorHandler, notFound } from './middleware/errorHandler'
@@ -35,7 +36,7 @@ app.use(
   })
 )
 
-
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/places", placesRoutes);
@@ -43,9 +44,20 @@ app.use("/api/ai", aiRoutes);
 app.use("/api/sos", sosRoutes);
 app.use("/api/faqs", faqRoutes);
 app.use("/api/qna", qnaRoutes);
-app.use("/api/favorites", favoriteRoutes); 
+app.use("/api/favorites", favoriteRoutes);
+app.use("/api/community", communityRoutes);
 
-app.get("/api/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
+
+
+// Health check endpoint
+app.get("/api/health", (req, res) =>
+  res.json({ ok: true, ts: Date.now() })
+)
+
+
+
+// Global error handling middleware - must be the last middleware
+app.use(errorHandler)
 
 // 404 handler - must be placed after all routes
 app.use(notFound)

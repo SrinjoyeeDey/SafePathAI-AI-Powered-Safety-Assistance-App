@@ -7,6 +7,7 @@ import Analytics from "./pages/Analytics";
 import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import ContactOwner from "./pages/ContactOwner";
+import CommunityHub from "./pages/CommunityHub";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ErrorPage from "./components/ErrorPage";
@@ -41,65 +42,68 @@ function App() {
             <Chat />
             <div className="flex flex-col min-h-screen">
               <Layout>
-                <main className="flex-grow">
-                  <Routes>
-                    {/* Protected routes */}
-                    <Route
-                      path="/"
-                      element={
-                        <ProtectedRoute>
-                          <Home />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route path="/home" element={<Home />} />
-                    <Route
-                      path="/dashboard"
-                      element={
-                        <ProtectedRoute>
-                          <Dashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route path="/contact-owner" element={<ContactOwner />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route
-                      path="/Emergency"
-                      element={
-                        <ProtectedRoute>
-                          <Emergency />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/favorites"
-                      element={
-                        <ProtectedRoute>
-                          <Favorites />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/analytics"
-                      element={
-                        <ProtectedRoute>
-                          <Analytics />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route path="/about-us" element={<AboutUs />} />
-
-                    {/* Your Profile route */}
-                    <Route path="/profile" element={<Profile />} />
-
-                    {/* Error Pages */}
-                    <Route path="/404" element={<ErrorPage errorCode={404} />} />
-                    <Route path="/500" element={<ErrorPage errorCode={500} />} />
-                    {/* Catch-all route for 404 errors */}
-                    <Route path="*" element={<ErrorPage errorCode={404} />} />
-                  </Routes>
-                </main>
+                <Routes>
+                  {/* Protected routes */}
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        <Home />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/home" element={<Home />} />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <ProtectedRoute>
+                        <Dashboard />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/contact-owner" element={<ContactOwner />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route
+                    path="/Emergency"
+                    element={
+                      <ProtectedRoute>
+                        <Emergency />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/favorites"
+                    element={
+                      <ProtectedRoute>
+                        <Favorites />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/analytics"
+                    element={
+                      <ProtectedRoute>
+                        <Analytics />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/about-us" element={<AboutUs />} />
+                  <Route
+                    path="/community"
+                    element={
+                      <ProtectedRoute>
+                        <CommunityHub />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/profile" element={<Profile />} />
+                  {/* Error Pages */}
+                  <Route path="/404" element={<ErrorPage errorCode={404} />} />
+                  <Route path="/500" element={<ErrorPage errorCode={500} />} />
+                  {/* Catch-all route for 404 errors */}
+                  <Route path="*" element={<ErrorPage errorCode={404} />} />
+                </Routes>
               </Layout>
             </div>
           </BrowserRouter>

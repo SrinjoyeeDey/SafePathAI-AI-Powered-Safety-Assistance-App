@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EditProfileModal from "../components/EditProfileModal";
+import EmergencySiren from "../components/EmergencySiren";
 
 const Profile = () => {
   // Dummy user data (temporary until useAuth is re-enabled)
@@ -80,6 +81,12 @@ const Profile = () => {
 
       {/* Modal Component */}
       <EditProfileModal isOpen={showModal} onClose={() => setShowModal(false)} />
+        {/* Floating Emergency Siren Button */}
+      <EmergencySiren 
+        integrateWithSOS={true}
+        size="medium"
+        floating={true}
+      />
     </motion.div>
   );
 };

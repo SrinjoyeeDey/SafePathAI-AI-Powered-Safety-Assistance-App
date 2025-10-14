@@ -16,6 +16,7 @@ import {
   FaEnvelope,
   FaInfoCircle,
   FaUser,
+  FaUsers
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -32,6 +33,7 @@ const Navbar = () => {
     { path: "/home", label: "🏠 Home", icon: FaHome },
     { path: "/dashboard", label: "📊 Dashboard", icon: FaTachometerAlt },
     { path: "/analytics", label: "📈 Analytics", icon: FaChartLine },
+    { path: "/community", label: "💬 Community", icon: FaUsers },
     { path: "/favorites", label: "⭐ Favorites", icon: FaHeart },
     { path: "/Emergency", label: "🚨 Emergency", icon: FaExclamationTriangle },
     { path: "/contact-owner", label: "✉️ Contact", icon: FaEnvelope },
