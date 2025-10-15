@@ -16,7 +16,7 @@ import {
   FaBrain,
   FaInfoCircle
 } from "react-icons/fa";
-import Map from "../components/Map";
+
 
 import Map from "../components/Map";
 
