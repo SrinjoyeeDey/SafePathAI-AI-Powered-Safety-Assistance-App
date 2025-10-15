@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaRobot, FaPaperPlane } from "react-icons/fa";
 import { formatResponse } from "../utils/ChatResponseMap";
+import { useLocation } from "../context/LocationContext";
 
 interface Message {
   id: number;
@@ -12,6 +13,9 @@ interface Message {
 const Chat: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [geoLocationError, setGeoLocationError] = useState(false);
+  const {  setShowLocationModal } = useLocation();
+  
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -89,6 +93,7 @@ const Chat: React.FC = () => {
           text: `I can't access your location. (Error: ${error.message})`,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         };
+        setGeoLocationError(true);
         setMessages((prev) => [...prev, errorMsg]);
       },
      
@@ -148,6 +153,22 @@ const Chat: React.FC = () => {
             ))}
             <div ref={messagesEndRef} />
           </div>
+          {
+            geoLocationError && (
+              <div className="bg-red-100 text-red-700 p-2 text-center text-sm">
+                Unable to access your location. Please enable location services for better assistance.
+                <button
+                  onClick={() => {
+                    setGeoLocationError(false);
+                    setShowLocationModal(true);
+                  }}
+                  className="underline font-semibold ml-1"
+                >
+                  Set Location
+                </button>
+              </div>
+            )
+          }
           <div className="p-3 bg-gray-100 dark:bg-gray-700 flex items-center space-x-2">
             <input
               type="text"
