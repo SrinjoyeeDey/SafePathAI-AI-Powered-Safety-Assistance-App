@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import Discussion from '../models/Discussion';
 import Reply from '../models/Reply';
 import Vote from '../models/Vote';
-import { auth } from '../middleware/auth';
+import { verifyAccessToken } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -129,7 +129,7 @@ router.get('/discussions/:id', async (req: Request, res: Response) => {
 });
 
 // POST /api/community/discussions - Create new discussion (protected)
-router.post('/discussions', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/discussions', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { title, content, category, tags } = req.body;
     const userId = req.user?.id;
@@ -190,7 +190,7 @@ router.post('/discussions', auth, async (req: AuthenticatedRequest, res: Respons
 });
 
 // POST /api/community/discussions/:id/replies - Add reply to discussion (protected)
-router.post('/discussions/:id/replies', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/discussions/:id/replies', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id } = req.params;
     const { content, parentReplyId } = req.body;
@@ -261,7 +261,7 @@ router.post('/discussions/:id/replies', auth, async (req: AuthenticatedRequest, 
 });
 
 // POST /api/community/vote - Toggle vote on discussion or reply (protected)
-router.post('/vote', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/vote', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { targetId, targetType, voteType } = req.body;
     const userId = req.user?.id;
@@ -311,7 +311,7 @@ router.post('/vote', auth, async (req: AuthenticatedRequest, res: Response) => {
 });
 
 // GET /api/community/user-votes/:targetType - Get user's votes for specific targets (protected)
-router.get('/user-votes/:targetType', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get('/user-votes/:targetType', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { targetType } = req.params;
     const { targetIds } = req.query;
