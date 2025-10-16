@@ -3,16 +3,14 @@ import { Request, Response } from 'express';
 import Discussion from '../models/Discussion';
 import Reply from '../models/Reply';
 import Vote from '../models/Vote';
-import { auth } from '../middleware/auth';
+import { verifyAccessToken } from '../middleware/auth';
+import User from '../models/User';
 
 const router = express.Router();
 
 // Extended Request interface to include user from auth middleware
 interface AuthenticatedRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-  };
+  userId?: string;
 }
 
 // GET /api/community/discussions - Get all discussions with optional filters
@@ -107,10 +105,12 @@ router.get('/discussions/:id', async (req: Request, res: Response) => {
     }
 
     // Increment view count
-    await discussion.incrementViews();
+    // @ts-ignore
+    await discussion?.incrementViews();
 
     // Get replies for this discussion
-    const replies = await Reply.findByDiscussion(id);
+    // @ts-ignore
+    const replies = await Reply?.findByDiscussion(id);
 
     res.json({
       success: true,
@@ -129,10 +129,10 @@ router.get('/discussions/:id', async (req: Request, res: Response) => {
 });
 
 // POST /api/community/discussions - Create new discussion (protected)
-router.post('/discussions', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/discussions',verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { title, content, category, tags } = req.body;
-    const userId = req.user?.id;
+    const { title, content, categoryId:category, tags } = req.body;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(401).json({
@@ -176,10 +176,10 @@ router.post('/discussions', auth, async (req: AuthenticatedRequest, res: Respons
     // Populate author information
     await discussion.populate('author', 'name email avatar');
 
-    res.status(201).json({
-      success: true,
-      data: discussion
-    });
+res.status(201).json({
+  success: true,
+  data: discussion
+});
   } catch (error) {
     console.error('Error creating discussion:', error);
     res.status(500).json({
@@ -190,11 +190,11 @@ router.post('/discussions', auth, async (req: AuthenticatedRequest, res: Respons
 });
 
 // POST /api/community/discussions/:id/replies - Add reply to discussion (protected)
-router.post('/discussions/:id/replies', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/discussions/:id/replies', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id } = req.params;
     const { content, parentReplyId } = req.body;
-    const userId = req.user?.id;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(401).json({
@@ -245,6 +245,8 @@ router.post('/discussions/:id/replies', auth, async (req: AuthenticatedRequest, 
     await reply.populate('author', 'name email avatar');
 
     // Update discussion reply count and last activity
+    // @ts-ignore
+
     await discussion.updateReplyCount();
 
     res.status(201).json({
@@ -261,10 +263,10 @@ router.post('/discussions/:id/replies', auth, async (req: AuthenticatedRequest, 
 });
 
 // POST /api/community/vote - Toggle vote on discussion or reply (protected)
-router.post('/vote', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/vote', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { targetId, targetType, voteType } = req.body;
-    const userId = req.user?.id;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(401).json({
@@ -294,6 +296,7 @@ router.post('/vote', auth, async (req: AuthenticatedRequest, res: Response) => {
         message: 'Invalid vote type'
       });
     }
+    // @ts-ignore
 
     const result = await Vote.toggleVote(userId, targetId, targetType, voteType);
 
@@ -311,11 +314,11 @@ router.post('/vote', auth, async (req: AuthenticatedRequest, res: Response) => {
 });
 
 // GET /api/community/user-votes/:targetType - Get user's votes for specific targets (protected)
-router.get('/user-votes/:targetType', auth, async (req: AuthenticatedRequest, res: Response) => {
+router.get('/user-votes/:targetType', verifyAccessToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { targetType } = req.params;
     const { targetIds } = req.query;
-    const userId = req.user?.id;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(401).json({
@@ -332,6 +335,7 @@ router.get('/user-votes/:targetType', auth, async (req: AuthenticatedRequest, re
     }
 
     const targetIdArray = (targetIds as string).split(',');
+    // @ts-ignore
     const userVotes = await Vote.getUserVotesForTargets(userId, targetIdArray, targetType);
 
     res.json({
