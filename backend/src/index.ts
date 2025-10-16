@@ -5,14 +5,18 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
-import placesRoutes from './routes/placesRoutes';
-import aiRoutes from './routes/aiRoutes';
-import sosRoutes from './routes/sosRoutes';
+import authRoutes from './routes/authRoutes'
+import userRoutes from './routes/userRoutes'
+import placesRoutes from './routes/placesRoutes'
+import aiRoutes from './routes/aiRoutes'
+import sosRoutes from './routes/sosRoutes'
+import communityRoutes from './routes/communityRoutes'
 import faqRoutes from "./routes/faqRoutes";
 import qnaRoutes from "./routes/qnaRoutes";
 import favoriteRoutes from "./routes/favoriteRoutes"; 
+
+
+
 
 
 import { errorHandler, notFound } from './middleware/errorHandler'
@@ -35,17 +39,28 @@ app.use(
   })
 )
 
-
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/places", placesRoutes);
-app.use("/api/ai", aiRoutes);
-app.use("/api/sos", sosRoutes);
+// API Routes
+app.use("/api/auth", authRoutes)
+app.use("/api/users", userRoutes)
+app.use("/api/places", placesRoutes)
+app.use("/api/ai", aiRoutes)
+app.use("/api/sos", sosRoutes)
 app.use("/api/faqs", faqRoutes);
 app.use("/api/qna", qnaRoutes);
-app.use("/api/favorites", favoriteRoutes); 
+app.use("/api/favorites", favoriteRoutes);
+app.use("/api/community", communityRoutes)
 
-app.get("/api/health", (req, res) => res.json({ ok: true, ts: Date.now() }));
+
+// Health check endpoint
+app.get("/api/health", (req, res) =>
+  res.json({ ok: true, ts: Date.now() })
+)
+
+// 404 handler - must be placed after all routes
+app.use(notFound)
+
+// Global error handling middleware - must be the last middleware
+app.use(errorHandler)
 
 // 404 handler - must be placed after all routes
 app.use(notFound)
