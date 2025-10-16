@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EditProfileModal from "../components/EditProfileModal";
 import EmergencySiren from "../components/EmergencySiren";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   // Dummy user data (temporary until useAuth is re-enabled)
+  const auth = useAuth()
+  const navigate = useNavigate();
   const user = {
     name: "Guest User",
     email: "guest@example.com",
@@ -14,7 +18,11 @@ const Profile = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
-  const logout = () => alert("Logged out (stub)");
+  const logout = () => {
+    auth?.logout();
+    alert("Logged out (stub)")
+    navigate("/home");
+  };
 
   return (
     <motion.div
