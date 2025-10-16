@@ -56,8 +56,7 @@ app.get("/api/health", (req, res) =>
   res.json({ ok: true, ts: Date.now() })
 )
 
-// 404 handler - must be placed after all routes
-app.use(notFound)
+
 
 // Global error handling middleware - must be the last middleware
 app.use(errorHandler)
