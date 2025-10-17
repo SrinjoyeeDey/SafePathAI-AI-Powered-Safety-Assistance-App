@@ -21,10 +21,9 @@ interface Favorite {
 }
 
 const Favorites = () => {
-
-   useEffect(() => {
-      document.title = "Favourites | SafePathAI";
-    }, []);
+  useEffect(() => {
+    document.title = "Favourites | SafePathAI";
+  }, []);
 
   const [contacts, setContacts] = useState<Favorite[]>([]);
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
@@ -32,60 +31,79 @@ const Favorites = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
 
+  // Fetch contacts with improved error handling
   const fetchContacts = async () => {
     try {
       const res = await api.get("/favorites");
       setContacts(res.data);
       setError(null);
     } catch (err: any) {
-      console.error("Error fetching favorites:", err.response || err.message);
       setError(err.response?.data?.message || "Failed to load favorites");
     }
   };
 
   useEffect(() => {
-    fetchContacts();
+    let mounted = true;
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/favorites");
+        if (mounted) {
+          setContacts(res.data);
+          setError(null);
+        }
+      } catch (err: any) {
+        if (mounted) {
+          setError(err.response?.data?.message || "Failed to load favorites");
+        }
+      }
+    };
+    fetchData();
+    return () => { mounted = false; };
   }, []);
 
+  // Add contact
   const addContact = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name.trim() || !form.phone.trim()) {
+      setError("Name and phone are required.");
+      return;
+    }
     try {
       await api.post("/favorites", form);
       setForm({ name: "", phone: "", email: "" });
       setIsAdding(false);
       fetchContacts();
     } catch (err: any) {
-      console.error("Error adding favorite:", err.response || err.message);
-      alert(err.response?.data?.message || "Failed to add favorite");
+      setError(err.response?.data?.message || "Failed to add favorite");
     }
   };
 
+  // Update contact
   const updateContact = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingId) return;
-    
+    if (!form.name.trim() || !form.phone.trim()) {
+      setError("Name and phone are required.");
+      return;
+    }
     try {
       await api.put(`/favorites/${editingId}`, form);
       setForm({ name: "", phone: "", email: "" });
       setEditingId(null);
       fetchContacts();
     } catch (err: any) {
-      console.error("Error updating favorite:", err.response || err.message);
-      alert(err.response?.data?.message || "Failed to update favorite");
+      setError(err.response?.data?.message || "Failed to update favorite");
     }
   };
 
+  // Delete contact (update local state instead of refetch)
   const deleteContact = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this contact?")) {
-      return;
-    }
-    
+    if (!window.confirm("Are you sure you want to delete this contact?")) return;
     try {
       await api.delete(`/favorites/${id}`);
-      fetchContacts();
+      setContacts(prev => prev.filter(c => c._id !== id));
     } catch (err: any) {
-      console.error("Error deleting favorite:", err.response || err.message);
-      alert("Failed to delete contact");
+      setError("Failed to delete contact");
     }
   };
 
@@ -98,17 +116,19 @@ const Favorites = () => {
   const cancelEditing = () => {
     setEditingId(null);
     setForm({ name: "", phone: "", email: "" });
+    setError(null);
   };
 
   const cancelAdding = () => {
     setIsAdding(false);
     setForm({ name: "", phone: "", email: "" });
+    setError(null);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        {/* Header Section */}
+        {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
             <div className="p-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full">
@@ -123,14 +143,14 @@ const Favorites = () => {
           </p>
         </div>
 
-        {/* Error Message */}
+        {/* Error */}
         {error && (
           <div className="mb-6 p-4 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 rounded-lg backdrop-blur-sm">
             <p className="text-red-700 dark:text-red-300 text-center font-medium">{error}</p>
           </div>
         )}
 
-        {/* Add Contact Button */}
+        {/* Add Button */}
         {!isAdding && !editingId && (
           <div className="mb-6 flex justify-center">
             <button
@@ -143,7 +163,7 @@ const Favorites = () => {
           </div>
         )}
 
-        {/* Add/Edit Contact Form - Glassmorphism */}
+        {/* Add/Edit Form */}
         {(isAdding || editingId) && (
           <div className="mb-8 p-6 bg-white/40 dark:bg-gray-800/40 rounded-2xl backdrop-blur-xl backdrop-saturate-150 border border-white/50 dark:border-gray-700/50 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
@@ -160,7 +180,7 @@ const Favorites = () => {
             </div>
 
             <form onSubmit={editingId ? updateContact : addContact} className="space-y-5">
-              {/* Name Input - Glassmorphism */}
+              {/* Name */}
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Full Name *
@@ -180,7 +200,7 @@ const Favorites = () => {
                 </div>
               </div>
 
-              {/* Phone Input - Glassmorphism */}
+              {/* Phone */}
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Phone Number *
@@ -200,7 +220,7 @@ const Favorites = () => {
                 </div>
               </div>
 
-              {/* Email Input - Glassmorphism */}
+              {/* Email */}
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email Address (Optional)
@@ -239,9 +259,8 @@ const Favorites = () => {
           </div>
         )}
 
-        {/* Contacts List */}
+        {/* Contact List */}
         {contacts.length === 0 ? (
-          // Empty State
           <div className="text-center py-16 px-4">
             <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-full mb-6">
               <FaStar className="w-12 h-12 text-purple-600 dark:text-purple-400" />
