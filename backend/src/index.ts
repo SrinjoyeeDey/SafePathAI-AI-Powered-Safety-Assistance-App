@@ -11,8 +11,7 @@ import placesRoutes from './routes/placesRoutes'
 import aiRoutes from './routes/aiRoutes'
 import sosRoutes from './routes/sosRoutes'
 import communityRoutes from './routes/communityRoutes'
-// COMMENTED OUT: This file does not exist yet and was causing the server to crash.
-// import favoriteRoutes from "./routes/favoriteRoutes";
+import favoriteRoutes from "./routes/favoriteRoutes";
 
 import { errorHandler, notFound } from './middleware/errorHandler'
 
@@ -40,8 +39,7 @@ app.use("/api/places", placesRoutes)
 app.use("/api/ai", aiRoutes)
 app.use("/api/sos", sosRoutes)
 app.use("/api/community", communityRoutes)
-// COMMENTED OUT: This line was also part of the broken feature.
-// app.use("/api/favorites", favoriteRoutes);
+app.use("/api/favorites", favoriteRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) =>

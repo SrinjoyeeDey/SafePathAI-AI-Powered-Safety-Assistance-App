@@ -1,7 +1,25 @@
 "use client";
-import { FaShieldAlt, FaMoon, FaSun } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import HeroGraphics from "./HeroGraphics";
+
+// Custom SVG icons to replace react-icons
+const ShieldIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+  </svg>
+);
+
+const MoonIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+  </svg>
+);
+
+const SunIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+  </svg>
+);
 import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
@@ -20,9 +38,9 @@ const Hero = () => {
           aria-label="Toggle theme"
         >
           {theme === "dark" ? (
-            <FaSun className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+            <SunIcon className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
           ) : (
-            <FaMoon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+            <MoonIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
           )}
         </button>
         <div className="text-green-700 max-w-7xl mx-auto"></div>
@@ -39,7 +57,7 @@ const Hero = () => {
               </div>
             </div>
             <div className="rounded-full bg-green-400/20 text-green-700 p-2 px-4 w-fit dark:text-white dark:bg-secondary/30 flex gap-2 justify-center items-center mb-10">
-              <FaShieldAlt />
+              <ShieldIcon className="w-5 h-5" />
               Your safety Companion
             </div>
           </div>
