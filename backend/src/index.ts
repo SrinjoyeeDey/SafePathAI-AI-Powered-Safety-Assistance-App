@@ -11,10 +11,16 @@ import placesRoutes from './routes/placesRoutes'
 import aiRoutes from './routes/aiRoutes'
 import sosRoutes from './routes/sosRoutes'
 import communityRoutes from './routes/communityRoutes'
-// COMMENTED OUT: This file does not exist yet and was causing the server to crash.
-// import favoriteRoutes from "./routes/favoriteRoutes";
+import faqRoutes from "./routes/faqRoutes";
+import qnaRoutes from "./routes/qnaRoutes";
+import favoriteRoutes from "./routes/favoriteRoutes"; 
+
+
+
+
 
 import { errorHandler, notFound } from './middleware/errorHandler'
+import { seedFAQs } from './services/seedService'
 
 dotenv.config()
 
@@ -39,14 +45,21 @@ app.use("/api/users", userRoutes)
 app.use("/api/places", placesRoutes)
 app.use("/api/ai", aiRoutes)
 app.use("/api/sos", sosRoutes)
+app.use("/api/faqs", faqRoutes);
+app.use("/api/qna", qnaRoutes);
+app.use("/api/favorites", favoriteRoutes);
 app.use("/api/community", communityRoutes)
-// COMMENTED OUT: This line was also part of the broken feature.
-// app.use("/api/favorites", favoriteRoutes);
+
 
 // Health check endpoint
 app.get("/api/health", (req, res) =>
   res.json({ ok: true, ts: Date.now() })
 )
+
+
+
+// Global error handling middleware - must be the last middleware
+app.use(errorHandler)
 
 // 404 handler - must be placed after all routes
 app.use(notFound)
@@ -60,6 +73,13 @@ async function start() {
     await mongoose.connect(process.env.MONGO_URI)
 
     console.log("Connected to MongoDB")
+    
+    // Seed FAQs if enabled
+    if (process.env.SEED_FAQS === 'true') {
+      console.log("Seeding FAQs...")
+      await seedFAQs()
+    }
+    
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`)
     })

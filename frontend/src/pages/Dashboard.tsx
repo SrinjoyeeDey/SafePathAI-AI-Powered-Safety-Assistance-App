@@ -8,6 +8,7 @@ import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
 import LocationPermissionModal from "../components/LocationPermissionModal";
 import { ChartCard, SmallLineChart, SmallBarChart, SmallPieChart } from '../components/Analytics/ChartCard';
+import FAQSection from "../components/FAQSection";
 import {
   FaStar,
   FaMapMarkedAlt,
@@ -15,6 +16,8 @@ import {
   FaBrain,
   FaInfoCircle
 } from "react-icons/fa";
+
+
 import Map from "../components/Map";
 import EmergencySiren from "../components/EmergencySiren";
 
@@ -301,6 +304,11 @@ export default function Dashboard() {
             size="medium"
             floating={true}
           />
+        </div>
+
+        {/* FAQ and Q&A Section*/}
+        <div className="mt-18">
+          <FAQSection />
         </div>
       </div>
     </>
