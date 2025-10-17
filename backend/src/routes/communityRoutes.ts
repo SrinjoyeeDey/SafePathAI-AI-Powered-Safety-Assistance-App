@@ -3,7 +3,22 @@ import { Request, Response } from 'express';
 import Discussion from '../models/Discussion';
 import Reply from '../models/Reply';
 import Vote from '../models/Vote';
-import { auth } from '../middleware/auth';
+import { verifyAccessToken as auth } from '../middleware/auth';
+
+// Type definitions for models with custom methods
+interface DiscussionDocument extends Document {
+  incrementViews(): Promise<any>;
+  updateReplyCount(): Promise<any>;
+}
+
+interface ReplyModel {
+  findByDiscussion(discussionId: string): Promise<any>;
+}
+
+interface VoteModel {
+  toggleVote(userId: string, targetId: string, targetType: string, voteType: string): Promise<any>;
+  getUserVotesForTargets(userId: string, targetIds: string[], targetType: string): Promise<any>;
+}
 
 const router = express.Router();
 
@@ -107,10 +122,10 @@ router.get('/discussions/:id', async (req: Request, res: Response) => {
     }
 
     // Increment view count
-    await discussion.incrementViews();
+    await (discussion as any).incrementViews();
 
     // Get replies for this discussion
-    const replies = await Reply.findByDiscussion(id);
+    const replies = await (Reply as any).findByDiscussion(id);
 
     res.json({
       success: true,
@@ -245,7 +260,7 @@ router.post('/discussions/:id/replies', auth, async (req: AuthenticatedRequest, 
     await reply.populate('author', 'name email avatar');
 
     // Update discussion reply count and last activity
-    await discussion.updateReplyCount();
+    await (discussion as any).updateReplyCount();
 
     res.status(201).json({
       success: true,
@@ -295,7 +310,7 @@ router.post('/vote', auth, async (req: AuthenticatedRequest, res: Response) => {
       });
     }
 
-    const result = await Vote.toggleVote(userId, targetId, targetType, voteType);
+    const result = await (Vote as any).toggleVote(userId, targetId, targetType, voteType);
 
     res.json({
       success: true,
@@ -332,7 +347,7 @@ router.get('/user-votes/:targetType', auth, async (req: AuthenticatedRequest, re
     }
 
     const targetIdArray = (targetIds as string).split(',');
-    const userVotes = await Vote.getUserVotesForTargets(userId, targetIdArray, targetType);
+    const userVotes = await (Vote as any).getUserVotesForTargets(userId, targetIdArray, targetType);
 
     res.json({
       success: true,

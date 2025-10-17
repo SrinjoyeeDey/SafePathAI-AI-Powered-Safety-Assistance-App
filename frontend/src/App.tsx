@@ -19,6 +19,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Emergency from "./pages/Emergency";
 import Favorites from "./pages/Favorites";
 import AboutUs from "./pages/AboutUs";
+import ContributorsPage from "./components/Contributors/ContributorsPage";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -89,6 +90,7 @@ function App() {
                     }
                   />
                   <Route path="/about-us" element={<AboutUs />} />
+                  <Route path="/contributors" element={<ContributorsPage />} />
                   <Route
                     path="/community"
                     element={

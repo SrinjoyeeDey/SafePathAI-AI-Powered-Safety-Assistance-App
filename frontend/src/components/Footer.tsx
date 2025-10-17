@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  FaTwitter, 
-  FaGithub, 
-  FaLinkedin, 
-  FaEnvelope, 
-  FaPhone, 
+import { useNavigate } from 'react-router-dom';
+import {
+  FaTwitter,
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+  FaPhone,
   FaMapMarkerAlt,
   FaExclamationTriangle,
   FaUsers,
@@ -30,9 +31,11 @@ const Footer: React.FC = () => {
     // Emergency functionality
     alert('Emergency services contacted! Help is on the way.');
   };
+  const navigate = useNavigate();
+
   const handleContributorsClick = () => {
-    // Navigate to contributors page
-    window.open('https://github.com/SrinjoyeeDey/SafePathAI-AI-Powered-Safety-Assistance/graphs/contributors', '_blank');
+    // Navigate to internal contributors page
+    navigate('/contributors');
   };
 
   return (
@@ -42,11 +45,11 @@ const Footer: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
 
       </div>
-      
+
       <div className="relative max-w-7xl mx-auto">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          
+
           {/* Company Info Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2 mb-4">
@@ -58,10 +61,10 @@ const Footer: React.FC = () => {
               </h2>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-              AI-powered safety assistance providing real-time alerts, emergency response, 
+              AI-powered safety assistance providing real-time alerts, emergency response,
               and intelligent guidance. Stay protected wherever your journey takes you.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
@@ -95,8 +98,8 @@ const Footer: React.FC = () => {
                 { name: 'Settings', href: '/settings' }
               ].map((link) => (
                 <li key={link.name}>
-                  <a 
-                    href={link.href} 
+                  <a
+                    href={link.href}
                     className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-all duration-300 group"
                   >
                     <FaArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
@@ -123,8 +126,8 @@ const Footer: React.FC = () => {
                 { name: 'Accessibility', href: '/accessibility' }
               ].map((link) => (
                 <li key={link.name}>
-                  <a 
-                    href={link.href} 
+                  <a
+                    href={link.href}
                     className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-all duration-300 group"
                   >
                     <FaArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
@@ -144,7 +147,7 @@ const Footer: React.FC = () => {
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
               Get safety tips, feature updates, and emergency alerts delivered to your inbox.
             </p>
-            
+
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <div className="relative">
                 <input
@@ -162,7 +165,7 @@ const Footer: React.FC = () => {
                   <FaPaperPlane className="w-4 h-4" />
                 </button>
               </div>
-              
+
               {isSubscribed && (
                 <div className="text-green-600 dark:text-green-400 text-sm font-medium flex items-center space-x-2">
                   <FaHeart className="w-4 h-4" />
@@ -228,9 +231,9 @@ const Footer: React.FC = () => {
                 <span>© 2025 SafePathAI. Made with</span>
                 <FaHeart className="w-4 h-4 text-red-500 animate-pulse" />
                 <span>by</span>
-                <a 
-                  href="https://github.com/SrinjoyeeDey" 
-                  target="_blank" 
+                <a
+                  href="https://github.com/SrinjoyeeDey"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:text-secondary transition-colors duration-300 font-medium"
                 >
@@ -239,7 +242,7 @@ const Footer: React.FC = () => {
                 <span>& the community</span>
               </p>
             </div>
-            
+
             <div className="flex items-center space-x-6 text-sm">
               <a href="/privacy" className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors duration-300">
                 Privacy

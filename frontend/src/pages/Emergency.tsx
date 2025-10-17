@@ -3,17 +3,62 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SOSButton from "../components/SOSButton";
 import EmergencySiren from "../components/EmergencySiren";
-import { 
-  Bell, 
-  Phone, 
-  MapPin, 
-  AlertTriangle, 
-  Shield,
-  Volume2,
-  Users,
-  Zap,
-  Info
-} from "lucide-react";
+
+// Custom SVG icons to replace lucide-react
+const BellIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+  </svg>
+);
+
+const PhoneIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+  </svg>
+);
+
+const MapPinIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+  </svg>
+);
+
+const AlertTriangleIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+  </svg>
+);
+
+const ShieldIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+  </svg>
+);
+
+const Volume2Icon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L4.828 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.828l3.555-3.793A1 1 0 019.383 3.076zM12 8a1 1 0 012 0v4a1 1 0 11-2 0V8z" clipRule="evenodd" />
+    <path d="M14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414z" />
+  </svg>
+);
+
+const UsersIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+  </svg>
+);
+
+const ZapIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+  </svg>
+);
+
+const InfoIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+  </svg>
+);
 
 export default function Emergency() {
   const [activeTab, setActiveTab] = useState<'siren' | 'sos'>('siren');
@@ -37,7 +82,7 @@ export default function Emergency() {
         >
           <div className="flex items-center justify-center space-x-3 mb-3">
             <div className="p-3 bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-lg animate-pulse">
-              <AlertTriangle className="w-8 h-8 text-white" />
+              <AlertTriangleIcon className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-red-600 to-orange-600 dark:from-red-400 dark:to-orange-400 bg-clip-text text-transparent">
               Emergency Assistance
@@ -64,7 +109,7 @@ export default function Emergency() {
                   : 'text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400'
               }`}
             >
-              <Bell className="w-4 h-4" />
+              <BellIcon className="w-4 h-4" />
               <span>Emergency Siren</span>
             </button>
             <button
@@ -75,7 +120,7 @@ export default function Emergency() {
                   : 'text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400'
               }`}
             >
-              <Phone className="w-4 h-4" />
+              <PhoneIcon className="w-4 h-4" />
               <span>SOS Alert</span>
             </button>
           </div>
@@ -94,12 +139,12 @@ export default function Emergency() {
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center space-x-3">
               {activeTab === 'siren' ? (
                 <>
-                  <Bell className="text-red-600 dark:text-red-400" />
+                  <BellIcon className="text-red-600 dark:text-red-400" />
                   <span>Siren Alarm</span>
                 </>
               ) : (
                 <>
-                  <Phone className="text-red-600 dark:text-red-400" />
+                  <PhoneIcon className="text-red-600 dark:text-red-400" />
                   <span>SOS Notification</span>
                 </>
               )}
@@ -119,7 +164,7 @@ export default function Emergency() {
                 <div className="space-y-4">
                   <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-700">
                     <h3 className="font-semibold text-yellow-800 dark:text-yellow-400 mb-2 flex items-center space-x-2">
-                      <AlertTriangle className="w-4 h-4" />
+                      <AlertTriangleIcon className="w-4 h-4" />
                       <span>What happens when activated?</span>
                     </h3>
                     <ul className="text-sm text-yellow-700 dark:text-yellow-300 space-y-1 list-disc list-inside">
@@ -174,29 +219,29 @@ export default function Emergency() {
             {/* Quick Tips */}
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg backdrop-saturate-150 rounded-2xl border border-white/40 dark:border-gray-700/40 shadow-xl p-6">
               <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center space-x-2">
-                <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <InfoIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <span>Quick Tips</span>
               </h3>
               
               <div className="space-y-3">
                 {[
                   {
-                    icon: Volume2,
+                    icon: Volume2Icon,
                     title: "Volume Settings",
                     desc: "Ensure your device volume is up for maximum siren effectiveness"
                   },
                   {
-                    icon: MapPin,
+                    icon: MapPinIcon,
                     title: "Location Access",
                     desc: "Keep location services enabled for accurate emergency alerts"
                   },
                   {
-                    icon: Users,
+                    icon: UsersIcon,
                     title: "Add Contacts",
                     desc: "Add trusted contacts to your favorites for emergency notifications"
                   },
                   {
-                    icon: Zap,
+                    icon: ZapIcon,
                     title: "Quick Access",
                     desc: "Both siren and SOS work together for maximum safety"
                   }
@@ -230,7 +275,7 @@ export default function Emergency() {
             {/* Emergency Numbers */}
             <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg backdrop-saturate-150 rounded-2xl border border-white/40 dark:border-gray-700/40 shadow-xl p-6">
               <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center space-x-2">
-                <Phone className="w-5 h-5 text-red-600 dark:text-red-400" />
+                <PhoneIcon className="w-5 h-5 text-red-600 dark:text-red-400" />
                 <span>Emergency Numbers</span>
               </h3>
               
@@ -275,7 +320,7 @@ export default function Emergency() {
               className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white shadow-xl"
             >
               <div className="flex items-start space-x-3">
-                <Shield className="w-6 h-6 flex-shrink-0 mt-1" />
+                <ShieldIcon className="w-6 h-6 flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-bold text-lg mb-2">Your Safety Matters</h4>
                   <p className="text-sm text-white/90">

@@ -8,13 +8,36 @@ import UserLocation from "../components/Dashboard/UserLocation";
 import SummaryCards from "../components/SummaryCards";
 import LocationPermissionModal from "../components/LocationPermissionModal";
 import { ChartCard, SmallLineChart, SmallBarChart, SmallPieChart } from '../components/Analytics/ChartCard';
-import {
-  FaStar,
-  FaMapMarkedAlt,
-  FaExclamationTriangle,
-  FaBrain,
-  FaInfoCircle
-} from "react-icons/fa";
+// Custom SVG icons to replace react-icons
+const StarIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+  </svg>
+);
+
+const MapMarkedIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+  </svg>
+);
+
+const ExclamationTriangleIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+  </svg>
+);
+
+const BrainIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+  </svg>
+);
+
+const InfoCircleIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+  </svg>
+);
 import Map from "../components/Map";
 import EmergencySiren from "../components/EmergencySiren";
 
@@ -76,7 +99,7 @@ export default function Dashboard() {
           <div className="mb-8">
             <div className="flex items-center space-x-3 mb-2">
               <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg">
-                <FaMapMarkedAlt className="w-6 h-6 text-white" />
+                <MapMarkedIcon className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                 Dashboard
@@ -107,7 +130,7 @@ export default function Dashboard() {
                 style={{ transitionDelay: '100ms' }}
               >
                 {/* <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-full animate-bounce-slow">
-                  <FaMapMarkedAlt className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+                  <MapMarkedIcon className="w-12 h-12 text-blue-600 dark:text-blue-400" />
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
                   🗺️ Interactive Map
@@ -127,7 +150,7 @@ export default function Dashboard() {
               >
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                    <FaBrain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    <BrainIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   </div>
                   <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
                     Recent AI Suggestions
@@ -147,7 +170,7 @@ export default function Dashboard() {
                       }`}
                       style={{ transitionDelay: `${300 + idx * 100}ms` }}
                     >
-                      <FaInfoCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
+                      <InfoCircleIcon className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
                         suggestion.type === "warning" ? "text-orange-500" :
                         suggestion.type === "success" ? "text-green-500" :
                         "text-blue-500"
@@ -182,7 +205,7 @@ export default function Dashboard() {
                 style={{ transitionDelay: '250ms' }}
               >
                 <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center space-x-2">
-                  <FaStar className="w-5 h-5 text-yellow-500" />
+                  <StarIcon className="w-5 h-5 text-yellow-500" />
                   <span>Nearby Safe Locations</span>
                 </h2>
                 
@@ -197,7 +220,7 @@ export default function Dashboard() {
                     >
                       <div className="flex items-center space-x-3">
                         <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:scale-110 transition-transform duration-200">
-                          <FaMapMarkedAlt className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                          <MapMarkedIcon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         </div>
                         <span className="font-medium text-gray-800 dark:text-gray-200">
                           {loc.name}
@@ -224,7 +247,7 @@ export default function Dashboard() {
                   }`}
                   style={{ transitionDelay: '350ms' }}
                 >
-                  <FaExclamationTriangle className="w-5 h-5 animate-pulse" />
+                  <ExclamationTriangleIcon className="w-5 h-5 animate-pulse" />
                   <span>Emergency SOS</span>
                 </button>
               </Link>
