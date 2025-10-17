@@ -9,7 +9,7 @@ const Profile = () => {
   // Dummy user data (temporary until useAuth is re-enabled)
   const auth = useAuth()
   const navigate = useNavigate();
-  const user = {
+  const user = auth?.user || {
     name: "Guest User",
     email: "guest@example.com",
     bio: "Welcome to SafePathAI — personalize your experience soon!",
@@ -44,7 +44,7 @@ const Profile = () => {
 
         <div className="relative flex flex-col items-center mt-16">
           <motion.img
-            src={user.profilePic}
+            src={"https://avatars.githubusercontent.com/u/9919?s=280&v=4"} // TODO: Replace with {user.profilePic} when profile image upload is implemented
             alt="Profile"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
