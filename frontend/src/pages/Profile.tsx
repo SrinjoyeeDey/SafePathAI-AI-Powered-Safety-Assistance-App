@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EditProfileModal from "../components/EditProfileModal";
 import EmergencySiren from "../components/EmergencySiren";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   // Dummy user data (temporary until useAuth is re-enabled)
-  const user = {
+  const auth = useAuth()
+  const navigate = useNavigate();
+  const user = auth?.user || {
     name: "Guest User",
     email: "guest@example.com",
     bio: "Welcome to SafePathAI — personalize your experience soon!",
@@ -14,7 +18,11 @@ const Profile = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
-  const logout = () => alert("Logged out (stub)");
+  const logout = () => {
+    auth?.logout();
+    alert("Logged out (stub)")
+    navigate("/home");
+  };
 
   return (
     <motion.div
@@ -36,7 +44,7 @@ const Profile = () => {
 
         <div className="relative flex flex-col items-center mt-16">
           <motion.img
-            src={user.profilePic}
+            src={"https://avatars.githubusercontent.com/u/9919?s=280&v=4"} // TODO: Replace with {user.profilePic} when profile image upload is implemented
             alt="Profile"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}

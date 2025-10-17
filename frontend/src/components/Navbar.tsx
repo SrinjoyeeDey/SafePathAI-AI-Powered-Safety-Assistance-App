@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import {
@@ -18,28 +18,35 @@ import {
   FaUser,
   FaUsers
 } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
+  const auth = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const closeSidebar = () => setIsSidebarOpen(false);
   const isActive = (path: string) => location.pathname === path;
 
   // ✅ Combined nav links (includes Profile)
-  const navLinks = [
-    { path: "/home", label: "🏠 Home", icon: FaHome },
-    { path: "/dashboard", label: "📊 Dashboard", icon: FaTachometerAlt },
-    { path: "/analytics", label: "📈 Analytics", icon: FaChartLine },
-    { path: "/community", label: "💬 Community", icon: FaUsers },
-    { path: "/favorites", label: "⭐ Favorites", icon: FaHeart },
-    { path: "/Emergency", label: "🚨 Emergency", icon: FaExclamationTriangle },
-    { path: "/contact-owner", label: "✉️ Contact", icon: FaEnvelope },
-    { path: "/about-us", label: "ℹ️ About Us", icon: FaInfoCircle },
-    { path: "/login", label: "🔐 Login", icon: FaSignInAlt },
+  const navLinks = useMemo(() => {
+    console.log(auth?.token);
+    return[
+    { path: "/home", label: "🏠 Home", icon: FaHome, visible:true },
+    { path: "/dashboard", label: "📊 Dashboard", icon: FaTachometerAlt, visible:true  },
+    { path: "/analytics", label: "📈 Analytics", icon: FaChartLine, visible:true  },
+    { path: "/community", label: "💬 Community", icon: FaUsers, visible:true  },
+    { path: "/favorites", label: "⭐ Favorites", icon: FaHeart, visible:true  },
+    { path: "/Emergency", label: "🚨 Emergency", icon: FaExclamationTriangle, visible:true  },
+    { path: "/contact-owner", label: "✉️ Contact", icon: FaEnvelope, visible:true  },
+    { path: "/about-us", label: "ℹ️ About Us", icon: FaInfoCircle, visible:true  },
+    { path: "/login", label: "🔐 Login", icon: FaSignInAlt, visible: auth.token == null},
   ];
+
+  }, [auth.token]);
 
   return (
     <>
@@ -66,7 +73,7 @@ const Navbar = () => {
 
             {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center space-x-1 flex-1 justify-center px-4">
-              {navLinks.map((link) => {
+              {navLinks.filter((item)=> item.visible).map((link) => {
                 const Icon = link.icon;
                 const active = isActive(link.path);
                 return (
@@ -172,7 +179,7 @@ const Navbar = () => {
 
         {/* Sidebar Navigation */}
         <nav className="p-4 space-y-2">
-          {navLinks.map((link) => {
+          {navLinks.filter((item)=>item.visible).map((link) => {
             const Icon = link.icon;
             const active = isActive(link.path);
             return (
